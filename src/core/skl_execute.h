@@ -14,16 +14,11 @@
 #ifndef SKL_EXECUTE_H
 #define SKL_EXECUTE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "skl_core.h"
 
+void execute_expression(expression_t *expression);
 
-
-
-#ifdef __cplusplus
-}
-#endif
+void execute();
 
 #endif /* SKL_EXECUTE_H */
 

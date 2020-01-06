@@ -1,7 +1,8 @@
 %{
-//include "skl.h"
-//include "skl_compiler.h"
-//define YYDEBUG 1
+#include "skl_core.h"
+#include "skl_compiler.h"
+#define YYDEBUG 1
+
 %}
 
 %union {
@@ -34,7 +35,7 @@
 
 %type <statement_list> statement_block statement_list
 
-%type <statement> all_statment expression_statement return_statement continue_statement break_statement
+%type <statement> all_statement expression_statement return_statement continue_statement break_statement
                 for_statement if_statement global_variable_declaration_statement
                 cannot_top_statement can_top_statement
 
@@ -42,18 +43,26 @@
 // 运行单元
 // 开始 函数定义 或 置顶的语句
 translation_unit: function_definition
-    | can_top_statement
+    | can_top_statement {
+        set_global_statement_list($1);
+    }
     | translation_unit can_top_statement
-    | translation_unit cannot_top_statement
+    {
+        set_global_statement_list($2);
+    }
+    | translation_unit cannot_top_statement{
+        set_global_statement_list($2);
+    }
+    | translation_unit function_definition
     ;
 
 function_definition: T_FUNCTION T_IDENTIFIER T_LP param_list T_RP statement_block
     {
-        $$ = create_function($2 ,$4 ,$6);
+        create_function($2 ,$4 ,$6);
     }
     | T_FUNCTION T_IDENTIFIER T_LP T_RP statement_block
     {
-        $$ = create_function($2 ,NULL ,$5);
+        create_function($2 ,NULL ,$5);
     }
     ;
 
@@ -70,7 +79,7 @@ cannot_top_statement: break_statement
     | continue_statement
     ;
 
-all_statment: can_top_statement
+all_statement: can_top_statement
     | cannot_top_statement
     ;
 
@@ -123,11 +132,11 @@ global_variable_declaration_statement: T_GLOBAL T_IDENTIFIER T_SEMICOLON
     ;
 
 // 语句列表
-statement_list:  all_statment
+statement_list:  all_statement
     {
         $$ = create_statement_list($1);
     }
-    |all_statment statement_list
+    | statement_list all_statement
     {
         $$ = insert_statement_list($1 ,$2);
     }
@@ -160,7 +169,7 @@ expression: equality_expression
     ;
 
 // 等值表达式
-equality_expression: additive_expression
+equality_expression: relational_expression
     | equality_expression T_EQ relational_expression
     | equality_expression T_NE relational_expression
     ;
@@ -171,13 +180,13 @@ relational_expression: additive_expression
     {
         $$ = create_binary_expression(expression_action_lt ,$1,$3);
     }
-    | relational_expression T_LE additive_expression
-    {
-        $$ = create_binary_expression(expression_action_le ,$1,$3);
-    }
     | relational_expression T_GT additive_expression
     {
         $$ = create_binary_expression(expression_action_gt ,$1,$3);
+    }
+    | relational_expression T_LE additive_expression
+    {
+        $$ = create_binary_expression(expression_action_le ,$1,$3);
     }
     | relational_expression T_GE additive_expression
     {
@@ -212,7 +221,7 @@ multiplicative_expression: primary_expression
 // 基础表达式
 primary_expression:T_SUB primary_expression
     {
-        $$ = -$2;
+        $$ = $2;
     }
     | T_LP expression T_RP
     {
@@ -220,7 +229,7 @@ primary_expression:T_SUB primary_expression
     }
     | T_IDENTIFIER
     {
-        $$ = create_variable_expression($1);
+        $$ = create_identifier_expression($1);
     }
     | T_STRING_LITERAL
     {
@@ -250,16 +259,13 @@ option_expression: expression
     ;
 
 // 参数列表
-param_list: param
-    | param_list T_COMMA param
-    {
-        $$ = insert_param_list($1 ,$3);
-    }
-    ;
-// 参数
-param: T_IDENTIFIER
+param_list: T_IDENTIFIER
     {
         $$ = create_param_list($1);
+    }
+    | param_list T_COMMA T_IDENTIFIER
+    {
+        $$ = insert_param_list($1 ,$3);
     }
     ;
 
@@ -270,6 +276,6 @@ call_param_list: expression
     }
     | call_param_list T_COMMA expression
     {
-        $$ = insert_call_param_list($1 ,$2);
+        $$ = insert_call_param_list($1 ,$3);
     }
     ;

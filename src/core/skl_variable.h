@@ -14,6 +14,25 @@
 #ifndef SKL_VARIABLE_H
 #define SKL_VARIABLE_H
 
+#include "skl_core.h"
+
+typedef struct variable_s variable_t;
+
+struct variable_s {
+    char *identifier;
+    union {
+        char *str;
+        unsigned int str_len;
+        int i;
+        double d;
+    } value;
+};
+
+variable_t *create_string_variable(char *identifier, char *str, int str_len);
+
+variable_t *create_integer_variable(char *identifier, int i);
+
+variable_t *create_double_variable(char *identifier, double d);
 
 
 #endif /* SKL_VARIABLE_H */

@@ -4,19 +4,63 @@
  * and open the template in the editor.
  */
 
-#include "skl.h"
+
 #include "skl_compiler.h"
 
-hash_t *global_function_table = create_hash();
+//
+hash_t *global_function_table, *global_variable_table;
+//
+statement_list_t *global_statement_list;
 
 /**
- *
+ * 初始化编译器
+ */
+void init_compiler() {
+    global_function_table = create_hash();
+    global_variable_table = create_hash();
+    //
+    global_statement_list = (statement_list_t *) memory_alloc(sizeof(statement_list_t));
+    global_statement_list->top = global_statement_list->tail = NULL;
+}
+
+/**
+ * 设置语句列表
+ * @param statement_list
+ * @param statement
+ * @return
+ */
+void *set_global_statement_list(statement_t *statement) {
+    statement_list_item_t *item = (statement_list_item_t *) memory_alloc(sizeof(statement_list_item_t));
+    item->statement = statement;
+    item->next = NULL;
+    if (global_statement_list->top == NULL) {
+        global_statement_list->top = item;
+    }
+    statement_list_item_t *current_item = global_statement_list->tail;
+    if (current_item == NULL) {
+        global_statement_list->tail = item;
+    } else {
+        global_statement_list->tail = item;
+        current_item->next = item;
+    }
+}
+
+/**
+ * 获取语句列表
+ * @return
+ */
+statement_list_t *get_global_statement_list() {
+    return global_statement_list;
+}
+
+/**
+ * 字符串申请
  * @param s
  * @return
  */
-char *string_malloc(char *s) {
+char *malloc_string(char *s) {
     char *string = (char *) memory_alloc(sizeof(s));
-    string = s;
+    strcpy(string, s);
     return string;
 }
 
@@ -31,6 +75,8 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
     function->is_native = 0;
     function->statement_list = statement_list;
     function->param_list = param_list;
+    // 插入函数
+    insert_or_update_hash(global_function_table, identifier, strlen(identifier), (void *) function);
     return function;
 }
 
@@ -40,9 +86,11 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
  * @return
  */
 statement_t *create_expression_statement(expression_t *e) {
+    expression_statement_t *es = (expression_statement_t *) memory_alloc(sizeof(expression_statement_t));
+    es->expression = e;
     statement_t *statement = (statement_t *) memory_alloc(sizeof(statement_t));
     statement->type = statement_type_expression;
-    statement->u.e = e;
+    statement->u.e = es;
     return statement;
 }
 
@@ -91,8 +139,8 @@ statement_t *create_for_statement(expression_t *before, expression_t *condition,
 statement_t *create_return_statement(expression_t *expression) {
     statement_t *statement = (statement_t *) memory_alloc(sizeof(statement_t));
     statement->type = statement_type_return;
-    return_statement_t return_statement = (return_statement_t) memory_alloc(sizeof(return_statement_t));
-    return_statement.expression = expression;
+    return_statement_t *return_statement = (return_statement_t *) memory_alloc(sizeof(return_statement_t));
+    return_statement->expression = expression;
     statement->u.r = return_statement;
     return statement;
 }
@@ -126,9 +174,12 @@ statement_t *create_continue_statement() {
  * @return
  */
 expression_t *create_assign_expression(char *identifier, expression_t *expression) {
-    assign_expression_t *e = (assign_expression_t *) memory_alloc(sizeof(assign_expression_t));
-    e->identifier = identifier;
-    e->expression = expression;
+    assign_expression_t *ae = (assign_expression_t *) memory_alloc(sizeof(assign_expression_t));
+    ae->identifier = identifier;
+    ae->expression = expression;
+    expression_t *e = (expression_t *) memory_alloc(sizeof(expression_t));
+    e->expression.assign = ae;
+    e->type = expression_type_assign;
     return e;
 }
 
@@ -160,7 +211,7 @@ statement_list_t *create_statement_list(statement_t *statement) {
 }
 
 /**
- *
+ * 插入语句列表
  * @param statement_list
  * @param statement
  * @return
@@ -176,7 +227,7 @@ statement_list_t *insert_statement_list(statement_list_t *statement_list, statem
 }
 
 /**
- *
+ * 创建整型表达式
  * @param i
  * @return
  */
@@ -191,7 +242,7 @@ expression_t *create_integer_expression(int i) {
 }
 
 /**
- *
+ * 创建双整型表达式
  * @param d
  * @return
  */
@@ -236,7 +287,7 @@ expression_t *create_identifier_expression(char *identifier) {
 }
 
 /**
- *
+ * 创建二元表达式
  * @param action
  * @param left
  * @param right
@@ -253,27 +304,43 @@ expression_t *create_binary_expression(enum expression_action_e action, expressi
     return e;
 }
 
+/**
+ * 创建变量表达式
+ * @param identifier
+ * @param expression
+ * @return
+ */
 expression_t *create_variable_expression(char *identifier, expression_t *expression) {
     assign_expression_t *ae = (assign_expression_t *) memory_alloc(sizeof(assign_expression_t));
     ae->identifier = identifier;
-    ae->expression = expression
+    ae->expression = expression;
     expression_t *e = (expression_t *) memory_alloc(sizeof(expression_t));
     e->type = expression_type_assign;
     e->expression.assign = ae;
     return e;
 }
 
+/**
+ * 创建调用函数表达式
+ * @param identifier
+ * @param expression_list
+ * @return
+ */
 expression_t *create_call_function_expression(char *identifier, expression_list_t *expression_list) {
     function_expression_t *fe = (function_expression_t *) memory_alloc(sizeof(function_expression_t));
     fe->function_name = identifier;
     fe->params = expression_list;
     expression_t *e = (expression_t *) memory_alloc(sizeof(expression_t));
     e->type = expression_type_func;
-    e->expression.assign = fe;
+    e->expression.function = fe;
     return e;
 }
 
-
+/**
+ * 创建参数列表
+ * @param identifier
+ * @return
+ */
 param_list_t *create_param_list(char *identifier) {
     param_list_item_t *pli = (param_list_item_t *) memory_alloc(sizeof(param_list_item_t));
     pli->identifier = identifier;
@@ -283,7 +350,12 @@ param_list_t *create_param_list(char *identifier) {
     return pl;
 }
 
-// 参数列表
+/**
+ * 参数列表
+ * @param param_list
+ * @param identifier
+ * @return
+ */
 param_list_t *insert_param_list(param_list_t *param_list, char *identifier) {
     param_list_item_t *pli = (param_list_item_t *) memory_alloc(sizeof(param_list_item_t));
     pli->identifier = identifier;
@@ -293,16 +365,26 @@ param_list_t *insert_param_list(param_list_t *param_list, char *identifier) {
     return param_list;
 }
 
-// 调用参数列表
+/**
+ * 创建调用参数列表
+ * @param expression
+ * @return
+ */
 expression_list_t *create_call_param_list(expression_t *expression) {
     expression_list_item_t *eli = (expression_list_item_t *) memory_alloc(sizeof(expression_list_item_t));
     eli->expression = expression;
     eli->next = NULL;
     expression_list_t *el = (expression_list_t *) memory_alloc(sizeof(expression_list_t));
-    el->top = el->tail = pli;
-    return pl;
+    el->top = el->tail = eli;
+    return el;
 }
 
+/**
+ * 插入调用参数列表
+ * @param expression_list
+ * @param expression
+ * @return
+ */
 expression_list_t *insert_call_param_list(expression_list_t *expression_list, expression_t *expression) {
     expression_list_item_t *eli = (expression_list_item_t *) memory_alloc(sizeof(expression_list_item_t));
     eli->expression = expression;

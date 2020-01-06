@@ -14,9 +14,9 @@
 #ifndef SKL_MEMORY_H
 #define SKL_MEMORY_H
 
-#include "skl.h"
+#include "skl_core.h"
 
 void *memory_alloc(int size);
-
+void memory_free(void *p);
 #endif /* SKL_MEMORY_H */
 

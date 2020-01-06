@@ -5,8 +5,10 @@
  * Created on 2019年12月30日, 上午11:08
  */
 
-//ifndef SKL_COMPILER_H
-//define SKL_COMPILER_H
+#ifndef SKL_COMPILER_H
+#define SKL_COMPILER_H
+
+#include "skl_core.h"
 
 typedef union expression_uni expression_u;
 typedef struct expression_s expression_t;
@@ -163,11 +165,6 @@ struct param_list_item_s {
     param_list_item_t *next;
 };
 
-struct param_s {
-    char *identifier;
-    param_t *next_param;
-};
-
 struct function_s {
     char *identifier;
     int is_native;
@@ -175,9 +172,21 @@ struct function_s {
     statement_list_t *statement_list;
     param_list_t *param_list;
 };
-char * string_malloc(char *s);
+
+//初始化编译器
+void init_compiler(void);
+
+//
+char *malloc_string(char *s);
+
+// 设置语句列表
+void *set_global_statement_list(statement_t *statement);
+
+// 获取语句列表
+statement_list_t *get_global_statement_list();
+
 // 创建函数
-function_t create_function(char *identifier, param_list_t *param_list, statement_list_t *statement_list);
+function_t *create_function(char *identifier, param_list_t *param_list, statement_list_t *statement_list);
 
 // 创建表达式语句
 statement_t *create_expression_statement(expression_t *expression);
@@ -198,7 +207,7 @@ statement_t *create_break_statement();
 // 创建continue语句
 statement_t *create_continue_statement();
 
-//
+// 创建赋值表达式
 expression_t *create_assign_expression(char *identifier, expression_t *expression);
 
 // 全局变量语句
@@ -237,5 +246,5 @@ expression_list_t *create_call_param_list(expression_t *expression);
 
 expression_list_t *insert_call_param_list(expression_list_t *expression_list, expression_t *expression);
 
-//endif /* SKL_COMPILER_H */
+#endif /* SKL_COMPILER_H */
 

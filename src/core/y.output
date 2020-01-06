@@ -1,0 +1,1381 @@
+Nonterminals useless in grammar
+
+   param
+
+
+Grammar
+
+    0 $accept: translation_unit $end
+
+    1 translation_unit: function_definition
+    2                 | can_top_statement
+    3                 | translation_unit can_top_statement
+    4                 | translation_unit cannot_top_statement
+    5                 | translation_unit function_definition
+
+    6 function_definition: T_FUNCTION T_IDENTIFIER T_LP param_list T_RP statement_block
+    7                    | T_FUNCTION T_IDENTIFIER T_LP T_RP statement_block
+
+    8 can_top_statement: expression_statement
+    9                  | global_variable_declaration_statement
+   10                  | for_statement
+   11                  | if_statement
+   12                  | return_statement
+
+   13 cannot_top_statement: break_statement
+   14                     | continue_statement
+
+   15 all_statement: can_top_statement
+   16              | cannot_top_statement
+
+   17 expression_statement: expression T_SEMICOLON
+
+   18 for_statement: T_FOR T_LP option_expression T_SEMICOLON option_expression T_SEMICOLON option_expression T_RP statement_block
+
+   19 break_statement: T_BREAK T_SEMICOLON
+
+   20 if_statement: T_IF T_LP expression T_RP statement_block
+
+   21 return_statement: T_RETURN option_expression T_SEMICOLON
+
+   22 global_variable_declaration_statement: T_GLOBAL T_IDENTIFIER T_SEMICOLON
+   23                                      | T_GLOBAL T_IDENTIFIER T_ASSIGN expression T_SEMICOLON
+
+   24 statement_list: all_statement
+   25               | statement_list all_statement
+
+   26 statement_block: T_LC T_RC
+   27                | T_LC statement_list T_RC
+
+   28 continue_statement: T_CONTINUE T_SEMICOLON
+
+   29 expression: equality_expression
+   30           | T_IDENTIFIER T_ASSIGN expression
+
+   31 equality_expression: relational_expression
+   32                    | equality_expression T_EQ relational_expression
+   33                    | equality_expression T_NE relational_expression
+
+   34 relational_expression: additive_expression
+   35                      | relational_expression T_LT additive_expression
+   36                      | relational_expression T_GT additive_expression
+   37                      | relational_expression T_LE additive_expression
+   38                      | relational_expression T_GE additive_expression
+
+   39 additive_expression: multiplicative_expression
+   40                    | additive_expression T_ADD multiplicative_expression
+   41                    | additive_expression T_SUB multiplicative_expression
+
+   42 multiplicative_expression: primary_expression
+   43                          | multiplicative_expression T_DIV primary_expression
+   44                          | multiplicative_expression T_MUL primary_expression
+
+   45 primary_expression: T_SUB primary_expression
+   46                   | T_LP expression T_RP
+   47                   | T_IDENTIFIER
+   48                   | T_STRING_LITERAL
+   49                   | T_INT_LITERAL
+   50                   | T_DOUBLE_LITERAL
+   51                   | T_IDENTIFIER T_LP T_RP
+   52                   | T_IDENTIFIER T_LP call_param_list T_RP
+
+   53 option_expression: expression
+   54                  | %empty
+
+   55 param_list: T_IDENTIFIER
+   56           | param_list T_COMMA T_IDENTIFIER
+
+   57 call_param_list: expression
+   58                | call_param_list T_COMMA expression
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+T_INT_LITERAL (258) 49
+T_DOUBLE_LITERAL (259) 50
+T_FUNCTION (260) 6 7
+T_GLOBAL (261) 22 23
+T_FOR (262) 18
+T_IF (263) 20
+T_ADD (264) 40
+T_SUB (265) 41 45
+T_MUL (266) 44
+T_DIV (267) 43
+T_ASSIGN (268) 23 30
+T_EQ (269) 32
+T_NE (270) 33
+T_GT (271) 36
+T_GE (272) 38
+T_LT (273) 35
+T_LE (274) 37
+T_LP (275) 6 7 18 20 46 51 52
+T_RP (276) 6 7 18 20 46 51 52
+T_LC (277) 26 27
+T_RC (278) 26 27
+T_SEMICOLON (279) 17 18 19 21 22 23 28
+T_IDENTIFIER (280) 6 7 22 23 30 47 51 52 55 56
+T_BREAK (281) 19
+T_CONTINUE (282) 28
+T_RETURN (283) 21
+T_COMMA (284) 56 58
+T_STRING_LITERAL (285) 48
+
+
+Nonterminals, with rules where they appear
+
+$accept (31)
+    on left: 0
+translation_unit (32)
+    on left: 1 2 3 4 5, on right: 0 3 4 5
+function_definition (33)
+    on left: 6 7, on right: 1 5
+can_top_statement (34)
+    on left: 8 9 10 11 12, on right: 2 3 15
+cannot_top_statement (35)
+    on left: 13 14, on right: 4 16
+all_statement (36)
+    on left: 15 16, on right: 24 25
+expression_statement (37)
+    on left: 17, on right: 8
+for_statement (38)
+    on left: 18, on right: 10
+break_statement (39)
+    on left: 19, on right: 13
+if_statement (40)
+    on left: 20, on right: 11
+return_statement (41)
+    on left: 21, on right: 12
+global_variable_declaration_statement (42)
+    on left: 22 23, on right: 9
+statement_list (43)
+    on left: 24 25, on right: 25 27
+statement_block (44)
+    on left: 26 27, on right: 6 7 18 20
+continue_statement (45)
+    on left: 28, on right: 14
+expression (46)
+    on left: 29 30, on right: 17 20 23 30 46 53 57 58
+equality_expression (47)
+    on left: 31 32 33, on right: 29 32 33
+relational_expression (48)
+    on left: 34 35 36 37 38, on right: 31 32 33 35 36 37 38
+additive_expression (49)
+    on left: 39 40 41, on right: 34 35 36 37 38 40 41
+multiplicative_expression (50)
+    on left: 42 43 44, on right: 39 40 41 43 44
+primary_expression (51)
+    on left: 45 46 47 48 49 50 51 52, on right: 42 43 44 45
+option_expression (52)
+    on left: 53 54, on right: 18 21
+param_list (53)
+    on left: 55 56, on right: 6 56
+call_param_list (54)
+    on left: 57 58, on right: 52 58
+
+
+State 0
+
+    0 $accept: . translation_unit $end
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_FUNCTION        shift, and go to state 3
+    T_GLOBAL          shift, and go to state 4
+    T_FOR             shift, and go to state 5
+    T_IF              shift, and go to state 6
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_RETURN          shift, and go to state 10
+    T_STRING_LITERAL  shift, and go to state 11
+
+    translation_unit                       go to state 12
+    function_definition                    go to state 13
+    can_top_statement                      go to state 14
+    expression_statement                   go to state 15
+    for_statement                          go to state 16
+    if_statement                           go to state 17
+    return_statement                       go to state 18
+    global_variable_declaration_statement  go to state 19
+    expression                             go to state 20
+    equality_expression                    go to state 21
+    relational_expression                  go to state 22
+    additive_expression                    go to state 23
+    multiplicative_expression              go to state 24
+    primary_expression                     go to state 25
+
+
+State 1
+
+   49 primary_expression: T_INT_LITERAL .
+
+    $default  reduce using rule 49 (primary_expression)
+
+
+State 2
+
+   50 primary_expression: T_DOUBLE_LITERAL .
+
+    $default  reduce using rule 50 (primary_expression)
+
+
+State 3
+
+    6 function_definition: T_FUNCTION . T_IDENTIFIER T_LP param_list T_RP statement_block
+    7                    | T_FUNCTION . T_IDENTIFIER T_LP T_RP statement_block
+
+    T_IDENTIFIER  shift, and go to state 26
+
+
+State 4
+
+   22 global_variable_declaration_statement: T_GLOBAL . T_IDENTIFIER T_SEMICOLON
+   23                                      | T_GLOBAL . T_IDENTIFIER T_ASSIGN expression T_SEMICOLON
+
+    T_IDENTIFIER  shift, and go to state 27
+
+
+State 5
+
+   18 for_statement: T_FOR . T_LP option_expression T_SEMICOLON option_expression T_SEMICOLON option_expression T_RP statement_block
+
+    T_LP  shift, and go to state 28
+
+
+State 6
+
+   20 if_statement: T_IF . T_LP expression T_RP statement_block
+
+    T_LP  shift, and go to state 29
+
+
+State 7
+
+   45 primary_expression: T_SUB . primary_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    primary_expression  go to state 31
+
+
+State 8
+
+   46 primary_expression: T_LP . expression T_RP
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    expression                 go to state 32
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 9
+
+   30 expression: T_IDENTIFIER . T_ASSIGN expression
+   47 primary_expression: T_IDENTIFIER .
+   51                   | T_IDENTIFIER . T_LP T_RP
+   52                   | T_IDENTIFIER . T_LP call_param_list T_RP
+
+    T_ASSIGN  shift, and go to state 33
+    T_LP      shift, and go to state 34
+
+    $default  reduce using rule 47 (primary_expression)
+
+
+State 10
+
+   21 return_statement: T_RETURN . option_expression T_SEMICOLON
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    $default  reduce using rule 54 (option_expression)
+
+    expression                 go to state 35
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+    option_expression          go to state 36
+
+
+State 11
+
+   48 primary_expression: T_STRING_LITERAL .
+
+    $default  reduce using rule 48 (primary_expression)
+
+
+State 12
+
+    0 $accept: translation_unit . $end
+    3 translation_unit: translation_unit . can_top_statement
+    4                 | translation_unit . cannot_top_statement
+    5                 | translation_unit . function_definition
+
+    $end              shift, and go to state 37
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_FUNCTION        shift, and go to state 3
+    T_GLOBAL          shift, and go to state 4
+    T_FOR             shift, and go to state 5
+    T_IF              shift, and go to state 6
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_BREAK           shift, and go to state 38
+    T_CONTINUE        shift, and go to state 39
+    T_RETURN          shift, and go to state 10
+    T_STRING_LITERAL  shift, and go to state 11
+
+    function_definition                    go to state 40
+    can_top_statement                      go to state 41
+    cannot_top_statement                   go to state 42
+    expression_statement                   go to state 15
+    for_statement                          go to state 16
+    break_statement                        go to state 43
+    if_statement                           go to state 17
+    return_statement                       go to state 18
+    global_variable_declaration_statement  go to state 19
+    continue_statement                     go to state 44
+    expression                             go to state 20
+    equality_expression                    go to state 21
+    relational_expression                  go to state 22
+    additive_expression                    go to state 23
+    multiplicative_expression              go to state 24
+    primary_expression                     go to state 25
+
+
+State 13
+
+    1 translation_unit: function_definition .
+
+    $default  reduce using rule 1 (translation_unit)
+
+
+State 14
+
+    2 translation_unit: can_top_statement .
+
+    $default  reduce using rule 2 (translation_unit)
+
+
+State 15
+
+    8 can_top_statement: expression_statement .
+
+    $default  reduce using rule 8 (can_top_statement)
+
+
+State 16
+
+   10 can_top_statement: for_statement .
+
+    $default  reduce using rule 10 (can_top_statement)
+
+
+State 17
+
+   11 can_top_statement: if_statement .
+
+    $default  reduce using rule 11 (can_top_statement)
+
+
+State 18
+
+   12 can_top_statement: return_statement .
+
+    $default  reduce using rule 12 (can_top_statement)
+
+
+State 19
+
+    9 can_top_statement: global_variable_declaration_statement .
+
+    $default  reduce using rule 9 (can_top_statement)
+
+
+State 20
+
+   17 expression_statement: expression . T_SEMICOLON
+
+    T_SEMICOLON  shift, and go to state 45
+
+
+State 21
+
+   29 expression: equality_expression .
+   32 equality_expression: equality_expression . T_EQ relational_expression
+   33                    | equality_expression . T_NE relational_expression
+
+    T_EQ  shift, and go to state 46
+    T_NE  shift, and go to state 47
+
+    $default  reduce using rule 29 (expression)
+
+
+State 22
+
+   31 equality_expression: relational_expression .
+   35 relational_expression: relational_expression . T_LT additive_expression
+   36                      | relational_expression . T_GT additive_expression
+   37                      | relational_expression . T_LE additive_expression
+   38                      | relational_expression . T_GE additive_expression
+
+    T_GT  shift, and go to state 48
+    T_GE  shift, and go to state 49
+    T_LT  shift, and go to state 50
+    T_LE  shift, and go to state 51
+
+    $default  reduce using rule 31 (equality_expression)
+
+
+State 23
+
+   34 relational_expression: additive_expression .
+   40 additive_expression: additive_expression . T_ADD multiplicative_expression
+   41                    | additive_expression . T_SUB multiplicative_expression
+
+    T_ADD  shift, and go to state 52
+    T_SUB  shift, and go to state 53
+
+    $default  reduce using rule 34 (relational_expression)
+
+
+State 24
+
+   39 additive_expression: multiplicative_expression .
+   43 multiplicative_expression: multiplicative_expression . T_DIV primary_expression
+   44                          | multiplicative_expression . T_MUL primary_expression
+
+    T_MUL  shift, and go to state 54
+    T_DIV  shift, and go to state 55
+
+    $default  reduce using rule 39 (additive_expression)
+
+
+State 25
+
+   42 multiplicative_expression: primary_expression .
+
+    $default  reduce using rule 42 (multiplicative_expression)
+
+
+State 26
+
+    6 function_definition: T_FUNCTION T_IDENTIFIER . T_LP param_list T_RP statement_block
+    7                    | T_FUNCTION T_IDENTIFIER . T_LP T_RP statement_block
+
+    T_LP  shift, and go to state 56
+
+
+State 27
+
+   22 global_variable_declaration_statement: T_GLOBAL T_IDENTIFIER . T_SEMICOLON
+   23                                      | T_GLOBAL T_IDENTIFIER . T_ASSIGN expression T_SEMICOLON
+
+    T_ASSIGN     shift, and go to state 57
+    T_SEMICOLON  shift, and go to state 58
+
+
+State 28
+
+   18 for_statement: T_FOR T_LP . option_expression T_SEMICOLON option_expression T_SEMICOLON option_expression T_RP statement_block
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    $default  reduce using rule 54 (option_expression)
+
+    expression                 go to state 35
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+    option_expression          go to state 59
+
+
+State 29
+
+   20 if_statement: T_IF T_LP . expression T_RP statement_block
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    expression                 go to state 60
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 30
+
+   47 primary_expression: T_IDENTIFIER .
+   51                   | T_IDENTIFIER . T_LP T_RP
+   52                   | T_IDENTIFIER . T_LP call_param_list T_RP
+
+    T_LP  shift, and go to state 34
+
+    $default  reduce using rule 47 (primary_expression)
+
+
+State 31
+
+   45 primary_expression: T_SUB primary_expression .
+
+    $default  reduce using rule 45 (primary_expression)
+
+
+State 32
+
+   46 primary_expression: T_LP expression . T_RP
+
+    T_RP  shift, and go to state 61
+
+
+State 33
+
+   30 expression: T_IDENTIFIER T_ASSIGN . expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    expression                 go to state 62
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 34
+
+   51 primary_expression: T_IDENTIFIER T_LP . T_RP
+   52                   | T_IDENTIFIER T_LP . call_param_list T_RP
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_RP              shift, and go to state 63
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    expression                 go to state 64
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+    call_param_list            go to state 65
+
+
+State 35
+
+   53 option_expression: expression .
+
+    $default  reduce using rule 53 (option_expression)
+
+
+State 36
+
+   21 return_statement: T_RETURN option_expression . T_SEMICOLON
+
+    T_SEMICOLON  shift, and go to state 66
+
+
+State 37
+
+    0 $accept: translation_unit $end .
+
+    $default  accept
+
+
+State 38
+
+   19 break_statement: T_BREAK . T_SEMICOLON
+
+    T_SEMICOLON  shift, and go to state 67
+
+
+State 39
+
+   28 continue_statement: T_CONTINUE . T_SEMICOLON
+
+    T_SEMICOLON  shift, and go to state 68
+
+
+State 40
+
+    5 translation_unit: translation_unit function_definition .
+
+    $default  reduce using rule 5 (translation_unit)
+
+
+State 41
+
+    3 translation_unit: translation_unit can_top_statement .
+
+    $default  reduce using rule 3 (translation_unit)
+
+
+State 42
+
+    4 translation_unit: translation_unit cannot_top_statement .
+
+    $default  reduce using rule 4 (translation_unit)
+
+
+State 43
+
+   13 cannot_top_statement: break_statement .
+
+    $default  reduce using rule 13 (cannot_top_statement)
+
+
+State 44
+
+   14 cannot_top_statement: continue_statement .
+
+    $default  reduce using rule 14 (cannot_top_statement)
+
+
+State 45
+
+   17 expression_statement: expression T_SEMICOLON .
+
+    $default  reduce using rule 17 (expression_statement)
+
+
+State 46
+
+   32 equality_expression: equality_expression T_EQ . relational_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    relational_expression      go to state 69
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 47
+
+   33 equality_expression: equality_expression T_NE . relational_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    relational_expression      go to state 70
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 48
+
+   36 relational_expression: relational_expression T_GT . additive_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    additive_expression        go to state 71
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 49
+
+   38 relational_expression: relational_expression T_GE . additive_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    additive_expression        go to state 72
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 50
+
+   35 relational_expression: relational_expression T_LT . additive_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    additive_expression        go to state 73
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 51
+
+   37 relational_expression: relational_expression T_LE . additive_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    additive_expression        go to state 74
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 52
+
+   40 additive_expression: additive_expression T_ADD . multiplicative_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    multiplicative_expression  go to state 75
+    primary_expression         go to state 25
+
+
+State 53
+
+   41 additive_expression: additive_expression T_SUB . multiplicative_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    multiplicative_expression  go to state 76
+    primary_expression         go to state 25
+
+
+State 54
+
+   44 multiplicative_expression: multiplicative_expression T_MUL . primary_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    primary_expression  go to state 77
+
+
+State 55
+
+   43 multiplicative_expression: multiplicative_expression T_DIV . primary_expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 30
+    T_STRING_LITERAL  shift, and go to state 11
+
+    primary_expression  go to state 78
+
+
+State 56
+
+    6 function_definition: T_FUNCTION T_IDENTIFIER T_LP . param_list T_RP statement_block
+    7                    | T_FUNCTION T_IDENTIFIER T_LP . T_RP statement_block
+
+    T_RP          shift, and go to state 79
+    T_IDENTIFIER  shift, and go to state 80
+
+    param_list  go to state 81
+
+
+State 57
+
+   23 global_variable_declaration_statement: T_GLOBAL T_IDENTIFIER T_ASSIGN . expression T_SEMICOLON
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    expression                 go to state 82
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 58
+
+   22 global_variable_declaration_statement: T_GLOBAL T_IDENTIFIER T_SEMICOLON .
+
+    $default  reduce using rule 22 (global_variable_declaration_statement)
+
+
+State 59
+
+   18 for_statement: T_FOR T_LP option_expression . T_SEMICOLON option_expression T_SEMICOLON option_expression T_RP statement_block
+
+    T_SEMICOLON  shift, and go to state 83
+
+
+State 60
+
+   20 if_statement: T_IF T_LP expression . T_RP statement_block
+
+    T_RP  shift, and go to state 84
+
+
+State 61
+
+   46 primary_expression: T_LP expression T_RP .
+
+    $default  reduce using rule 46 (primary_expression)
+
+
+State 62
+
+   30 expression: T_IDENTIFIER T_ASSIGN expression .
+
+    $default  reduce using rule 30 (expression)
+
+
+State 63
+
+   51 primary_expression: T_IDENTIFIER T_LP T_RP .
+
+    $default  reduce using rule 51 (primary_expression)
+
+
+State 64
+
+   57 call_param_list: expression .
+
+    $default  reduce using rule 57 (call_param_list)
+
+
+State 65
+
+   52 primary_expression: T_IDENTIFIER T_LP call_param_list . T_RP
+   58 call_param_list: call_param_list . T_COMMA expression
+
+    T_RP     shift, and go to state 85
+    T_COMMA  shift, and go to state 86
+
+
+State 66
+
+   21 return_statement: T_RETURN option_expression T_SEMICOLON .
+
+    $default  reduce using rule 21 (return_statement)
+
+
+State 67
+
+   19 break_statement: T_BREAK T_SEMICOLON .
+
+    $default  reduce using rule 19 (break_statement)
+
+
+State 68
+
+   28 continue_statement: T_CONTINUE T_SEMICOLON .
+
+    $default  reduce using rule 28 (continue_statement)
+
+
+State 69
+
+   32 equality_expression: equality_expression T_EQ relational_expression .
+   35 relational_expression: relational_expression . T_LT additive_expression
+   36                      | relational_expression . T_GT additive_expression
+   37                      | relational_expression . T_LE additive_expression
+   38                      | relational_expression . T_GE additive_expression
+
+    T_GT  shift, and go to state 48
+    T_GE  shift, and go to state 49
+    T_LT  shift, and go to state 50
+    T_LE  shift, and go to state 51
+
+    $default  reduce using rule 32 (equality_expression)
+
+
+State 70
+
+   33 equality_expression: equality_expression T_NE relational_expression .
+   35 relational_expression: relational_expression . T_LT additive_expression
+   36                      | relational_expression . T_GT additive_expression
+   37                      | relational_expression . T_LE additive_expression
+   38                      | relational_expression . T_GE additive_expression
+
+    T_GT  shift, and go to state 48
+    T_GE  shift, and go to state 49
+    T_LT  shift, and go to state 50
+    T_LE  shift, and go to state 51
+
+    $default  reduce using rule 33 (equality_expression)
+
+
+State 71
+
+   36 relational_expression: relational_expression T_GT additive_expression .
+   40 additive_expression: additive_expression . T_ADD multiplicative_expression
+   41                    | additive_expression . T_SUB multiplicative_expression
+
+    T_ADD  shift, and go to state 52
+    T_SUB  shift, and go to state 53
+
+    $default  reduce using rule 36 (relational_expression)
+
+
+State 72
+
+   38 relational_expression: relational_expression T_GE additive_expression .
+   40 additive_expression: additive_expression . T_ADD multiplicative_expression
+   41                    | additive_expression . T_SUB multiplicative_expression
+
+    T_ADD  shift, and go to state 52
+    T_SUB  shift, and go to state 53
+
+    $default  reduce using rule 38 (relational_expression)
+
+
+State 73
+
+   35 relational_expression: relational_expression T_LT additive_expression .
+   40 additive_expression: additive_expression . T_ADD multiplicative_expression
+   41                    | additive_expression . T_SUB multiplicative_expression
+
+    T_ADD  shift, and go to state 52
+    T_SUB  shift, and go to state 53
+
+    $default  reduce using rule 35 (relational_expression)
+
+
+State 74
+
+   37 relational_expression: relational_expression T_LE additive_expression .
+   40 additive_expression: additive_expression . T_ADD multiplicative_expression
+   41                    | additive_expression . T_SUB multiplicative_expression
+
+    T_ADD  shift, and go to state 52
+    T_SUB  shift, and go to state 53
+
+    $default  reduce using rule 37 (relational_expression)
+
+
+State 75
+
+   40 additive_expression: additive_expression T_ADD multiplicative_expression .
+   43 multiplicative_expression: multiplicative_expression . T_DIV primary_expression
+   44                          | multiplicative_expression . T_MUL primary_expression
+
+    T_MUL  shift, and go to state 54
+    T_DIV  shift, and go to state 55
+
+    $default  reduce using rule 40 (additive_expression)
+
+
+State 76
+
+   41 additive_expression: additive_expression T_SUB multiplicative_expression .
+   43 multiplicative_expression: multiplicative_expression . T_DIV primary_expression
+   44                          | multiplicative_expression . T_MUL primary_expression
+
+    T_MUL  shift, and go to state 54
+    T_DIV  shift, and go to state 55
+
+    $default  reduce using rule 41 (additive_expression)
+
+
+State 77
+
+   44 multiplicative_expression: multiplicative_expression T_MUL primary_expression .
+
+    $default  reduce using rule 44 (multiplicative_expression)
+
+
+State 78
+
+   43 multiplicative_expression: multiplicative_expression T_DIV primary_expression .
+
+    $default  reduce using rule 43 (multiplicative_expression)
+
+
+State 79
+
+    7 function_definition: T_FUNCTION T_IDENTIFIER T_LP T_RP . statement_block
+
+    T_LC  shift, and go to state 87
+
+    statement_block  go to state 88
+
+
+State 80
+
+   55 param_list: T_IDENTIFIER .
+
+    $default  reduce using rule 55 (param_list)
+
+
+State 81
+
+    6 function_definition: T_FUNCTION T_IDENTIFIER T_LP param_list . T_RP statement_block
+   56 param_list: param_list . T_COMMA T_IDENTIFIER
+
+    T_RP     shift, and go to state 89
+    T_COMMA  shift, and go to state 90
+
+
+State 82
+
+   23 global_variable_declaration_statement: T_GLOBAL T_IDENTIFIER T_ASSIGN expression . T_SEMICOLON
+
+    T_SEMICOLON  shift, and go to state 91
+
+
+State 83
+
+   18 for_statement: T_FOR T_LP option_expression T_SEMICOLON . option_expression T_SEMICOLON option_expression T_RP statement_block
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    $default  reduce using rule 54 (option_expression)
+
+    expression                 go to state 35
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+    option_expression          go to state 92
+
+
+State 84
+
+   20 if_statement: T_IF T_LP expression T_RP . statement_block
+
+    T_LC  shift, and go to state 87
+
+    statement_block  go to state 93
+
+
+State 85
+
+   52 primary_expression: T_IDENTIFIER T_LP call_param_list T_RP .
+
+    $default  reduce using rule 52 (primary_expression)
+
+
+State 86
+
+   58 call_param_list: call_param_list T_COMMA . expression
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    expression                 go to state 94
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+
+
+State 87
+
+   26 statement_block: T_LC . T_RC
+   27                | T_LC . statement_list T_RC
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_GLOBAL          shift, and go to state 4
+    T_FOR             shift, and go to state 5
+    T_IF              shift, and go to state 6
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_RC              shift, and go to state 95
+    T_IDENTIFIER      shift, and go to state 9
+    T_BREAK           shift, and go to state 38
+    T_CONTINUE        shift, and go to state 39
+    T_RETURN          shift, and go to state 10
+    T_STRING_LITERAL  shift, and go to state 11
+
+    can_top_statement                      go to state 96
+    cannot_top_statement                   go to state 97
+    all_statement                          go to state 98
+    expression_statement                   go to state 15
+    for_statement                          go to state 16
+    break_statement                        go to state 43
+    if_statement                           go to state 17
+    return_statement                       go to state 18
+    global_variable_declaration_statement  go to state 19
+    statement_list                         go to state 99
+    continue_statement                     go to state 44
+    expression                             go to state 20
+    equality_expression                    go to state 21
+    relational_expression                  go to state 22
+    additive_expression                    go to state 23
+    multiplicative_expression              go to state 24
+    primary_expression                     go to state 25
+
+
+State 88
+
+    7 function_definition: T_FUNCTION T_IDENTIFIER T_LP T_RP statement_block .
+
+    $default  reduce using rule 7 (function_definition)
+
+
+State 89
+
+    6 function_definition: T_FUNCTION T_IDENTIFIER T_LP param_list T_RP . statement_block
+
+    T_LC  shift, and go to state 87
+
+    statement_block  go to state 100
+
+
+State 90
+
+   56 param_list: param_list T_COMMA . T_IDENTIFIER
+
+    T_IDENTIFIER  shift, and go to state 101
+
+
+State 91
+
+   23 global_variable_declaration_statement: T_GLOBAL T_IDENTIFIER T_ASSIGN expression T_SEMICOLON .
+
+    $default  reduce using rule 23 (global_variable_declaration_statement)
+
+
+State 92
+
+   18 for_statement: T_FOR T_LP option_expression T_SEMICOLON option_expression . T_SEMICOLON option_expression T_RP statement_block
+
+    T_SEMICOLON  shift, and go to state 102
+
+
+State 93
+
+   20 if_statement: T_IF T_LP expression T_RP statement_block .
+
+    $default  reduce using rule 20 (if_statement)
+
+
+State 94
+
+   58 call_param_list: call_param_list T_COMMA expression .
+
+    $default  reduce using rule 58 (call_param_list)
+
+
+State 95
+
+   26 statement_block: T_LC T_RC .
+
+    $default  reduce using rule 26 (statement_block)
+
+
+State 96
+
+   15 all_statement: can_top_statement .
+
+    $default  reduce using rule 15 (all_statement)
+
+
+State 97
+
+   16 all_statement: cannot_top_statement .
+
+    $default  reduce using rule 16 (all_statement)
+
+
+State 98
+
+   24 statement_list: all_statement .
+
+    $default  reduce using rule 24 (statement_list)
+
+
+State 99
+
+   25 statement_list: statement_list . all_statement
+   27 statement_block: T_LC statement_list . T_RC
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_GLOBAL          shift, and go to state 4
+    T_FOR             shift, and go to state 5
+    T_IF              shift, and go to state 6
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_RC              shift, and go to state 103
+    T_IDENTIFIER      shift, and go to state 9
+    T_BREAK           shift, and go to state 38
+    T_CONTINUE        shift, and go to state 39
+    T_RETURN          shift, and go to state 10
+    T_STRING_LITERAL  shift, and go to state 11
+
+    can_top_statement                      go to state 96
+    cannot_top_statement                   go to state 97
+    all_statement                          go to state 104
+    expression_statement                   go to state 15
+    for_statement                          go to state 16
+    break_statement                        go to state 43
+    if_statement                           go to state 17
+    return_statement                       go to state 18
+    global_variable_declaration_statement  go to state 19
+    continue_statement                     go to state 44
+    expression                             go to state 20
+    equality_expression                    go to state 21
+    relational_expression                  go to state 22
+    additive_expression                    go to state 23
+    multiplicative_expression              go to state 24
+    primary_expression                     go to state 25
+
+
+State 100
+
+    6 function_definition: T_FUNCTION T_IDENTIFIER T_LP param_list T_RP statement_block .
+
+    $default  reduce using rule 6 (function_definition)
+
+
+State 101
+
+   56 param_list: param_list T_COMMA T_IDENTIFIER .
+
+    $default  reduce using rule 56 (param_list)
+
+
+State 102
+
+   18 for_statement: T_FOR T_LP option_expression T_SEMICOLON option_expression T_SEMICOLON . option_expression T_RP statement_block
+
+    T_INT_LITERAL     shift, and go to state 1
+    T_DOUBLE_LITERAL  shift, and go to state 2
+    T_SUB             shift, and go to state 7
+    T_LP              shift, and go to state 8
+    T_IDENTIFIER      shift, and go to state 9
+    T_STRING_LITERAL  shift, and go to state 11
+
+    $default  reduce using rule 54 (option_expression)
+
+    expression                 go to state 35
+    equality_expression        go to state 21
+    relational_expression      go to state 22
+    additive_expression        go to state 23
+    multiplicative_expression  go to state 24
+    primary_expression         go to state 25
+    option_expression          go to state 105
+
+
+State 103
+
+   27 statement_block: T_LC statement_list T_RC .
+
+    $default  reduce using rule 27 (statement_block)
+
+
+State 104
+
+   25 statement_list: statement_list all_statement .
+
+    $default  reduce using rule 25 (statement_list)
+
+
+State 105
+
+   18 for_statement: T_FOR T_LP option_expression T_SEMICOLON option_expression T_SEMICOLON option_expression . T_RP statement_block
+
+    T_RP  shift, and go to state 106
+
+
+State 106
+
+   18 for_statement: T_FOR T_LP option_expression T_SEMICOLON option_expression T_SEMICOLON option_expression T_RP . statement_block
+
+    T_LC  shift, and go to state 87
+
+    statement_block  go to state 107
+
+
+State 107
+
+   18 for_statement: T_FOR T_LP option_expression T_SEMICOLON option_expression T_SEMICOLON option_expression T_RP statement_block .
+
+    $default  reduce using rule 18 (for_statement)

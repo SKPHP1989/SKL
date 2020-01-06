@@ -14,8 +14,10 @@ OBJS = \
 
 GCC_FLAGS = -c -g -Wall -Wswitch-enum
 
-skl_language_scanner.o: CORE_PATH/skl_language_scanner.l
+skl_language_scanner.o: $CORE_PATH/skl_language_scanner.l
 	flex skl_language_scanner.l
 
-skl_language_parser.o: CORE_PATH/skl_language_parser.y
-	bison --yacc
+skl_language_parser.o: $CORE_PATH/skl_language_parser.y
+	bison --yacc -dv
+
+skl_compiler.o:

@@ -1,2 +1,5 @@
 .idea/
 nbproject/
+src/core/y.tab.c
+*.o
+src/core/t.info
