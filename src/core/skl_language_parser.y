@@ -25,7 +25,7 @@
         T_EQ T_NE T_GT T_GE T_LT T_LE T_LP T_RP T_LC T_RC T_SEMICOLON T_IDENTIFIER
         T_BREAK T_CONTINUE T_RETURN T_COMMA T_STRING_LITERAL
 
-%type <param_list> param_list param
+%type <param_list> param_list
 
 %type <expression_list> call_param_list
 
@@ -56,6 +56,7 @@ translation_unit: function_definition
     | translation_unit function_definition
     ;
 
+// 函数定义
 function_definition: T_FUNCTION T_IDENTIFIER T_LP param_list T_RP statement_block
     {
         create_function($2 ,$4 ,$6);
@@ -79,6 +80,7 @@ cannot_top_statement: break_statement
     | continue_statement
     ;
 
+// 所有的语句
 all_statement: can_top_statement
     | cannot_top_statement
     ;

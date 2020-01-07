@@ -33,11 +33,11 @@ void *set_global_statement_list(statement_t *statement) {
     statement_list_item_t *item = (statement_list_item_t *) memory_alloc(sizeof(statement_list_item_t));
     item->statement = statement;
     item->next = NULL;
-    if (global_statement_list->top == NULL) {
+    if (is_empty(global_statement_list->top)) {
         global_statement_list->top = item;
     }
     statement_list_item_t *current_item = global_statement_list->tail;
-    if (current_item == NULL) {
+    if (is_empty(current_item)) {
         global_statement_list->tail = item;
     } else {
         global_statement_list->tail = item;

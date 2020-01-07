@@ -1,7 +1,7 @@
 %{
 #include "skl_core.h"
 #include "skl_compiler.h"
-#include "y.tab.h"
+#include "skl_language_parser.h"
 void yyerror(char *);
 
 int yywrap(void)

@@ -30,8 +30,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+#ifndef YY_YY_SKL_LANGUAGE_PARSER_H_INCLUDED
+# define YY_YY_SKL_LANGUAGE_PARSER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -123,7 +123,7 @@ union YYSTYPE
     function_t *function;
     param_list_t *param_list;
 
-#line 127 "y.tab.h" /* yacc.c:1909  */
+#line 127 "skl_language_parser.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -136,4 +136,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+#endif /* !YY_YY_SKL_LANGUAGE_PARSER_H_INCLUDED  */

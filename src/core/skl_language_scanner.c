@@ -1,5 +1,6 @@
+#line 2 "skl_language_scanner.c"
 
-#line 3 "lex.yy.c"
+#line 4 "skl_language_scanner.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -508,7 +509,7 @@ char *yytext;
 #line 2 "skl_language_scanner.l"
 #include "skl_core.h"
 #include "skl_compiler.h"
-#include "y.tab.h"
+#include "skl_language_parser.h"
 void yyerror(char *);
 
 int yywrap(void)
@@ -520,7 +521,7 @@ void yyerror(char *s) {
     printf("Error Error Error here %s\n", s);
 }
 
-#line 524 "lex.yy.c"
+#line 525 "skl_language_scanner.c"
 
 #define INITIAL 0
 #define COMMENT 1
@@ -742,7 +743,7 @@ YY_DECL
 #line 19 "skl_language_scanner.l"
 
 
-#line 746 "lex.yy.c"
+#line 747 "skl_language_scanner.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -993,7 +994,7 @@ YY_RULE_SETUP
 #line 86 "skl_language_scanner.l"
 ECHO;
 	YY_BREAK
-#line 997 "lex.yy.c"
+#line 998 "skl_language_scanner.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();

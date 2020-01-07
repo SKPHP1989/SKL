@@ -10,6 +10,7 @@ extern hash_t *global_function_table;
 extern hash_t *global_variable_table;
 extern statement_list_t *global_statement_list;
 
+hash_t *
 /**
  * 执行语句
  */
@@ -49,7 +50,7 @@ void execute() {
  * 执行表达式
  * @param expression
  */
-void execute_expression(expression_t *expression) {
+expression_result_t *execute_expression(expression_t *expression) {
     switch (expression->type) {
         case expression_type_assign:
             break;
@@ -57,14 +58,38 @@ void execute_expression(expression_t *expression) {
             execute_function_expression(expression->expression.function);
             break;
         case expression_type_binary:;
-            printf("expression_type_binary\n");
+            execute_binary_expression(expression->expression.binary);
             break;
         case expression_type_primary:
-            printf("expression_type_primary\n");
+            execute_primary_expression(expression->expression.primary);
             break;
     }
 }
 
+/**
+ * 执行函数表达式
+ * @param fe
+ */
 void execute_function_expression(function_expression_t *fe) {
-    fe->function_name;
+    // 函数变量表
+    hash_t *function_variable_table = create_hash();
+    expression_result_t *er;
+    //
+    function_t *function;
+    function = (function_t *) find_hash(global_function_table, fe->function_name, strlen(fe->function_name));
+    if (is_empty(function)) {
+        error_exception("Function:%s not be found!", fe->function_name);
+    }
+    expression_list_item_t *param_item = fe->params->top;
+    //
+    while (param_item) {
+        er = execute_expression(param_item->expression);
+    }
+}
+
+void execute_binary_expression(binary_expression_t *be) {
+}
+
+void execute_primary_expression(primary_expression_t *pe) {
+
 }
