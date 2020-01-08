@@ -1,10 +1,11 @@
 #ifndef SKL_CORE_H
 #define SKL_CORE_H
-
+// unix system
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+// system
 #include "skl_hash.h"
 #include "skl_compiler.h"
 #include "skl_memory.h"
@@ -24,6 +25,6 @@
 #endif
 
 #define EOL "\n"
-#define is_empty(p) p==NULL
+#define is_empty(p) (p==NULL)
 
 #endif /* SKL_H */

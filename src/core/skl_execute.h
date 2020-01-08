@@ -22,12 +22,13 @@ enum expression_result_type_e {
     expression_result_type_int = 1,
     expression_result_type_double,
     expression_result_type_string,
-    expression_result_type_assign
+    expression_result_type_bool,
 };
 
 struct expression_result_s {
-    expression_result_type_e type;
+    enum expression_result_type_e type;
     union {
+        int b;
         int i;
         double d;
         char *s;
@@ -36,13 +37,15 @@ struct expression_result_s {
 
 void execute();
 
-void execute_expression(expression_t *expression);
+expression_result_t *execute_assign_expression(assign_expression_t *ae);
 
-void execute_primary_expression(primary_expression_t *pe);
+expression_result_t *execute_expression(expression_t *expression);
 
-void execute_function_expression(function_expression_t *fe);
+expression_result_t *execute_primary_expression(primary_expression_t *pe);
 
-void execute_binary_expression(binary_expression_t *be);
+expression_result_t *execute_function_expression(function_expression_t *fe);
+
+expression_result_t *execute_binary_expression(binary_expression_t *be);
 
 #endif /* SKL_EXECUTE_H */
 

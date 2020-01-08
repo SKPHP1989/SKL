@@ -13,6 +13,7 @@ variable_t *create_string_variable(char *identifier, char *str, int str_len) {
     v->identifier = identifier;
     v->value.str = str;
     v->value.str_len = str_len;
+    return v;
 }
 
 /**
@@ -26,6 +27,7 @@ variable_t *create_integer_variable(char *identifier, int i) {
     v->type = variable_type_int;
     v->identifier = identifier;
     v->value.i = i;
+    return v;
 }
 
 /**
@@ -39,6 +41,7 @@ variable_t *create_double_variable(char *identifier, double d) {
     v->type = variable_type_double;
     v->identifier = identifier;
     v->value.d = d;
+    return v;
 }
 
 /**
@@ -50,5 +53,18 @@ variable_t *create_null_variable(char *identifier) {
     variable_t *v = (variable_t *) memory_alloc(sizeof(variable_t));
     v->type = variable_type_null;
     v->identifier = identifier;
-    v->value = NULL;
+    return v;
+}
+/**
+ *
+ * @param identifier
+ * @param b
+ * @return
+ */
+variable_t *create_bool_variable(char *identifier, char b){
+    variable_t *v = (variable_t *) memory_alloc(sizeof(variable_t));
+    v->type = variable_type_bool;
+    v->identifier = identifier;
+    v->value.b = b;
+    return v;
 }

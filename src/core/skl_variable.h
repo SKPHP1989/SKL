@@ -20,15 +20,17 @@ typedef struct variable_s variable_t;
 
 enum variable_type_e {
     variable_type_null = 1,
+    variable_type_bool,
     variable_type_int,
     variable_type_double,
     variable_type_string
 };
 
 struct variable_s {
-    variable_type_e type;
+    enum variable_type_e type;
     char *identifier;
     union {
+        char b;
         char *str;
         unsigned int str_len;
         int i;
@@ -43,6 +45,8 @@ variable_t *create_integer_variable(char *identifier, int i);
 variable_t *create_double_variable(char *identifier, double d);
 
 variable_t *create_null_variable(char *identifier);
+
+variable_t *create_bool_variable(char *identifier, char b);
 
 #endif /* SKL_VARIABLE_H */
 

@@ -5,7 +5,6 @@ SKL_SRC_PATH="${SKL_CURRENT_PATH}/src/"
 SKL_SRC_CORE_PATH="${SKL_CURRENT_PATH}/src/core/"
 SKL_OBJS_PATH="${SKL_CURRENT_PATH}/objs/"
 SKL_BIN_PATH="${SKL_CURRENT_PATH}/bin/"
-echo ${SKL_BIN_PATH}
 
 # 词法和语法
 cd ${SKL_SRC_CORE_PATH}
@@ -20,6 +19,7 @@ gcc -c -g skl_compiler.c -o ${SKL_OBJS_PATH}skl_compiler.o
 gcc -c -g skl_hash.c -o ${SKL_OBJS_PATH}skl_hash.o
 gcc -c -g skl_variable.c -o ${SKL_OBJS_PATH}skl_variable.o
 gcc -c -g skl_execute.c -o ${SKL_OBJS_PATH}skl_execute.o
+gcc -c -g skl_execute_operate.c -o ${SKL_OBJS_PATH}skl_execute_operate.o
 gcc -c -g skl_memory.c -o ${SKL_OBJS_PATH}skl_memory.o
 gcc -c -g skl_exception.c -o ${SKL_OBJS_PATH}skl_exception.o
 
@@ -32,6 +32,7 @@ gcc ${SKL_OBJS_PATH}skl.o \
     ${SKL_OBJS_PATH}skl_hash.o \
     ${SKL_OBJS_PATH}skl_variable.o \
     ${SKL_OBJS_PATH}skl_execute.o \
+    ${SKL_OBJS_PATH}skl_execute_operate.o \
     ${SKL_OBJS_PATH}skl_memory.o \
     ${SKL_OBJS_PATH}skl_exception.o \
     -o ${SKL_BIN_PATH}skl -lm
