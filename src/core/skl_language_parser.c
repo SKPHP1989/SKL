@@ -502,9 +502,9 @@ static const yytype_uint16 yyrline[] =
        0,    45,    45,    46,    49,    53,    56,    60,    64,    71,
       72,    73,    74,    75,    79,    80,    84,    85,    90,    97,
      104,   111,   118,   126,   130,   137,   141,   148,   152,   159,
-     166,   167,   174,   175,   176,   180,   181,   185,   189,   193,
-     200,   201,   205,   212,   213,   217,   224,   228,   232,   236,
-     240,   244,   248,   252,   259,   260,   264,   268,   275,   279
+     166,   167,   174,   175,   179,   186,   187,   191,   195,   199,
+     206,   207,   211,   218,   219,   223,   230,   234,   238,   242,
+     246,   250,   254,   258,   265,   266,   270,   274,   281,   285
 };
 #endif
 
@@ -1499,174 +1499,190 @@ yyreduce:
 #line 1500 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 36:
-#line 182 "skl_language_parser.y" /* yacc.c:1646  */
+  case 33:
+#line 176 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_binary_expression(expression_action_lt ,(yyvsp[-2].expression),(yyvsp[0].expression));
+        (yyval.expression) = create_binary_expression(expression_action_eq ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1508 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 37:
-#line 186 "skl_language_parser.y" /* yacc.c:1646  */
+  case 34:
+#line 180 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_binary_expression(expression_action_gt ,(yyvsp[-2].expression),(yyvsp[0].expression));
+        (yyval.expression) = create_binary_expression(expression_action_ne ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1516 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 38:
-#line 190 "skl_language_parser.y" /* yacc.c:1646  */
+  case 36:
+#line 188 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_binary_expression(expression_action_le ,(yyvsp[-2].expression),(yyvsp[0].expression));
+        (yyval.expression) = create_binary_expression(expression_action_lt ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1524 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 39:
-#line 194 "skl_language_parser.y" /* yacc.c:1646  */
+  case 37:
+#line 192 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_binary_expression(expression_action_ge ,(yyvsp[-2].expression),(yyvsp[0].expression));
+        (yyval.expression) = create_binary_expression(expression_action_gt ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1532 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 41:
-#line 202 "skl_language_parser.y" /* yacc.c:1646  */
+  case 38:
+#line 196 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_binary_expression(expression_action_add ,(yyvsp[-2].expression),(yyvsp[0].expression));
+        (yyval.expression) = create_binary_expression(expression_action_le ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1540 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 42:
-#line 206 "skl_language_parser.y" /* yacc.c:1646  */
+  case 39:
+#line 200 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_binary_expression(expression_action_sub ,(yyvsp[-2].expression),(yyvsp[0].expression));
+        (yyval.expression) = create_binary_expression(expression_action_ge ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1548 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 44:
-#line 214 "skl_language_parser.y" /* yacc.c:1646  */
+  case 41:
+#line 208 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_binary_expression(expression_action_div ,(yyvsp[-2].expression),(yyvsp[0].expression));
+        (yyval.expression) = create_binary_expression(expression_action_add ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1556 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 45:
-#line 218 "skl_language_parser.y" /* yacc.c:1646  */
+  case 42:
+#line 212 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_binary_expression(expression_action_mul ,(yyvsp[-2].expression),(yyvsp[0].expression));
+        (yyval.expression) = create_binary_expression(expression_action_sub ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1564 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 46:
-#line 225 "skl_language_parser.y" /* yacc.c:1646  */
+  case 44:
+#line 220 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = (yyvsp[0].expression);
+        (yyval.expression) = create_binary_expression(expression_action_div ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1572 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 47:
-#line 229 "skl_language_parser.y" /* yacc.c:1646  */
+  case 45:
+#line 224 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = (yyvsp[-1].expression);
+        (yyval.expression) = create_binary_expression(expression_action_mul ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
 #line 1580 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 48:
-#line 233 "skl_language_parser.y" /* yacc.c:1646  */
+  case 46:
+#line 231 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_identifier_expression((yyvsp[0].identifier));
+        (yyval.expression) = (yyvsp[0].expression);
     }
 #line 1588 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 49:
-#line 237 "skl_language_parser.y" /* yacc.c:1646  */
+  case 47:
+#line 235 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_string_expression((yyvsp[0].identifier));
+        (yyval.expression) = (yyvsp[-1].expression);
     }
 #line 1596 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 50:
-#line 241 "skl_language_parser.y" /* yacc.c:1646  */
+  case 48:
+#line 239 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_integer_expression((yyvsp[0].integer));
+        (yyval.expression) = create_identifier_expression((yyvsp[0].identifier));
     }
 #line 1604 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 51:
-#line 245 "skl_language_parser.y" /* yacc.c:1646  */
+  case 49:
+#line 243 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_double_expression((yyvsp[0].db));
+        (yyval.expression) = create_string_expression((yyvsp[0].identifier));
     }
 #line 1612 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 52:
-#line 249 "skl_language_parser.y" /* yacc.c:1646  */
+  case 50:
+#line 247 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_call_function_expression((yyvsp[-2].identifier) ,NULL);
+        (yyval.expression) = create_integer_expression((yyvsp[0].integer));
     }
 #line 1620 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 53:
-#line 253 "skl_language_parser.y" /* yacc.c:1646  */
+  case 51:
+#line 251 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression) = create_call_function_expression((yyvsp[-3].identifier) ,(yyvsp[-1].expression_list));
+        (yyval.expression) = create_double_expression((yyvsp[0].db));
     }
 #line 1628 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
+  case 52:
+#line 255 "skl_language_parser.y" /* yacc.c:1646  */
+    {
+        (yyval.expression) = create_call_function_expression((yyvsp[-2].identifier) ,NULL);
+    }
+#line 1636 "skl_language_parser.c" /* yacc.c:1646  */
+    break;
+
+  case 53:
+#line 259 "skl_language_parser.y" /* yacc.c:1646  */
+    {
+        (yyval.expression) = create_call_function_expression((yyvsp[-3].identifier) ,(yyvsp[-1].expression_list));
+    }
+#line 1644 "skl_language_parser.c" /* yacc.c:1646  */
+    break;
+
   case 55:
-#line 260 "skl_language_parser.y" /* yacc.c:1646  */
+#line 266 "skl_language_parser.y" /* yacc.c:1646  */
     {(yyval.expression)=NULL;}
-#line 1634 "skl_language_parser.c" /* yacc.c:1646  */
-    break;
-
-  case 56:
-#line 265 "skl_language_parser.y" /* yacc.c:1646  */
-    {
-        (yyval.param_list) = create_param_list((yyvsp[0].identifier));
-    }
-#line 1642 "skl_language_parser.c" /* yacc.c:1646  */
-    break;
-
-  case 57:
-#line 269 "skl_language_parser.y" /* yacc.c:1646  */
-    {
-        (yyval.param_list) = insert_param_list((yyvsp[-2].param_list) ,(yyvsp[0].identifier));
-    }
 #line 1650 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 58:
-#line 276 "skl_language_parser.y" /* yacc.c:1646  */
+  case 56:
+#line 271 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression_list) = create_call_param_list((yyvsp[0].expression));
+        (yyval.param_list) = create_param_list((yyvsp[0].identifier));
     }
 #line 1658 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
-  case 59:
-#line 280 "skl_language_parser.y" /* yacc.c:1646  */
+  case 57:
+#line 275 "skl_language_parser.y" /* yacc.c:1646  */
     {
-        (yyval.expression_list) = insert_call_param_list((yyvsp[-2].expression_list) ,(yyvsp[0].expression));
+        (yyval.param_list) = insert_param_list((yyvsp[-2].param_list) ,(yyvsp[0].identifier));
     }
 #line 1666 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
+  case 58:
+#line 282 "skl_language_parser.y" /* yacc.c:1646  */
+    {
+        (yyval.expression_list) = create_call_param_list((yyvsp[0].expression));
+    }
+#line 1674 "skl_language_parser.c" /* yacc.c:1646  */
+    break;
 
-#line 1670 "skl_language_parser.c" /* yacc.c:1646  */
+  case 59:
+#line 286 "skl_language_parser.y" /* yacc.c:1646  */
+    {
+        (yyval.expression_list) = insert_call_param_list((yyvsp[-2].expression_list) ,(yyvsp[0].expression));
+    }
+#line 1682 "skl_language_parser.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1686 "skl_language_parser.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

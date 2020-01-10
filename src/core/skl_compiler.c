@@ -8,16 +8,18 @@
 #include "skl_compiler.h"
 
 //
-hash_t *global_function_table, *global_variable_table;
+hash_t *global_function_table, *global_variable_table, *global_script_table;
 //
 statement_list_t *global_statement_list;
-
+//
 /**
  * 初始化编译器
  */
-void init_compiler() {
+void init_compiler(char *filename) {
     global_function_table = create_hash();
     global_variable_table = create_hash();
+    CURRENT_FILENAME = filename;
+    CURRENT_LINE = 0;
     //
     global_statement_list = (statement_list_t *) memory_alloc(sizeof(statement_list_t));
     global_statement_list->top = global_statement_list->tail = NULL;
@@ -75,6 +77,10 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
     function->is_native = 0;
     function->statement_list = statement_list;
     function->param_list = param_list;
+    void *function_exist = find_hash(global_function_table, identifier, strlen(identifier));
+    if (is_not_empty(function_exist)) {
+        error_exception("(%s:%d) Function: %s has been defined!", CURRENT_FILENAME, CURRENT_LINE, identifier);
+    }
     // 插入函数
     insert_or_update_hash(global_function_table, identifier, strlen(identifier), (void *) function);
     return function;
@@ -291,7 +297,7 @@ expression_t *create_identifier_expression(char *identifier) {
  * @param action
  * @param left
  * @param right
- * @return
+ * @return 
  */
 expression_t *create_binary_expression(enum expression_action_e action, expression_t *left, expression_t *right) {
     binary_expression_t *be = (binary_expression_t *) memory_alloc(sizeof(binary_expression_t));

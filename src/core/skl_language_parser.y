@@ -173,7 +173,13 @@ expression: equality_expression
 // 等值表达式
 equality_expression: relational_expression
     | equality_expression T_EQ relational_expression
+    {
+        $$ = create_binary_expression(expression_action_eq ,$1,$3);
+    }
     | equality_expression T_NE relational_expression
+    {
+        $$ = create_binary_expression(expression_action_ne ,$1,$3);
+    }
     ;
 
 // 关联表达式（加法）

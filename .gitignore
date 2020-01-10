@@ -5,3 +5,4 @@ src/core/y.tab.c
 src/core/t.info
 bin/
 core*
+*.info

@@ -10,7 +10,7 @@ int yywrap(void)
 }
 
 void yyerror(char *s) {
-    printf("Error Error Error here %s\n", s);
+    printf("[Error] %s:%s(%d)\n",CURRENT_FILENAME, s, CURRENT_LINE);
 }
 %}
 
@@ -62,13 +62,16 @@ void yyerror(char *s) {
     return T_DOUBLE_LITERAL;
 }
 
-<INITIAL>[ \t]    ;
-
+<INITIAL>[ \t\r]                      ;
+<INITIAL>"\n"                       {
+    CURRENT_LINE++;
+}
 <INITIAL>("#"|"//")[^\n]*           {
     BEGIN COMMENT;
 }
 
 <INITIAL>.                          {
+    CURRENT_LINE++;
     yyerror(yytext);
 }
 
@@ -78,6 +81,7 @@ void yyerror(char *s) {
 }
 
 <COMMENT>\n                         {
+    CURRENT_LINE++;
     BEGIN INITIAL;
 }
 

@@ -29,8 +29,9 @@ enum variable_type_e {
 struct variable_s {
     enum variable_type_e type;
     char *identifier;
+
     union {
-        char b;
+        int b;
         char *str;
         unsigned int str_len;
         int i;
@@ -46,7 +47,7 @@ variable_t *create_double_variable(char *identifier, double d);
 
 variable_t *create_null_variable(char *identifier);
 
-variable_t *create_bool_variable(char *identifier, char b);
+variable_t *create_bool_variable(char *identifier, int b);
 
 #endif /* SKL_VARIABLE_H */
 

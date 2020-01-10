@@ -3,11 +3,18 @@
 //
 #include "skl_exception.h"
 
+/**
+ * 错误异常
+ * @param format
+ * @param ...
+ */
 void error_exception(char *format, ...) {
     va_list args;
-    fprintf(error_fd, "[%s] ", EXCEPTION_ERROR);
+    char *time_format = get_current_timestamp();
+    fprintf(error_fd, "[%s] [%s]", EXCEPTION_ERROR, get_current_timestamp());
+    memory_free(time_format);
     va_start(args, format);
-    fprintf(error_fd, format, args);
+    vfprintf(error_fd, format, args);
     va_end(args);
     fprintf(error_fd, EOL);
     exit(RET_FAIL);

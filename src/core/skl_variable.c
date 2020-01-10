@@ -8,7 +8,7 @@
  * @return
  */
 variable_t *create_string_variable(char *identifier, char *str, int str_len) {
-    variable_t *v = (variable_t *) memory_alloc(sizeof(variable_t));
+    variable_t *v = (variable_t *) memory_alloc(sizeof (variable_t));
     v->type = variable_type_string;
     v->identifier = identifier;
     v->value.str = str;
@@ -23,7 +23,7 @@ variable_t *create_string_variable(char *identifier, char *str, int str_len) {
  * @return
  */
 variable_t *create_integer_variable(char *identifier, int i) {
-    variable_t *v = (variable_t *) memory_alloc(sizeof(variable_t));
+    variable_t *v = (variable_t *) memory_alloc(sizeof (variable_t));
     v->type = variable_type_int;
     v->identifier = identifier;
     v->value.i = i;
@@ -37,7 +37,7 @@ variable_t *create_integer_variable(char *identifier, int i) {
  * @return
  */
 variable_t *create_double_variable(char *identifier, double d) {
-    variable_t *v = (variable_t *) memory_alloc(sizeof(variable_t));
+    variable_t *v = (variable_t *) memory_alloc(sizeof (variable_t));
     v->type = variable_type_double;
     v->identifier = identifier;
     v->value.d = d;
@@ -50,19 +50,20 @@ variable_t *create_double_variable(char *identifier, double d) {
  * @return
  */
 variable_t *create_null_variable(char *identifier) {
-    variable_t *v = (variable_t *) memory_alloc(sizeof(variable_t));
+    variable_t *v = (variable_t *) memory_alloc(sizeof (variable_t));
     v->type = variable_type_null;
     v->identifier = identifier;
     return v;
 }
+
 /**
  *
  * @param identifier
  * @param b
  * @return
  */
-variable_t *create_bool_variable(char *identifier, char b){
-    variable_t *v = (variable_t *) memory_alloc(sizeof(variable_t));
+variable_t *create_bool_variable(char *identifier, int b) {
+    variable_t *v = (variable_t *) memory_alloc(sizeof (variable_t));
     v->type = variable_type_bool;
     v->identifier = identifier;
     v->value.b = b;

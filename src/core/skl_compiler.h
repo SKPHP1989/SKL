@@ -10,6 +10,9 @@
 
 #include "skl_core.h"
 
+int CURRENT_LINE;
+char *CURRENT_FILENAME;
+
 typedef union expression_uni expression_u;
 typedef struct expression_s expression_t;
 typedef struct function_expression_s function_expression_t;
@@ -54,6 +57,7 @@ enum value_type_e {
     value_type_integer = 1,
     value_type_double,
     value_type_string,
+    value_type_bool,
     value_type_identifier,
     value_type_invalid
 };
@@ -68,6 +72,7 @@ struct primary_expression_s {
     union {
         int i;
         double d;
+        int b;
         char *string;
         char *identifier;
     } u;
@@ -174,7 +179,7 @@ struct function_s {
 };
 
 //初始化编译器
-void init_compiler(void);
+void init_compiler(char *filename);
 
 //
 char *malloc_string(char *s);

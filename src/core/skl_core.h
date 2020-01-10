@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <time.h>
+#include<sys/time.h>
 // system
 #include "skl_hash.h"
 #include "skl_compiler.h"
@@ -12,6 +14,7 @@
 #include "skl_function.h"
 #include "skl_variable.h"
 #include "skl_exception.h"
+#include "skl_util.h"
 
 
 #define SKL_VERSION         "0.0.1"
@@ -26,5 +29,6 @@
 
 #define EOL "\n"
 #define is_empty(p) (p==NULL)
+#define is_not_empty(p) (p!=NULL)
 
 #endif /* SKL_H */

@@ -22,6 +22,7 @@ gcc -c -g skl_execute.c -o ${SKL_OBJS_PATH}skl_execute.o
 gcc -c -g skl_execute_operate.c -o ${SKL_OBJS_PATH}skl_execute_operate.o
 gcc -c -g skl_memory.c -o ${SKL_OBJS_PATH}skl_memory.o
 gcc -c -g skl_exception.c -o ${SKL_OBJS_PATH}skl_exception.o
+gcc -c -g skl_util.c -o ${SKL_OBJS_PATH}skl_util.o
 
 # 编译
 cd ${SKL_CURRENT_PATH}
@@ -35,6 +36,7 @@ gcc ${SKL_OBJS_PATH}skl.o \
     ${SKL_OBJS_PATH}skl_execute_operate.o \
     ${SKL_OBJS_PATH}skl_memory.o \
     ${SKL_OBJS_PATH}skl_exception.o \
+    ${SKL_OBJS_PATH}skl_util.o \
     -o ${SKL_BIN_PATH}skl -lm
 
 echo "编译成功"

@@ -361,8 +361,8 @@ static void yynoreturn yy_fatal_error (yyconst char* msg  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 34
-#define YY_END_OF_BUFFER 35
+#define YY_NUM_RULES 35
+#define YY_END_OF_BUFFER 36
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -372,11 +372,11 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[84] =
     {   0,
-        0,    0,    0,    0,   35,   30,   28,   34,   30,   30,
-       29,   16,   17,    7,    5,   24,    6,    8,   26,   26,
+        0,    0,    0,    0,   36,   31,   28,   29,   31,   31,
+       30,   16,   17,    7,    5,   24,    6,    8,   26,   26,
        20,   14,    9,   12,   25,   25,   25,   25,   25,   25,
-       25,   25,   18,   19,   33,   32,   11,    0,   31,    0,
-       29,   29,    0,    0,   26,   15,   10,   13,   25,    0,
+       25,   25,   18,   19,   34,   33,   11,    0,   32,    0,
+       30,   30,    0,    0,   26,   15,   10,   13,   25,    0,
        25,   25,   25,   25,   25,    4,   25,   27,   25,   25,
         3,   25,   25,   25,   25,   25,   25,   25,   25,   21,
        25,   25,   25,   25,   25,   25,    2,   23,   25,   25,
@@ -386,7 +386,7 @@ static yyconst flex_int16_t yy_accept[84] =
 static yyconst YY_CHAR yy_ec[256] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    4,    5,    6,    1,    1,    1,    1,    7,
         8,    9,   10,   11,   12,   13,   14,   15,   16,   16,
@@ -518,7 +518,7 @@ int yywrap(void)
 }
 
 void yyerror(char *s) {
-    printf("Error Error Error here %s\n", s);
+    printf("[Error] %s:%s(%d)\n",CURRENT_FILENAME, s, CURRENT_LINE);
 }
 
 #line 525 "skl_language_scanner.c"
@@ -954,47 +954,57 @@ YY_RULE_SETUP
 ;
 	YY_BREAK
 case 29:
+/* rule 29 can match eol */
 YY_RULE_SETUP
-#line 67 "skl_language_scanner.l"
+#line 66 "skl_language_scanner.l"
 {
-    BEGIN COMMENT;
+    CURRENT_LINE++;
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 71 "skl_language_scanner.l"
+#line 69 "skl_language_scanner.l"
 {
-    yyerror(yytext);
+    BEGIN COMMENT;
 }
 	YY_BREAK
 case 31:
-/* rule 31 can match eol */
 YY_RULE_SETUP
-#line 75 "skl_language_scanner.l"
+#line 73 "skl_language_scanner.l"
 {
-    yylval.identifier = malloc_string(yytext);
-    return T_STRING_LITERAL;
+    CURRENT_LINE++;
+    yyerror(yytext);
 }
 	YY_BREAK
 case 32:
 /* rule 32 can match eol */
 YY_RULE_SETUP
-#line 80 "skl_language_scanner.l"
+#line 78 "skl_language_scanner.l"
 {
-    BEGIN INITIAL;
+    yylval.identifier = malloc_string(yytext);
+    return T_STRING_LITERAL;
 }
 	YY_BREAK
 case 33:
+/* rule 33 can match eol */
 YY_RULE_SETUP
-#line 84 "skl_language_scanner.l"
-;
+#line 83 "skl_language_scanner.l"
+{
+    CURRENT_LINE++;
+    BEGIN INITIAL;
+}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 86 "skl_language_scanner.l"
+#line 88 "skl_language_scanner.l"
+;
+	YY_BREAK
+case 35:
+YY_RULE_SETUP
+#line 90 "skl_language_scanner.l"
 ECHO;
 	YY_BREAK
-#line 998 "skl_language_scanner.c"
+#line 1008 "skl_language_scanner.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();
@@ -1996,6 +2006,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 86 "skl_language_scanner.l"
+#line 90 "skl_language_scanner.l"
 
 
