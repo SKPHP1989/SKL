@@ -12,6 +12,7 @@
 
 int CURRENT_LINE;
 char *CURRENT_FILENAME;
+char *CURRENT_SCRIPT_PATH;
 
 typedef union expression_uni expression_u;
 typedef struct expression_s expression_t;
@@ -69,6 +70,7 @@ struct function_expression_s {
 
 struct primary_expression_s {
     enum value_type_e type;
+
     union {
         int i;
         double d;
@@ -126,14 +128,17 @@ struct for_statement_s {
 
 struct if_statement_s {
     expression_t *expression;
-    statement_list_t *statement_list;
+    statement_list_t *if_statement_list;
+    statement_list_t *else_statement_list;
 };
 
 struct return_statement_s {
     expression_t *expression;
 };
+
 struct statement_s {
     enum statement_type_e type;
+
     union {
         expression_statement_t *e;
         for_statement_t *f;
@@ -146,10 +151,12 @@ struct statement_list_s {
     statement_list_item_t *top;
     statement_list_item_t *tail;
 };
+
 struct statement_list_item_s {
     statement_list_item_t *next;
     statement_t *statement;
 };
+
 struct expression_list_s {
     expression_list_item_t *top;
     expression_list_item_t *tail;
@@ -185,7 +192,10 @@ void init_compiler(char *filename);
 char *malloc_string(char *s);
 
 // 设置语句列表
-void *set_global_statement_list(statement_t *statement);
+void set_global_statement_list(statement_t *statement);
+
+// 创建包含语句
+void create_include_statment(char *filename);
 
 // 获取语句列表
 statement_list_t *get_global_statement_list();
@@ -197,11 +207,11 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
 statement_t *create_expression_statement(expression_t *expression);
 
 // 创建if语句
-statement_t *create_if_statement(expression_t *condition, statement_list_t *statement_list);
+statement_t *create_if_statement(expression_t *condition, statement_list_t *if_statement_list, statement_list_t *else_statement_list);
 
 // 创建for表达式
 statement_t *create_for_statement(expression_t *before, expression_t *condition, expression_t *after,
-                                  statement_list_t *statement_list);
+        statement_list_t *statement_list);
 
 // 创建return语句
 statement_t *create_return_statement(expression_t *expression);

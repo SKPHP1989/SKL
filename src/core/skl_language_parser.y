@@ -21,9 +21,10 @@
 %token <integer> T_INT_LITERAL
 %token <db> T_DOUBLE_LITERAL
 
-%token  <identifier>T_FUNCTION T_GLOBAL T_FOR T_IF T_ADD T_SUB T_MUL T_DIV T_ASSIGN
+%token  <identifier>T_FUNCTION T_GLOBAL T_FOR T_IF T_ELSE T_ADD T_SUB T_MUL T_DIV T_ASSIGN
         T_EQ T_NE T_GT T_GE T_LT T_LE T_LP T_RP T_LC T_RC T_SEMICOLON T_IDENTIFIER
         T_BREAK T_CONTINUE T_RETURN T_COMMA T_STRING_LITERAL
+        T_INCLUDE
 
 %type <param_list> param_list
 
@@ -73,6 +74,7 @@ can_top_statement: expression_statement
     | for_statement
     | if_statement
     | return_statement
+    | include_statement
     ;
 
 // 不能置顶语句
@@ -85,6 +87,12 @@ all_statement: can_top_statement
     | cannot_top_statement
     ;
 
+//包含表达式
+include_statement: T_INCLUDE T_STRING_LITERAL
+    {
+        create_include_statment($2);
+    }
+    ;
 // 表达式语句
 // 例子: 1+2+3;(虽然无用)
 expression_statement: expression T_SEMICOLON
@@ -110,7 +118,11 @@ break_statement: T_BREAK T_SEMICOLON
 // if语句
 if_statement: T_IF T_LP expression T_RP statement_block
     {
-        $$ = create_if_statement($3 ,$5);
+        $$ = create_if_statement($3 ,$5 ,NULL);
+    }
+    | T_IF T_LP expression T_RP statement_block T_ELSE statement_block
+    {
+        $$ = create_if_statement($3 ,$5 ,$7);
     }
     ;
 

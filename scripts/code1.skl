@@ -1,5 +1,60 @@
 # 123123
 # ASD
+include "/opt/app/SKL/scripts/include_code.skl";
+
 var1 = 1 == 4;
 var2 = 10;
 var3 = 11;
+var4 = 123;
+var5 = 1;
+var6 =1.2+81+123;
+test10(1,2);
+function test(var1 ,var2){
+    if(var1>var2){
+        return var1 + var2;
+    }else{
+        return var1 - var2;
+    }
+}
+function test2(var1 ,var2){
+    if(var1>var2){
+        return var1 + var2;
+    }else{
+        return var1 - var2;
+    }
+}
+function test3(var1 ,var2){
+    if(var1>var2){
+        return var1 + var2;
+    }else{
+        return var1 - var2;
+    }
+}
+function test4(var1 ,var2){
+    if(var1>var2){
+        return var1 + var2;
+    }else{
+        return var1 - var2;
+    }
+}
+function test5(var1 ,var2){
+    if(var1>var2){
+        return var1 + var2;
+    }else{
+        return var1 - var2;
+    }
+}
+function test6(var1 ,var2){
+    if(var1>var2){
+        return var1 + var2;
+    }else{
+        return var1 - var2;
+    }
+}
+function test7(var1 ,var2){
+    if(var1>var2){
+        return var1 + var2;
+    }else{
+        return var1 - var2;
+    }
+}

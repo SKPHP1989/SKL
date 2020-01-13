@@ -51,28 +51,30 @@ extern int yydebug;
     T_GLOBAL = 261,
     T_FOR = 262,
     T_IF = 263,
-    T_ADD = 264,
-    T_SUB = 265,
-    T_MUL = 266,
-    T_DIV = 267,
-    T_ASSIGN = 268,
-    T_EQ = 269,
-    T_NE = 270,
-    T_GT = 271,
-    T_GE = 272,
-    T_LT = 273,
-    T_LE = 274,
-    T_LP = 275,
-    T_RP = 276,
-    T_LC = 277,
-    T_RC = 278,
-    T_SEMICOLON = 279,
-    T_IDENTIFIER = 280,
-    T_BREAK = 281,
-    T_CONTINUE = 282,
-    T_RETURN = 283,
-    T_COMMA = 284,
-    T_STRING_LITERAL = 285
+    T_ELSE = 264,
+    T_ADD = 265,
+    T_SUB = 266,
+    T_MUL = 267,
+    T_DIV = 268,
+    T_ASSIGN = 269,
+    T_EQ = 270,
+    T_NE = 271,
+    T_GT = 272,
+    T_GE = 273,
+    T_LT = 274,
+    T_LE = 275,
+    T_LP = 276,
+    T_RP = 277,
+    T_LC = 278,
+    T_RC = 279,
+    T_SEMICOLON = 280,
+    T_IDENTIFIER = 281,
+    T_BREAK = 282,
+    T_CONTINUE = 283,
+    T_RETURN = 284,
+    T_COMMA = 285,
+    T_STRING_LITERAL = 286,
+    T_INCLUDE = 287
   };
 #endif
 /* Tokens.  */
@@ -82,28 +84,30 @@ extern int yydebug;
 #define T_GLOBAL 261
 #define T_FOR 262
 #define T_IF 263
-#define T_ADD 264
-#define T_SUB 265
-#define T_MUL 266
-#define T_DIV 267
-#define T_ASSIGN 268
-#define T_EQ 269
-#define T_NE 270
-#define T_GT 271
-#define T_GE 272
-#define T_LT 273
-#define T_LE 274
-#define T_LP 275
-#define T_RP 276
-#define T_LC 277
-#define T_RC 278
-#define T_SEMICOLON 279
-#define T_IDENTIFIER 280
-#define T_BREAK 281
-#define T_CONTINUE 282
-#define T_RETURN 283
-#define T_COMMA 284
-#define T_STRING_LITERAL 285
+#define T_ELSE 264
+#define T_ADD 265
+#define T_SUB 266
+#define T_MUL 267
+#define T_DIV 268
+#define T_ASSIGN 269
+#define T_EQ 270
+#define T_NE 271
+#define T_GT 272
+#define T_GE 273
+#define T_LT 274
+#define T_LE 275
+#define T_LP 276
+#define T_RP 277
+#define T_LC 278
+#define T_RC 279
+#define T_SEMICOLON 280
+#define T_IDENTIFIER 281
+#define T_BREAK 282
+#define T_CONTINUE 283
+#define T_RETURN 284
+#define T_COMMA 285
+#define T_STRING_LITERAL 286
+#define T_INCLUDE 287
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -123,7 +127,7 @@ union YYSTYPE
     function_t *function;
     param_list_t *param_list;
 
-#line 127 "skl_language_parser.h" /* yacc.c:1909  */
+#line 131 "skl_language_parser.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

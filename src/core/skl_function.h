@@ -14,7 +14,11 @@
 #ifndef SKL_FUNCTION_H
 #define SKL_FUNCTION_H
 
+#include "skl_core.h"
 
+void function_print(char *fmt, ...);
 
+void function_var_dump(void *var, ...);
+
+void function_echo(char *msg);
 #endif /* SKL_FUNCTION_H */
-

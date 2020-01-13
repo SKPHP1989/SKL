@@ -22,6 +22,7 @@ void yyerror(char *s) {
 <INITIAL>"global"    return T_GLOBAL;
 <INITIAL>"for"       return T_FOR;
 <INITIAL>"if"        return T_IF;
+<INITIAL>"else"        return T_ELSE;
 <INITIAL>"+"         return T_ADD;
 <INITIAL>"-"         return T_SUB;
 <INITIAL>"*"         return T_MUL;
@@ -41,6 +42,7 @@ void yyerror(char *s) {
 <INITIAL>"break"     return T_BREAK;
 <INITIAL>"continue"  return T_CONTINUE;
 <INITIAL>"return"    return T_RETURN;
+<INITIAL>"include"   return T_INCLUDE;
 <INITIAL>","         return T_COMMA;
 
 <INITIAL>[A-Za-z_][A-Za-z_0-9]*     {
@@ -76,7 +78,7 @@ void yyerror(char *s) {
 }
 
 <INITIAL>L?\"(\\.|[^\\"])*\" {
-    yylval.identifier = malloc_string(yytext);
+    yylval.identifier = malloc_string_trim(yytext);
     return T_STRING_LITERAL;
 }
 

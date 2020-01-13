@@ -39,9 +39,11 @@ struct expression_result_s {
 
 void execute();
 
-void before_execute();
+void execute_statement(hash_t *variable_table);
 
-void after_execute();
+void execute_before();
+
+void execute_after();
 
 expression_result_t *execute_assign_expression(assign_expression_t *ae, hash_t *variable_table);
 
@@ -49,10 +51,8 @@ expression_result_t *execute_expression(expression_t *expression, hash_t *variab
 
 expression_result_t *execute_primary_expression(primary_expression_t *pe);
 
-expression_result_t *execute_function_expression(function_expression_t *fe, hash_t *function_variable_table);
 
 expression_result_t *execute_binary_expression(binary_expression_t *be, hash_t *variable_table);
 
-void print_expression_result(expression_result_t *res);
 #endif /* SKL_EXECUTE_H */
 

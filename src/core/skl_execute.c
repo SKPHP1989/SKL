@@ -6,22 +6,33 @@
 
 #include "skl_execute.h"
 #include "skl_execute_operate.h"
+#include "skl_execute_function.h"
+#include "skl_execute_debug.h"
 
 extern hash_t *global_function_table;
 extern hash_t *global_variable_table;
 extern statement_list_t *global_statement_list;
 
 /**
- * 执行语句
+ * 执行
  */
 void execute() {
+    execute_statement(global_variable_table);
+}
+
+/**
+ * 执行语句
+ */
+void execute_statement(hash_t *variable_table) {
+    statement_list_item_t *current_p;
     statement_list_item_t *current = global_statement_list->top;
-    before_execute();
+    current_p = current;
+    execute_before();
     while (current) {
         statement_t *statement = current->statement;
         switch (statement->type) {
             case statement_type_expression:
-                execute_expression(statement->u.e->expression, global_function_table);
+                execute_expression(statement->u.e->expression, variable_table);
                 break;
             case statement_type_return:
                 break;
@@ -39,15 +50,24 @@ void execute() {
                 error_exception("Undefined statement type(%d)!", statement->type);
         }
         current = current->next;
+        //內存释放
+        memory_free(statement);
+        memory_free(current_p);
     }
-    after_execute();
+    execute_after();
 }
 
-void before_execute() {
+/**
+ * 
+ */
+void execute_before() {
     printf("before_excute\n");
 }
 
-void after_execute() {
+/**
+ * 
+ */
+void execute_after() {
     printf("after_excute\n");
 }
 
@@ -105,20 +125,7 @@ expression_result_t *execute_assign_expression(assign_expression_t *ae, hash_t *
     return res;
 }
 
-/**
- * 
- * @param fe
- * @param function_variable_table
- * @return 
- */
-expression_result_t *execute_function_expression(function_expression_t *fe, hash_t *function_variable_table) {
-    expression_result_t *er;
-    function_t *function;
-    function = (function_t *) find_hash(global_function_table, fe->function_name, strlen(fe->function_name));
-    if (is_empty(function)) {
-        error_exception("Function:%s not be found!", fe->function_name);
-    }
-}
+
 
 /**
  * 执行二元表达式
@@ -165,31 +172,8 @@ expression_result_t *execute_binary_expression(binary_expression_t *be, hash_t *
     }
     //销毁
     memory_free(be);
+    print_expression_result(res);
     return res;
-}
-
-/**
- * 打印表达式结果
- * @param res
- */
-void print_expression_result(expression_result_t *res) {
-    switch (res->type) {
-        case expression_result_type_int:
-            printf("expression_result_type_int:%d\n", res->value.i);
-            break;
-        case expression_result_type_double:
-            printf("expression_result_type_double:%f\n", res->value.d);
-            break;
-        case expression_result_type_string:
-            printf("expression_result_type_string:%s\n", res->value.s);
-            break;
-        case expression_result_type_bool:
-            printf("expression_result_type_bool:%d\n", res->value.b);
-            break;
-        case expression_result_type_variable:
-            printf("expression_result_type_variable:%s\n", res->value.s);
-            break;
-    }
 }
 
 /**
