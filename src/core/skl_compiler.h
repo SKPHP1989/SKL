@@ -21,6 +21,7 @@ typedef struct primary_expression_s primary_expression_t;
 typedef struct binary_expression_s binary_expression_t;
 typedef struct assign_expression_s assign_expression_t;
 typedef struct expression_statement_s expression_statement_t;
+typedef struct include_statement_s include_statement_t;
 typedef struct for_statement_s for_statement_t;
 typedef struct if_statement_s if_statement_t;
 typedef struct return_statement_s return_statement_t;
@@ -112,11 +113,15 @@ enum statement_type_e {
     statement_type_continue,
     statement_type_return,
     statement_type_global,
-
+    statement_type_include
 };
 
 struct expression_statement_s {
     expression_t *expression;
+};
+
+struct include_statement_s {
+    char *filename;
 };
 
 struct for_statement_s {
@@ -144,6 +149,7 @@ struct statement_s {
         for_statement_t *f;
         if_statement_t *i;
         return_statement_t *r;
+        include_statement_t *in;
     } u;
 };
 
@@ -194,8 +200,11 @@ char *malloc_string(char *s);
 // 设置语句列表
 void set_global_statement_list(statement_t *statement);
 
+// 设置include语句列表
+void set_global_include_statement_list(statement_t *statement);
+
 // 创建包含语句
-void create_include_statment(char *filename);
+statement_t *create_include_statment(char *filename);
 
 // 获取语句列表
 statement_list_t *get_global_statement_list();

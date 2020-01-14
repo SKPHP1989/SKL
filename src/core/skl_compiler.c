@@ -9,39 +9,14 @@
 
 // 加载编译器配置
 extern int yyparse(void);
+//
 extern FILE *yyin;
 //
 hash_t *global_function_table, *global_variable_table, *global_script_table;
 //
-statement_list_t *global_statement_list;
+statement_list_t *global_statement_list, *global_include_statement_list;
 
-/**
- * 创建包含语句
- * @param filename
- */
-void create_include_statment(char *filename) {
-    FILE *before_input, *current_input;
-    char *real_filename;
-    //绝对路径
-    printf("filename=%s\n",filename);
-    if (*filename == '/') {
-        real_filename = filename;
-    } else {
-        real_filename = string_splice(CURRENT_SCRIPT_PATH, filename);
-    }
-    printf("real_filename=%s\n", real_filename);
-    current_input = fopen(real_filename, "r");
-    if (current_input == NULL) {
-        error_exception("Filename:%s not found!", real_filename);
-    }
-    before_input = yyin;
-    yyin = current_input;
-    if (yyparse()) {
-        error_exception("System parse failed !");
-    }
-    yyin = before_input;
-    memory_free(filename);
-}
+int global_include_mode;
 
 /**
  * 初始化编译器
@@ -51,10 +26,14 @@ void init_compiler(char *filename) {
     global_variable_table = create_hash();
     CURRENT_FILENAME = filename;
     CURRENT_LINE = 0;
-    CURRENT_SCRIPT_PATH = getwd(CURRENT_FILENAME);
     //
     global_statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
     global_statement_list->top = global_statement_list->tail = NULL;
+    //
+    global_include_statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
+    global_include_statement_list->top = global_include_statement_list->tail = NULL;
+    //
+    global_include_mode = 0;
 }
 
 /**
@@ -64,6 +43,9 @@ void init_compiler(char *filename) {
  * @return
  */
 void set_global_statement_list(statement_t *statement) {
+    if (global_include_mode) {
+        return set_global_include_statement_list(statement);
+    }
     statement_list_item_t *item = (statement_list_item_t *) memory_alloc(sizeof (statement_list_item_t));
     item->statement = statement;
     item->next = NULL;
@@ -75,6 +57,26 @@ void set_global_statement_list(statement_t *statement) {
         global_statement_list->tail = item;
     } else {
         global_statement_list->tail = item;
+        current_item->next = item;
+    }
+}
+
+/**
+ * 
+ * @param statement
+ */
+void set_global_include_statement_list(statement_t *statement) {
+    statement_list_item_t *item = (statement_list_item_t *) memory_alloc(sizeof (statement_list_item_t));
+    item->statement = statement;
+    item->next = NULL;
+    if (is_empty(global_include_statement_list->top)) {
+        global_include_statement_list->top = item;
+    }
+    statement_list_item_t *current_item = global_include_statement_list->tail;
+    if (is_empty(current_item)) {
+        global_include_statement_list->tail = item;
+    } else {
+        global_include_statement_list->tail = item;
         current_item->next = item;
     }
 }
@@ -105,6 +107,19 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
     // 插入函数
     insert_or_update_hash(global_function_table, identifier, strlen(identifier), (void *) function);
     return function;
+}
+
+/**
+ * 创建包含语句
+ * @param filename
+ */
+statement_t *create_include_statment(char *filename) {
+    include_statement_t *is = (include_statement_t *) memory_alloc(sizeof (include_statement_t));
+    is->filename = filename;
+    statement_t *statement = (statement_t *) memory_alloc(sizeof (statement_t));
+    statement->type = statement_type_include;
+    statement->u.in = is;
+    return statement;
 }
 
 /**

@@ -32,4 +32,5 @@
 #define is_empty(p) (p==NULL)
 #define is_not_empty(p) (p!=NULL)
 
+#define FILE_OPT_READ "r"
 #endif /* SKL_H */

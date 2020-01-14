@@ -11,7 +11,8 @@
 
 extern hash_t *global_function_table;
 extern hash_t *global_variable_table;
-extern statement_list_t *global_statement_list;
+extern statement_list_t *global_statement_list, *global_include_statement_list;
+extern int global_include_mode;
 
 /**
  * 执行
@@ -24,9 +25,8 @@ void execute() {
  * 执行语句
  */
 void execute_statement(hash_t *variable_table) {
-    statement_list_item_t *current_p;
+    int is_include = 0;
     statement_list_item_t *current = global_statement_list->top;
-    current_p = current;
     execute_before();
     while (current) {
         statement_t *statement = current->statement;
@@ -46,13 +46,21 @@ void execute_statement(hash_t *variable_table) {
                 break;
             case statement_type_break:
                 break;
+            case statement_type_include:
+                execute_include(statement->u.in);
+                is_include = 1;
+                break;
             default:
                 error_exception("Undefined statement type(%d)!", statement->type);
         }
-        current = current->next;
+        if (is_include) {
+            current = global_statement_list->top;
+            is_include = 0;
+        } else {
+            current = current->next;
+        }
         //內存释放
         memory_free(statement);
-        memory_free(current_p);
     }
     execute_after();
 }
@@ -69,6 +77,36 @@ void execute_before() {
  */
 void execute_after() {
     printf("after_excute\n");
+}
+
+/**
+ * 执行include
+ * @param is
+ */
+void execute_include(include_statement_t *is) {
+    char *filename = is->filename;
+    FILE *input = fopen(filename, FILE_OPT_READ);
+    if (is_empty(input)) {
+        error_exception("File:%s can not be read!", filename);
+    }
+    global_include_mode = 1;
+    yyrestart(input);
+    if (yyparse()) {
+        error_exception("System parse file:%s failed !", filename);
+    }
+    global_include_mode = 0;
+    execute_statement_list_merge();
+    fclose(input);
+    memory_free(filename);
+}
+
+/**
+ * 执行语句列表合并
+ */
+void execute_statement_list_merge() {
+    global_include_statement_list->tail->next = global_statement_list->top->next;
+    global_statement_list->top = global_include_statement_list->top;
+    global_include_statement_list->top = global_include_statement_list->tail = NULL;
 }
 
 /**
@@ -124,8 +162,6 @@ expression_result_t *execute_assign_expression(assign_expression_t *ae, hash_t *
     insert_or_update_hash(variable_table, ae->identifier, strlen(ae->identifier), (void *) v);
     return res;
 }
-
-
 
 /**
  * 执行二元表达式

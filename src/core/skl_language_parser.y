@@ -38,7 +38,7 @@
 
 %type <statement> all_statement expression_statement return_statement continue_statement break_statement
                 for_statement if_statement global_variable_declaration_statement
-                cannot_top_statement can_top_statement
+                cannot_top_statement can_top_statement include_statement
 
 %%
 // 运行单元
@@ -81,16 +81,15 @@ can_top_statement: expression_statement
 cannot_top_statement: break_statement
     | continue_statement
     ;
-
 // 所有的语句
 all_statement: can_top_statement
     | cannot_top_statement
     ;
 
-//包含表达式
-include_statement: T_INCLUDE T_STRING_LITERAL
+// 包含表达式
+include_statement: T_INCLUDE T_STRING_LITERAL T_SEMICOLON
     {
-        create_include_statment($2);
+        $$ = create_include_statment($2);
     }
     ;
 // 表达式语句

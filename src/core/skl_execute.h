@@ -45,12 +45,15 @@ void execute_before();
 
 void execute_after();
 
+void execute_include(include_statement_t *is);
+
+void execute_statement_list_merge();
+
 expression_result_t *execute_assign_expression(assign_expression_t *ae, hash_t *variable_table);
 
 expression_result_t *execute_expression(expression_t *expression, hash_t *variable_table);
 
 expression_result_t *execute_primary_expression(primary_expression_t *pe);
-
 
 expression_result_t *execute_binary_expression(binary_expression_t *be, hash_t *variable_table);
 

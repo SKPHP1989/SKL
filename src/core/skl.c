@@ -27,5 +27,6 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
     execute();
+    fclose(fp);
     return 0;
 }
