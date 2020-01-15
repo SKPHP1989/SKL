@@ -24,6 +24,7 @@ int global_include_mode;
 void init_compiler(char *filename) {
     global_function_table = create_hash();
     global_variable_table = create_hash();
+    global_script_table = create_hash();
     CURRENT_FILENAME = filename;
     CURRENT_LINE = 0;
     //
@@ -32,6 +33,8 @@ void init_compiler(char *filename) {
     //
     global_include_statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
     global_include_statement_list->top = global_include_statement_list->tail = NULL;
+    //
+    insert_or_update_hash(global_script_table, filename, strlen(filename), filename);
     //
     global_include_mode = 0;
 }
@@ -62,7 +65,7 @@ void set_global_statement_list(statement_t *statement) {
 }
 
 /**
- * 
+ * 设置包含语句列表
  * @param statement
  */
 void set_global_include_statement_list(statement_t *statement) {

@@ -21,4 +21,5 @@ void function_print(char *fmt, ...);
 void function_var_dump(void *var, ...);
 
 void function_echo(char *msg);
+
 #endif /* SKL_FUNCTION_H */

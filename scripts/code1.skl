@@ -1,5 +1,8 @@
 # 123123
-include "/opt/app/SKL/scripts/include_code_1.skl";
+
 include "/opt/app/SKL/scripts/include_code_1_1.skl";
+
 include "/opt/app/SKL/scripts/include_code.skl";
+var1 = 1+2;
+include "/opt/app/SKL/scripts/include_code_1_1.skl";
 var1 = 1+2;

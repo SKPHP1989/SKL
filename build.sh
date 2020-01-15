@@ -27,6 +27,8 @@ gcc -c -g skl_variable.c -o ${SKL_OBJS_PATH}skl_variable.o
 gcc -c -g skl_execute.c -o ${SKL_OBJS_PATH}skl_execute.o
 gcc -c -g skl_execute_operate.c -o ${SKL_OBJS_PATH}skl_execute_operate.o
 gcc -c -g skl_execute_function.c -o ${SKL_OBJS_PATH}skl_execute_function.o
+gcc -c -g skl_execute_include.c -o ${SKL_OBJS_PATH}skl_execute_include.o
+gcc -c -g skl_execute_expression.c -o ${SKL_OBJS_PATH}skl_execute_expression.o
 gcc -c -g skl_execute_debug.c -o ${SKL_OBJS_PATH}skl_execute_debug.o
 gcc -c -g skl_memory.c -o ${SKL_OBJS_PATH}skl_memory.o
 gcc -c -g skl_exception.c -o ${SKL_OBJS_PATH}skl_exception.o
@@ -44,6 +46,8 @@ gcc ${SKL_OBJS_PATH}skl.o \
     ${SKL_OBJS_PATH}skl_execute.o \
     ${SKL_OBJS_PATH}skl_execute_operate.o \
     ${SKL_OBJS_PATH}skl_execute_function.o \
+    ${SKL_OBJS_PATH}skl_execute_include.o \
+    ${SKL_OBJS_PATH}skl_execute_expression.o \
     ${SKL_OBJS_PATH}skl_execute_debug.o \
     ${SKL_OBJS_PATH}skl_memory.o \
     ${SKL_OBJS_PATH}skl_exception.o \
