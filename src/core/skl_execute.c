@@ -66,7 +66,6 @@ void execute_statement(hash_t *variable_table) {
         memory_free(statement);
         memory_free(current_p);
     }
-    foreach_hash(global_script_table);
     execute_after();
 }
 
