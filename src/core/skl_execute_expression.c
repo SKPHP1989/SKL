@@ -24,11 +24,7 @@
  */
 expression_result_t *execute_expression_statement(expression_statement_t *et, hash_t *variable_table) {
     expression_t *e = et->expression;
-    expression_result_t *res;
-    res = execute_expression(e, variable_table);
-    memory_free(e);
-    memory_free(et);
-    return res;
+    return execute_expression(e, variable_table);
 }
 
 /**
@@ -38,24 +34,22 @@ expression_result_t *execute_expression_statement(expression_statement_t *et, ha
  * @return 
  */
 expression_result_t *execute_expression(expression_t *e, hash_t *variable_table) {
-    expression_result_t *res;
     switch (e->type) {
         case expression_type_assign:
-            res = execute_assign_expression(e->expression.assign, variable_table);
+            return execute_assign_expression(e->expression.assign, variable_table);
             break;
         case expression_type_func:
-            res = execute_function_expression(e->expression.function, variable_table);
+            return execute_function_expression(e->expression.function, variable_table);
             break;
         case expression_type_binary:
-            res = execute_binary_expression(e->expression.binary, variable_table);
+            return execute_binary_expression(e->expression.binary, variable_table);
             break;
         case expression_type_primary:
-            res = execute_primary_expression(e->expression.primary);
+            return execute_primary_expression(e->expression.primary, variable_table);
             break;
         default:
             error_exception("Undefined epression type(%d)!", e->type);
     }
-    return res;
 }
 
 /**
@@ -65,25 +59,36 @@ expression_result_t *execute_expression(expression_t *e, hash_t *variable_table)
  */
 expression_result_t *execute_assign_expression(assign_expression_t *ae, hash_t *variable_table) {
     expression_result_t *res = execute_expression(ae->expression, variable_table);
-    variable_t *v;
-    switch (res->type) {
-        case expression_result_type_int:
-            v = create_integer_variable(ae->identifier, res->value.i);
-            break;
-        case expression_result_type_double:
-            v = create_double_variable(ae->identifier, res->value.d);
-            break;
-        case expression_result_type_string:
-            v = create_string_variable(ae->identifier, res->value.s, strlen(res->value.s));
-            break;
-        case expression_result_type_bool:
-            v = create_bool_variable(ae->identifier, res->value.b);
-            break;
-        default:
-            error_exception("Undefined assign:%s type(%d)!", ae->identifier, res->type);
-    }
+    variable_t *v = convert_expression_result_to_variable(ae->identifier, res);
     insert_or_update_hash(variable_table, ae->identifier, strlen(ae->identifier), (void *) v);
     return res;
+}
+
+/**
+ * 
+ * @param res
+ * @return 
+ */
+variable_t *convert_expression_result_to_variable(char *identifier, expression_result_t *res) {
+    switch (res->type) {
+        case expression_result_type_int:
+            return create_integer_variable(identifier, res->value.i);
+            break;
+        case expression_result_type_double:
+            return create_double_variable(identifier, res->value.d);
+            break;
+        case expression_result_type_string:
+            return create_string_variable(identifier, res->value.s, strlen(res->value.s));
+            break;
+        case expression_result_type_bool:
+            return create_bool_variable(identifier, res->value.b);
+            break;
+        case expression_result_type_null:
+            return create_null_variable(identifier);
+            break;
+        default:
+            error_exception("Undefined assign:%s type(%d)!", identifier, res->type);
+    }
 }
 
 /**
@@ -129,8 +134,6 @@ expression_result_t *execute_binary_expression(binary_expression_t *be, hash_t *
         default:
             error_exception("Undefined expression action(%d)!", be->action);
     }
-    //销毁
-    memory_free(be);
     print_expression_result(res);
     return res;
 }
@@ -138,9 +141,10 @@ expression_result_t *execute_binary_expression(binary_expression_t *be, hash_t *
 /**
  * 执行基础表达式
  * @param pe
+ * @param variable_table
  * @return 
  */
-expression_result_t *execute_primary_expression(primary_expression_t *pe) {
+expression_result_t *execute_primary_expression(primary_expression_t *pe, hash_t *variable_table) {
     expression_result_t *res = (expression_result_t *) memory_alloc(sizeof (expression_result_t));
     switch (pe->type) {
         case value_type_integer:
@@ -156,8 +160,7 @@ expression_result_t *execute_primary_expression(primary_expression_t *pe) {
             res->value.s = pe->u.string;
             break;
         case value_type_identifier:
-            res->type = expression_result_type_variable;
-            res->value.s = pe->u.identifier;
+            convert_variable_to_result(pe->u.identifier, variable_table, res);
             break;
         case value_type_bool:
             res->type = expression_result_type_bool;
@@ -167,6 +170,45 @@ expression_result_t *execute_primary_expression(primary_expression_t *pe) {
         default:
             error_exception("Undefined value type!");
     }
-    memory_free(pe);
+    return res;
+}
+
+void *convert_variable_to_result(char *identifier, hash_t *variable_table, expression_result_t *res) {
+    variable_t *v = (variable_t *) find_hash(variable_table, identifier, strlen(identifier));
+    if (is_empty(v)) {
+        error_exception("Variable:%s is undefined!", identifier);
+    }
+    switch (v->type) {
+        case variable_type_null:
+            res->type = expression_result_type_null;
+            break;
+        case variable_type_bool:
+            res->type = expression_result_type_bool;
+            res->value.b = v->value.b;
+            break;
+        case variable_type_int:
+            res->type = expression_result_type_int;
+            res->value.i = v->value.i;
+            break;
+        case variable_type_double:
+            res->type = expression_result_type_bool;
+            res->value.d = v->value.d;
+            break;
+        case variable_type_string:
+            res->type = expression_result_type_string;
+            res->value.s = v->value.str;
+            break;
+        default:
+            error_exception("Undefined variable:%s type!", identifier);
+    }
+}
+
+/**
+ * 
+ * @return 
+ */
+expression_result_t *create_null_result() {
+    expression_result_t *res = (expression_result_t *) memory_alloc(sizeof (expression_result_t));
+    res->type = expression_result_type_null;
     return res;
 }

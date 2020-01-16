@@ -13,7 +13,7 @@
 
 #include "skl_execute_include.h"
 
-extern statement_list_t *global_statement_list, *global_include_statement_list;
+extern statement_list_t *global_include_statement_list;
 extern int global_include_mode;
 extern hash_t *global_script_table;
 
@@ -21,7 +21,7 @@ extern hash_t *global_script_table;
  * 执行include
  * @param is
  */
-void execute_include_statment(include_statement_t *is) {
+void execute_include_statment(include_statement_t *is, statement_list_t *statement_list) {
     char *filename = is->filename;
     FILE *input = fopen(filename, FILE_OPT_READ);
     if (is_empty(input)) {
@@ -37,17 +37,20 @@ void execute_include_statment(include_statement_t *is) {
     if (!find_hash(global_script_table, filename, strlen(filename))) {
         insert_or_update_hash(global_script_table, filename, strlen(filename), filename);
     }
-    merge_execute_statement_list();
+    merge_execute_statement_list(statement_list);
     fclose(input);
-    memory_free(is);
 }
 
 /**
  * 执行语句列表合并
  */
-void merge_execute_statement_list() {
-    global_include_statement_list->tail->next = global_statement_list->top->next;
-    global_statement_list->top = global_include_statement_list->top;
+void merge_execute_statement_list(statement_list_t *statement_list) {
+    if (global_include_statement_list->tail) {
+        global_include_statement_list->tail->next = statement_list->top->next;
+        statement_list->top = global_include_statement_list->top;
+    } else {
+        statement_list->top = statement_list->top->next;
+    }
     //reset
     global_include_statement_list->top = global_include_statement_list->tail = NULL;
 }

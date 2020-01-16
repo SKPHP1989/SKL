@@ -15,4 +15,5 @@ char *malloc_string_trim(char *s);
 
 char* substring(char* ch, int pos, int length);
 
+char *get_realpath(char *filename, char *current_path);
 #endif //SKL_SKL_UTIL_H

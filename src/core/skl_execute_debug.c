@@ -44,8 +44,5 @@ void print_expression_result(expression_result_t *res) {
         case expression_result_type_bool:
             printf("expression_result_type_bool:%d\n", res->value.b);
             break;
-        case expression_result_type_variable:
-            printf("expression_result_type_variable:%s\n", res->value.s);
-            break;
     }
 }

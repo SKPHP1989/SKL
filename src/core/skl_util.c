@@ -70,3 +70,25 @@ char* substring(char* ch, int pos, int length) {
     subch[length] = '\0';
     return subch;
 }
+
+/**
+ * 
+ * @param filename
+ * @param current_path
+ * @return 
+ */
+char *get_realpath(char *filename, char *current_path) {
+    char *realpath;
+    int fn_len = strlen(filename);
+    if (*filename == '/') {
+        realpath = (char *) memory_alloc(fn_len + 1);
+        strcpy(realpath, filename);
+    } else {
+        if ((*filename + 1) == '/') {
+            realpath = string_splice(current_path, substring(filename, 3, fn_len - 2));
+        } else {
+            realpath = string_splice(current_path, filename);
+        }
+    }
+    return realpath;
+}

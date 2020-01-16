@@ -10,7 +10,7 @@ int yywrap(void)
 }
 
 void yyerror(char *s) {
-    printf("[Error] %s:%s(%d)\n",CURRENT_FILENAME, s, CURRENT_LINE);
+    printf("[Error] %s:%s(%d)\n",global_scanner_filename, s, global_scanner_line);
 }
 %}
 
@@ -66,14 +66,14 @@ void yyerror(char *s) {
 
 <INITIAL>[ \t\r]                      ;
 <INITIAL>"\n"                       {
-    CURRENT_LINE++;
+    global_scanner_line++;
 }
 <INITIAL>("#"|"//")[^\n]*           {
     BEGIN COMMENT;
 }
 
 <INITIAL>.                          {
-    CURRENT_LINE++;
+    global_scanner_line++;
     yyerror(yytext);
 }
 
@@ -83,7 +83,7 @@ void yyerror(char *s) {
 }
 
 <COMMENT>\n                         {
-    CURRENT_LINE++;
+    global_scanner_line++;
     BEGIN INITIAL;
 }
 

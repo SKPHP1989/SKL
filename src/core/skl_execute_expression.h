@@ -23,9 +23,15 @@ expression_result_t *execute_assign_expression(assign_expression_t *ae, hash_t *
 
 expression_result_t *execute_expression(expression_t *e, hash_t *variable_table);
 
-expression_result_t *execute_primary_expression(primary_expression_t *pe);
+expression_result_t *execute_primary_expression(primary_expression_t *pe, hash_t *variable_table);
 
 expression_result_t *execute_binary_expression(binary_expression_t *be, hash_t *variable_table);
+
+variable_t *convert_expression_result_to_variable(char *identifier, expression_result_t *res);
+
+void *convert_variable_to_result(char *identifier, hash_t *variable_table, expression_result_t *res);
+
+expression_result_t *create_null_result();
 
 #endif /* SKL_EXECUTE_EXPRESSION_H */
 
