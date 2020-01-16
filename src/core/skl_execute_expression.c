@@ -173,6 +173,13 @@ expression_result_t *execute_primary_expression(primary_expression_t *pe, hash_t
     return res;
 }
 
+/**
+ * 转换变量为表达式结果
+ * @param identifier
+ * @param variable_table
+ * @param res
+ * @return 
+ */
 void *convert_variable_to_result(char *identifier, hash_t *variable_table, expression_result_t *res) {
     variable_t *v = (variable_t *) find_hash(variable_table, identifier, strlen(identifier));
     if (is_empty(v)) {

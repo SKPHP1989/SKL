@@ -10,9 +10,8 @@
 
 #include "skl_core.h"
 
-int CURRENT_LINE;
-char *CURRENT_FILENAME;
-char *CURRENT_SCRIPT_PATH;
+int global_scanner_line;
+char *global_scanner_filename;
 
 typedef union expression_uni expression_u;
 typedef struct expression_s expression_t;

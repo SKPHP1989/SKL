@@ -1,32 +1,28 @@
 #include "skl.h"
-
-extern int yyparse(void);
-
-extern void init_compiler();
-
-extern void execute();
-
-extern FILE *yyin;
-
+/**
+ * 
+ * @param argc
+ * @param argv
+ * @return 
+ */
 int main(int argc, char *argv[]) {
-    FILE *fp;
+    FILE *input;
+    char *filename;
     setvbuf(stdout, NULL, _IONBF, 0);
     if (argc != 2) {
-        fprintf(stderr, "Usage:%s filename", argv[0]);
-        exit(1);
+        error_exception("Usage:%s filename!", argv[0]);
     }
-    fp = fopen(argv[1], "r");
-    if (fp == NULL) {
-        fprintf(stderr, "Filename:%s not found.\n", argv[1]);
-        exit(1);
+    filename = argv[1];
+    input = fopen(filename, FILE_OPT_READ);
+    if (is_empty(input)) {
+        error_exception("Filename:%s not found!", filename);
     }
-    yyin = fp;
-    init_compiler(argv[1]);
+    yyin = input;
+    init_compiler(filename);
     if (yyparse()) {
-        fprintf(stderr, "System parse failed !\n");
-        exit(1);
+        error_exception("System parse failed!");
     }
     execute();
-    fclose(fp);
+    fclose(input);
     return 0;
 }

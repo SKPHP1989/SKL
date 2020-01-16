@@ -18,15 +18,21 @@ statement_list_t *global_statement_list, *global_include_statement_list;
 
 int global_include_mode;
 
+char *global_main_path;
+
 /**
  * 初始化编译器
  */
 void init_compiler(char *filename) {
+    //
     global_function_table = create_hash();
     global_variable_table = create_hash();
     global_script_table = create_hash();
-    CURRENT_FILENAME = filename;
-    CURRENT_LINE = 0;
+    global_scanner_filename = filename;
+    global_scanner_line = 0;
+    global_main_path = "";
+    //
+    global_include_mode = 0;
     //
     global_statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
     global_statement_list->top = global_statement_list->tail = NULL;
@@ -34,9 +40,9 @@ void init_compiler(char *filename) {
     global_include_statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
     global_include_statement_list->top = global_include_statement_list->tail = NULL;
     //
-    insert_or_update_hash(global_script_table, filename, strlen(filename), filename);
-    //
-    global_include_mode = 0;
+    if (!find_hash(global_script_table, filename, strlen(filename))) {
+        insert_or_update_hash(global_script_table, filename, strlen(filename), filename);
+    }
 }
 
 /**
@@ -105,7 +111,7 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
     function->param_list = param_list;
     void *function_exist = find_hash(global_function_table, identifier, strlen(identifier));
     if (is_not_empty(function_exist)) {
-        error_exception("(%s:%d) Function: %s has been defined!", CURRENT_FILENAME, CURRENT_LINE, identifier);
+        error_exception("(%s:%d) Function: %s has been defined!", global_scanner_filename, global_scanner_line, identifier);
     }
     // 插入函数
     insert_or_update_hash(global_function_table, identifier, strlen(identifier), (void *) function);

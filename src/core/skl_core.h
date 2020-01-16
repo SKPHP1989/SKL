@@ -18,9 +18,6 @@
 #include "skl_util.h"
 
 
-#define SKL_VERSION         "0.0.1"
-#define SKL_VERSION_NUM     20191230
-
 #define RET_SUCCESS 0
 #define RET_FAIL -1
 

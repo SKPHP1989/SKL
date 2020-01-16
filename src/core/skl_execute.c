@@ -7,6 +7,7 @@
 #include "skl_execute.h"
 #include "skl_execute_expression.h"
 #include "skl_execute_include.h"
+#include "skl_execute_return.h"
 
 extern hash_t *global_function_table;
 extern hash_t *global_variable_table;
@@ -16,26 +17,35 @@ extern statement_list_t *global_statement_list;
 /**
  * 执行
  */
-void execute() {
-    execute_statement(global_variable_table);
+expression_result_t *execute() {
+    return execute_statement(global_statement_list, global_variable_table);
 }
 
 /**
  * 执行语句
+ * @param statement_list
+ * @param variable_table
+ * @return 
  */
-void execute_statement(hash_t *variable_table) {
-    int is_include = 0;
-    statement_list_item_t *current_p, *current;
-    current = global_statement_list->top;
+expression_result_t *execute_statement(statement_list_t *statement_list, hash_t *variable_table) {
+    // 空语句列表
+    if (is_empty(statement_list)) {
+        return create_null_result();
+    }
+    int is_include = 0, is_return = 0;
+    expression_result_t *res = NULL;
+    statement_list_item_t *current, *old_top;
+    old_top = current = statement_list->top;
     execute_before();
     while (current) {
-        current_p = current;
         statement_t *statement = current->statement;
         switch (statement->type) {
             case statement_type_expression:
                 execute_expression_statement(statement->u.e, variable_table);
                 break;
             case statement_type_return:
+                res = execute_return_statement(statement->u.r, variable_table);
+                is_return = 1;
                 break;
             case statement_type_if:
                 break;
@@ -48,36 +58,43 @@ void execute_statement(hash_t *variable_table) {
             case statement_type_break:
                 break;
             case statement_type_include:
-                execute_include_statment(statement->u.in);
+                execute_include_statment(statement->u.in, statement_list);
                 is_include = 1;
                 break;
             default:
                 error_exception("Undefined statement type(%d)!", statement->type);
         }
+        // 跳出
+        if (is_return) {
+            break;
+        }
         // 回到头部
         if (is_include) {
-            current = global_statement_list->top;
+            current = statement_list->top;
             is_include = 0;
         } else {
             current = current->next;
         }
-        global_statement_list->top = current;
-        //內存释放
-        memory_free(statement);
-        memory_free(current_p);
+        statement_list->top = current;
     }
+    statement_list->top = old_top;
     execute_after();
+    //
+    if (is_empty(res)) {
+        res = create_null_result();
+    }
+    return res;
 }
 
 /**
- * 
+ * 执行前
  */
 void execute_before() {
     printf("before_excute\n");
 }
 
 /**
- * 
+ * 执行后
  */
 void execute_after() {
     printf("after_excute\n");

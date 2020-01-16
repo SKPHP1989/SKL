@@ -23,7 +23,7 @@ enum expression_result_type_e {
     expression_result_type_double,
     expression_result_type_string,
     expression_result_type_bool,
-    expression_result_type_variable,
+    expression_result_type_null,
 };
 
 struct expression_result_s {
@@ -37,9 +37,9 @@ struct expression_result_s {
     } value;
 };
 
-void execute();
+expression_result_t *execute();
 
-void execute_statement(hash_t *variable_table);
+expression_result_t *execute_statement(statement_list_t *statement_list, hash_t *variable_table);
 
 void execute_before();
 

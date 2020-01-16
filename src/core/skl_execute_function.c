@@ -9,13 +9,12 @@ extern hash_t *global_function_table;
 extern hash_t *global_variable_table;
 
 /**
- * 
+ * 执行函数表达式
  * @param fe
  * @param variable_table
  * @return 
  */
 expression_result_t *execute_function_expression(function_expression_t *fe, hash_t *variable_table) {
-    expression_result_t *er;
     function_t *function;
     function = (function_t *) find_hash(global_function_table, fe->function_name, strlen(fe->function_name));
     if (is_empty(function)) {
@@ -30,7 +29,7 @@ expression_result_t *execute_function_expression(function_expression_t *fe, hash
 }
 
 /**
- * 
+ * 插入函数参数
  * @param function_name
  * @param function_variable_table
  * @param variable_table
