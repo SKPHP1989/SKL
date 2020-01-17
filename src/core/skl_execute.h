@@ -37,7 +37,7 @@ struct expression_result_s {
     } value;
 };
 
-expression_result_t *execute();
+void execute();
 
 expression_result_t *execute_statement(statement_list_t *statement_list, hash_t *variable_table);
 

@@ -16,10 +16,10 @@
 
 #include "skl_core.h"
 
-void function_print(char *fmt, ...);
+void register_internal_function(void *function_addr, char *function_name);
 
-void function_var_dump(void *var, ...);
 
-void function_echo(char *msg);
+variable_t *function_var_dump(call_params_list_t *call_params_list);
+
 
 #endif /* SKL_FUNCTION_H */

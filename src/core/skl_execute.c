@@ -17,8 +17,9 @@ extern statement_list_t *global_statement_list;
 /**
  * 执行
  */
-expression_result_t *execute() {
-    return execute_statement(global_statement_list, global_variable_table);
+void execute() {
+    execute_statement(global_statement_list, global_variable_table);
+    destroy_hash(global_variable_table);
 }
 
 /**
@@ -75,6 +76,7 @@ expression_result_t *execute_statement(statement_list_t *statement_list, hash_t 
         } else {
             current = current->next;
         }
+        // 头部
         statement_list->top = current;
     }
     statement_list->top = old_top;
