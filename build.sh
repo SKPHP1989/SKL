@@ -9,7 +9,12 @@ SKL_SRC_PATH="${SKL_CURRENT_PATH}/src/"
 SKL_SRC_CORE_PATH="${SKL_CURRENT_PATH}/src/core/"
 SKL_OBJS_PATH="${SKL_CURRENT_PATH}/objs/"
 SKL_BIN_PATH="${SKL_CURRENT_PATH}/bin/"
-
+if [ ! -d ${SKL_BIN_PATH} ]; then
+  mkdir ${SKL_BIN_PATH}
+fi
+if [ ! -d ${SKL_OBJS_PATH} ]; then
+    mkdir ${SKL_OBJS_PATH}
+fi
 echo "Morphology and grammar initialize;"
 # 词法和语法
 cd ${SKL_SRC_CORE_PATH}
