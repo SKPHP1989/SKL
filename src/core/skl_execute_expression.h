@@ -14,8 +14,6 @@
 #ifndef SKL_EXECUTE_EXPRESSION_H
 #define SKL_EXECUTE_EXPRESSION_H
 
-#include "skl_core.h"
-#include "skl_execute.h"
 
 expression_result_t *execute_expression_statement(expression_statement_t *et, hash_t *variable_table);
 
@@ -30,6 +28,8 @@ expression_result_t *execute_binary_expression(binary_expression_t *be, hash_t *
 variable_t *convert_expression_result_to_variable(char *identifier, expression_result_t *res);
 
 void *convert_variable_to_result(char *identifier, hash_t *variable_table, expression_result_t *res);
+
+expression_result_t *convert_variable_to_expression_result(variable_t *v);
 
 expression_result_t *create_null_result();
 

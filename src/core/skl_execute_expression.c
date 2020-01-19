@@ -10,7 +10,11 @@
  *
  * Created on 2020年1月15日, 下午2:57
  */
-
+#include "skl_core.h"
+#include "skl_variable.h"
+#include "skl_function.h"
+#include "skl_compiler.h"
+#include "skl_execute.h"
 #include "skl_execute_expression.h"
 #include "skl_execute_operate.h"
 #include "skl_execute_function.h"
@@ -134,7 +138,6 @@ expression_result_t *execute_binary_expression(binary_expression_t *be, hash_t *
         default:
             error_exception("Undefined expression action(%d)!", be->action);
     }
-    print_expression_result(res);
     return res;
 }
 
@@ -198,16 +201,56 @@ void *convert_variable_to_result(char *identifier, hash_t *variable_table, expre
             res->value.i = v->value.i;
             break;
         case variable_type_double:
+            res->type = expression_result_type_double;
+            res->value.d = v->value.d;
+            break;
+        case variable_type_string:
+            res->type = expression_result_type_string;
+            res->value.s = v->value.str.val;
+            break;
+        default:
+            error_exception("Undefined variable:%s type!", identifier);
+    }
+}
+
+/**
+ * 转换变量为表达式结果
+ * @param identifier
+ * @param variable_table
+ * @param res
+ * @return 
+ */
+expression_result_t *convert_variable_to_expression_result(variable_t *v) {
+    expression_result_t *res = (expression_result_t *) memory_alloc(sizeof (expression_result_t));
+    if (is_empty(v)) {
+        res->type = expression_result_type_null;
+        return res;
+    }
+    switch (v->type) {
+        case variable_type_null:
+            res->type = expression_result_type_null;
+            break;
+        case variable_type_bool:
+            res->type = expression_result_type_bool;
+            res->value.b = v->value.b;
+            break;
+        case variable_type_int:
+            res->type = expression_result_type_int;
+            res->value.i = v->value.i;
+            break;
+        case variable_type_double:
             res->type = expression_result_type_bool;
             res->value.d = v->value.d;
             break;
         case variable_type_string:
             res->type = expression_result_type_string;
-            res->value.s = v->value.str;
+            res->value.s = v->value.str.val;
             break;
         default:
-            error_exception("Undefined variable:%s type!", identifier);
+            res->type = expression_result_type_null;
+            break;
     }
+    return res;
 }
 
 /**

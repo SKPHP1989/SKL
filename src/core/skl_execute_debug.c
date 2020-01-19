@@ -11,20 +11,12 @@
  * Created on 2020年1月13日, 上午11:39
  */
 
-
+#include "skl_core.h"
+#include "skl_variable.h"
+#include "skl_function.h"
+#include "skl_compiler.h"
 #include "skl_execute.h"
 #include "skl_execute_debug.h"
-extern statement_list_t *global_statement_list;
-
-void execute_statement_debug(hash_t *variable_table) {
-    statement_list_item_t *item;
-    item = global_statement_list->top;
-    printf("\n");
-    while (item) {
-        printf("debug: global_statement_list->%d\n", item->statement->type);
-        item = item->next;
-    }
-}
 
 /**
  * 打印表达式结果
@@ -43,6 +35,27 @@ void print_expression_result(expression_result_t *res) {
             break;
         case expression_result_type_bool:
             printf("expression_result_type_bool:%d\n", res->value.b);
+            break;
+    }
+}
+
+/**
+ * 打印表达式结果
+ * @param res
+ */
+void print_variable(variable_t *v) {
+    switch (v->type) {
+        case variable_type_null:
+            printf("variable_type_null:%s\n", "null");
+            break;
+        case variable_type_int:
+            printf("variable_type_int:%d\n", v->value.i);
+            break;
+        case variable_type_double:
+            printf("variable_type_double:%f\n", v->value.d);
+            break;
+        case variable_type_string:
+            printf("variable_type_string:%s\n", v->value.str.val);
             break;
     }
 }

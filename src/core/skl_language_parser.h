@@ -114,7 +114,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 8 "skl_language_parser.y" /* yacc.c:1909  */
+#line 10 "skl_language_parser.y" /* yacc.c:1909  */
 
     char *identifier;
     int integer;

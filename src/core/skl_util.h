@@ -5,8 +5,6 @@
 #ifndef SKL_UTIL_H
 #define SKL_UTIL_H
 
-#include "skl_core.h"
-
 char *get_current_timestamp();
 
 char *string_splice(char *one, char *two);

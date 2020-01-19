@@ -10,7 +10,10 @@
  *
  * Created on 2020年1月15日, 下午2:50
  */
-
+#include "skl_core.h"
+#include "skl_variable.h"
+#include "skl_function.h"
+#include "skl_compiler.h"
 #include "skl_execute_include.h"
 
 extern statement_list_t *global_include_statement_list;

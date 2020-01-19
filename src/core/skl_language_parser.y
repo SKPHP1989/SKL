@@ -1,5 +1,7 @@
 %{
 #include "skl_core.h"
+#include "skl_variable.h"
+#include "skl_function.h"
 #include "skl_compiler.h"
 #define YYDEBUG 1
 

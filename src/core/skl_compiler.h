@@ -8,7 +8,6 @@
 #ifndef SKL_COMPILER_H
 #define SKL_COMPILER_H
 
-#include "skl_core.h"
 
 int global_scanner_line;
 char *global_scanner_filename;
@@ -32,7 +31,6 @@ typedef struct param_list_item_s param_list_item_t;
 typedef struct function_s function_t;
 typedef struct expression_list_s expression_list_t;
 typedef struct expression_list_item_s expression_list_item_t;
-typedef struct call_params_list_s call_params_list_t;
 
 enum expression_type_e {
     expression_type_primary = 1,
@@ -181,11 +179,6 @@ struct param_list_s {
 struct param_list_item_s {
     char *identifier;
     param_list_item_t *next;
-};
-
-struct call_params_list_s {
-    variable_t *var;
-    call_params_list_t *next;
 };
 
 struct function_s {

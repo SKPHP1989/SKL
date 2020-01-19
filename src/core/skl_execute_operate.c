@@ -1,7 +1,11 @@
 //
 // Created by lij25 on 2020/1/8.
 //
-
+#include "skl_core.h"
+#include "skl_variable.h"
+#include "skl_function.h"
+#include "skl_compiler.h"
+#include "skl_execute.h"
 #include "skl_execute_operate.h"
 
 /**

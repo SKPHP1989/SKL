@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+#include "skl_core.h"
 #include "skl_memory.h"
 
 void *memory_alloc(int size) {

@@ -14,7 +14,6 @@
 #ifndef SKL_HASH_H
 #define SKL_HASH_H
 
-#include "skl_core.h"
 
 #define HASH_MAX_SIZE 0x1000000000
 

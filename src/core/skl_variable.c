@@ -1,3 +1,4 @@
+#include "skl_core.h"
 #include "skl_variable.h"
 
 /**
@@ -11,8 +12,8 @@ variable_t *create_string_variable(char *identifier, char *str, int str_len) {
     variable_t *v = (variable_t *) memory_alloc(sizeof (variable_t));
     v->type = variable_type_string;
     v->identifier = identifier;
-    v->value.str = str;
-    v->value.str_len = str_len;
+    v->value.str.val = str;
+    v->value.str.len = str_len;
     return v;
 }
 

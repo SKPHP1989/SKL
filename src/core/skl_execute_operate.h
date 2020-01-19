@@ -5,8 +5,6 @@
 #ifndef SKL_EXECUTE_OPERATE_H
 #define SKL_EXECUTE_OPERATE_H
 
-#include "skl_core.h"
-#include "skl_execute.h"
 
 expression_result_t *operate_add(expression_result_t *left, expression_result_t *right);
 

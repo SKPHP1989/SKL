@@ -14,7 +14,6 @@
 #ifndef SKL_VARIABLE_H
 #define SKL_VARIABLE_H
 
-#include "skl_core.h"
 
 typedef struct variable_s variable_t;
 
@@ -32,8 +31,10 @@ struct variable_s {
 
     union {
         int b;
-        char *str;
-        unsigned int str_len;
+        struct {
+            char *val;
+            unsigned int len;
+        } str;
         int i;
         double d;
     } value;

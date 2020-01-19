@@ -14,9 +14,7 @@
 #ifndef SKL_EXECUTE_RETURN_H
 #define SKL_EXECUTE_RETURN_H
 
-#include "skl_core.h"
-#include "skl_execute.h"
-#include "skl_execute_expression.h"
+
 
 expression_result_t *execute_return_statement(return_statement_t *rs, hash_t *variable_table);
 

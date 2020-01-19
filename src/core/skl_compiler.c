@@ -5,6 +5,9 @@
  */
 
 
+#include "skl_core.h"
+#include "skl_variable.h"
+#include "skl_function.h"
 #include "skl_compiler.h"
 
 // 加载编译器配置

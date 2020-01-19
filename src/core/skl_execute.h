@@ -14,7 +14,6 @@
 #ifndef SKL_EXECUTE_H
 #define SKL_EXECUTE_H
 
-#include "skl_core.h"
 
 typedef struct expression_result_s expression_result_t;
 
@@ -28,7 +27,6 @@ enum expression_result_type_e {
 
 struct expression_result_s {
     enum expression_result_type_e type;
-
     union {
         int b;
         int i;

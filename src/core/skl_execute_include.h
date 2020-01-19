@@ -14,9 +14,6 @@
 #ifndef SKL_EXECUTE_INCLUDE_H
 #define SKL_EXECUTE_INCLUDE_H
 
-#include "skl_core.h"
-#include "skl_execute.h"
-
 void execute_include_statment(include_statement_t *is, statement_list_t *statement_list);
 
 void merge_execute_statement_list(statement_list_t *statement_list);

@@ -5,7 +5,6 @@
 #ifndef SKL_EXCEPTION_H
 #define SKL_EXCEPTION_H
 
-#include "skl_core.h"
 
 #define EXCEPTION_INFO "Info"
 #define EXCEPTION_WARNING "Warning"

@@ -15,4 +15,6 @@ void print_expression_result(expression_result_t *res);
 
 void execute_statement_debug(hash_t *variable_table);
 
+void print_variable(variable_t *v);
+
 #endif

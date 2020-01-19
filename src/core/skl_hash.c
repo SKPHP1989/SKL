@@ -1,3 +1,4 @@
+#include "skl_core.h"
 #include "skl_hash.h"
 
 /**
