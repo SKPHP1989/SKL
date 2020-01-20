@@ -111,6 +111,10 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
     function->identifier = identifier;
     function->is_native = 0;
     function->statement_list = statement_list;
+    if(is_empty(param_list)){
+        param_list = (param_list_t *)memory_alloc(sizeof(param_list_t));
+        param_list->top = param_list->tail = NULL;
+    }
     function->param_list = param_list;
     void *function_exist = find_hash(global_function_table, identifier, strlen(identifier));
     if (is_not_empty(function_exist)) {
@@ -385,6 +389,10 @@ expression_t *create_variable_expression(char *identifier, expression_t *express
 expression_t *create_call_function_expression(char *identifier, expression_list_t *expression_list) {
     function_expression_t *fe = (function_expression_t *) memory_alloc(sizeof (function_expression_t));
     fe->function_name = identifier;
+    if (is_empty(expression_list)) {
+        expression_list = (expression_list_t *) memory_alloc(sizeof (expression_list_t));
+        expression_list->top = expression_list->tail = NULL;
+    }
     fe->params = expression_list;
     expression_t *e = (expression_t *) memory_alloc(sizeof (expression_t));
     e->type = expression_type_func;

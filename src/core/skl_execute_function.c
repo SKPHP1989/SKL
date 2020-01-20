@@ -76,9 +76,6 @@ void insert_user_function_params(function_t *function, hash_t *function_variable
  * @param param_list
  */
 call_params_list_t *insert_internal_function_params(function_t *function, hash_t *variable_table, expression_list_t *param_list) {
-    if (is_empty(param_list)) {
-        return NULL;
-    }
     expression_list_item_t *item = param_list->top;
     call_params_list_t *list_param = NULL, *list_param_prev = NULL, *list_param_head = NULL;
     variable_t *var;
