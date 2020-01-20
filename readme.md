@@ -5,17 +5,15 @@
 虽然很浅陋，但是这丝毫不影响对于脚本的探究和学习。
 
 ## 如何安装
-1.下载源码
-2.安装需要在Unix环境下,bison,flex软件都必须要有
-3.编译
-`root@machine:code_source_path/build.sh`
-没有错误即编译成功
-4.编译结果
-5.code_source_path/objs/目录下为编译过程文件
-5.code_source_path/bin/skl为可执行程序
+- 下载源码
+- 安装需要在Unix环境下,bison,flex软件都必须要有
+- 编译:`root@machine:code_source_path/build.sh`没有错误即编译成功
+- 编译结果
+- code_source_path/objs/目录下为编译过程文件
+- code_source_path/bin/skl为可执行程序
 
 ## 执行
-`root@machine:code_source_path/bin/skl scripts/index.skl`
+`root@machine:code_source_path/bin/skl ./scripts/index.skl`
 ```
 (string) haha1
 (double) 8.999000
@@ -52,6 +50,19 @@
 (bool) true
 ```
 
+`root@machine:code_source_path/bin/skl ./scripts/time.skl`
+```
+(integer) 1579490073
+(integer) 1579490074
+(integer) 1579490075
+(integer) 1579490076
+(integer) 1579490077
+(integer) 1579490078
+(integer) 1579490079
+(integer) 1579490080
+(integer) 1579490081
+(integer) 1579490082
+```
 ## 说明
 SKL现在还很弱小，基本执行不了业务，但是它已经可以分析和运行特定的语法了。
 后续我会继续努力，实现更多的特性。
