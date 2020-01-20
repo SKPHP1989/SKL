@@ -7,13 +7,27 @@
 #include "skl_variable.h"
 #include "skl_function.h"
 #include "skl_compiler.h"
+#include "skl_execute.h"
+#include "skl_execute_expression.h"
 
 extern hash_t *global_function_table;
 
+/**
+ * 
+ * @return 
+ */
 int register_all_internal_function() {
-    char *var_dump_name = memory_alloc(sizeof ("var_dump"));
-    strcpy(var_dump_name, "var_dump");
-    register_internal_function(var_dump_name, function_var_dump);
+    char *function_name = memory_alloc(sizeof ("var_dump"));
+    strcpy(function_name, "var_dump");
+    register_internal_function(function_name, function_var_dump);
+    //
+    function_name = memory_alloc(sizeof ("sleep"));
+    strcpy(function_name, "sleep");
+    register_internal_function(function_name, function_sleep);
+    //
+    function_name = memory_alloc(sizeof ("time"));
+    strcpy(function_name, "time");
+    register_internal_function(function_name, function_time);
     return RET_SUCCESS;
 }
 
@@ -22,7 +36,7 @@ int register_all_internal_function() {
  * @param function_name
  * @param function_addr
  */
-void register_internal_function(char *function_name, variable_t *(*func_addr)(call_params_list_t *)) {
+void register_internal_function(char *function_name, void *(*func_addr)(call_params_list_t *)) {
     if (is_not_empty(find_hash(global_function_table, function_name, strlen(function_name)))) {
         error_exception("Internal Function:%s has been defined!", function_name);
     }
@@ -39,7 +53,7 @@ void register_internal_function(char *function_name, variable_t *(*func_addr)(ca
  * 
  * @param call_params_list
  */
-variable_t *function_var_dump(call_params_list_t *call_params_list) {
+void *function_var_dump(call_params_list_t *call_params_list) {
     call_params_list_t *item = call_params_list;
     variable_t *v;
     while (item) {
@@ -67,4 +81,36 @@ variable_t *function_var_dump(call_params_list_t *call_params_list) {
         item = item->next;
     }
     return NULL;
+}
+
+void *function_sleep(call_params_list_t *call_params_list) {
+    call_params_list_t *item = call_params_list;
+    variable_t *v;
+    while (item) {
+        v = item->var;
+        switch (v->type) {
+            case variable_type_int:
+                sleep(abs(v->value.i));
+                break;
+            case variable_type_double:
+                sleep(floor(fabs(v->value.d)));
+                break;
+            case variable_type_string:
+            case variable_type_null:
+            case variable_type_bool:
+            default:
+                break;
+        }
+        item = item->next;
+    }
+    return NULL;
+}
+
+void *function_time(call_params_list_t *call_params_list) {
+    expression_result_t *res = create_null_result();
+    res->type = expression_result_type_int;
+    struct timeval stamp;
+    gettimeofday(&stamp, NULL);
+    res->value.i = stamp.tv_sec;
+    return res;
 }

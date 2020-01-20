@@ -37,8 +37,10 @@ expression_result_t *execute_function_expression(function_expression_t *fe, hash
         destroy_hash(function_variable_table);
     } else {
         call_params_list_t *call_params_list = insert_internal_function_params(function, variable_table, fe->params);
-        return_v = function->func_addr(call_params_list);
-        res = convert_variable_to_expression_result(return_v);
+        res = (expression_result_t *) function->func_addr(call_params_list);
+        if (is_empty(res)) {
+            res = create_null_result();
+        }
     }
     return res;
 }
@@ -74,6 +76,9 @@ void insert_user_function_params(function_t *function, hash_t *function_variable
  * @param param_list
  */
 call_params_list_t *insert_internal_function_params(function_t *function, hash_t *variable_table, expression_list_t *param_list) {
+    if (is_empty(param_list)) {
+        return NULL;
+    }
     expression_list_item_t *item = param_list->top;
     call_params_list_t *list_param = NULL, *list_param_prev = NULL, *list_param_head = NULL;
     variable_t *var;

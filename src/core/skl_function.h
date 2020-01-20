@@ -24,10 +24,12 @@ struct call_params_list_s {
 
 int register_all_internal_function();
 
-void register_internal_function(char *function_name, variable_t *(*func_addr)(call_params_list_t *));
+void register_internal_function(char *function_name, void *(*func_addr)(call_params_list_t *));
 
+void *function_var_dump(call_params_list_t *call_params_list);
 
-variable_t *function_var_dump(call_params_list_t *call_params_list);
+void *function_sleep(call_params_list_t *call_params_list);
 
+void *function_time(call_params_list_t *call_params_list);
 
 #endif /* SKL_FUNCTION_H */

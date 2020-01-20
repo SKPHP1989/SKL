@@ -184,7 +184,7 @@ struct param_list_item_s {
 struct function_s {
     char *identifier;
     int is_native;
-    variable_t *(*func_addr)(call_params_list_t *);
+    void *(*func_addr)(call_params_list_t *);
     statement_list_t *statement_list;
     param_list_t *param_list;
 };
