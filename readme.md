@@ -5,14 +5,12 @@
 虽然很浅陋，但是这丝毫不影响对于脚本的探究和学习。
 
 ## 如何安装
-1.下载源码
-2.安装需要在Unix环境下,bison,flex软件都必须要有
-3.编译
-`root@machine:code_source_path/build.sh`
-没有错误即编译成功
-4.编译结果
-5.code_source_path/objs/目录下为编译过程文件
-5.code_source_path/bin/skl为可执行程序
+- 下载源码
+- 安装需要在Unix环境下,bison,flex软件都必须要有
+- 编译:`root@machine:code_source_path/build.sh`没有错误即编译成功
+- 编译结果
+- code_source_path/objs/目录下为编译过程文件
+- code_source_path/bin/skl为可执行程序
 
 ## 执行
 `root@machine:code_source_path/bin/skl scripts/index.skl`
