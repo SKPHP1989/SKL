@@ -9,7 +9,7 @@
 #include "skl_execute_operate.h"
 
 /**
- *
+ * 操作加法
  * @param left
  * @param right
  * @return
@@ -39,7 +39,7 @@ expression_result_t *operate_add(expression_result_t *left, expression_result_t 
 }
 
 /**
- *
+ * 操作减法
  * @param left
  * @param right
  * @return
@@ -69,7 +69,7 @@ expression_result_t *operate_sub(expression_result_t *left, expression_result_t 
 }
 
 /**
- *
+ * 操作乘法
  * @param left
  * @param right
  * @return
@@ -99,7 +99,7 @@ expression_result_t *operate_mul(expression_result_t *left, expression_result_t 
 }
 
 /**
- *
+ * 操作除法
  * @param left
  * @param right
  * @return
@@ -129,7 +129,7 @@ expression_result_t *operate_div(expression_result_t *left, expression_result_t 
 }
 
 /**
- *
+ * 操作大于
  * @param left
  * @param right
  * @return
@@ -156,7 +156,7 @@ expression_result_t *operate_gt(expression_result_t *left, expression_result_t *
 }
 
 /**
- *
+ * 操作大于等于
  * @param left
  * @param right
  * @return
@@ -183,7 +183,7 @@ expression_result_t *operate_ge(expression_result_t *left, expression_result_t *
 }
 
 /**
- *
+ * 操作小于
  * @param left
  * @param right
  * @return
@@ -210,7 +210,7 @@ expression_result_t *operate_lt(expression_result_t *left, expression_result_t *
 }
 
 /**
- *
+ * 操作小于等于
  * @param left
  * @param right
  * @return
@@ -237,7 +237,7 @@ expression_result_t *operate_le(expression_result_t *left, expression_result_t *
 }
 
 /**
- *
+ * 操作不等于
  * @param left
  * @param right
  * @return
@@ -291,7 +291,7 @@ expression_result_t *operate_eq(expression_result_t *left, expression_result_t *
 }
 
 /**
- * 
+ * 操作方法的值
  * @param left
  * @param right
  * @param left_i

@@ -58,7 +58,7 @@ variable_t *create_null_variable(char *identifier) {
 }
 
 /**
- *
+ * 创建布尔变量
  * @param identifier
  * @param b
  * @return

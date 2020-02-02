@@ -254,7 +254,7 @@ expression_result_t *convert_variable_to_expression_result(variable_t *v) {
 }
 
 /**
- * 
+ * 创建空的值
  * @return 
  */
 expression_result_t *create_null_result() {

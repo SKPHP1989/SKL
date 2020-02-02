@@ -6,7 +6,7 @@
  * @param argv
  * @return 
  */
-int main(int argc, char *argv[]) {
+void main(int argc, char *argv[]) {
     FILE *input;
     char *filename;
     setvbuf(stdout, NULL, _IONBF, 0);
@@ -25,5 +25,4 @@ int main(int argc, char *argv[]) {
     }
     execute();
     fclose(input);
-    return 0;
 }

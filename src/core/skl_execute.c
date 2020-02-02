@@ -22,8 +22,10 @@ extern statement_list_t *global_statement_list;
  */
 void execute() {
     register_all_internal_function();
+    execute_before();
     execute_statement(global_statement_list, global_variable_table);
     destroy_hash(global_variable_table);
+    execute_after();
 }
 
 /**
@@ -41,7 +43,6 @@ expression_result_t *execute_statement(statement_list_t *statement_list, hash_t 
     expression_result_t *res = NULL;
     statement_list_item_t *current, *old_top;
     old_top = current = statement_list->top;
-    execute_before();
     while (current) {
         statement_t *statement = current->statement;
         switch (statement->type) {
@@ -84,8 +85,6 @@ expression_result_t *execute_statement(statement_list_t *statement_list, hash_t 
         statement_list->top = current;
     }
     statement_list->top = old_top;
-    execute_after();
-    //
     if (is_empty(res)) {
         res = create_null_result();
     }

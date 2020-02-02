@@ -5,11 +5,15 @@
  */
 #include "skl_core.h"
 #include "skl_memory.h"
-
+/**
+ * 内存分配
+ */
 void *memory_alloc(int size) {
     return (void *) malloc(size);
 }
-
+/**
+ * 内存释放
+ */
 void memory_free(void *p) {
     free(p);
 }

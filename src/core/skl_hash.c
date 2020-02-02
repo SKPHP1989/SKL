@@ -22,7 +22,7 @@ hash_t *create_hash(void) {
 }
 
 /**
- *
+ * 操作哈希桶
  * @param key
  * @param key_len
  * @param index
@@ -64,7 +64,7 @@ void *find_hash(hash_t *hash, char *key, int key_len) {
 }
 
 /**
- *
+ * 插入或更新哈希表
  * @param hash
  * @param key
  * @param key_len
@@ -218,7 +218,7 @@ int expand_hash(hash_t *hash) {
 }
 
 /**
- *
+ * 哈希缩编
  * @param hash
  * @return
  */
@@ -269,7 +269,7 @@ int index_hash_key(char *key, int key_len) {
 }
 
 /**
- *
+ * 销毁哈希
  * @param hash
  * @return
  */
@@ -286,7 +286,7 @@ int destroy_hash(hash_t *hash) {
 }
 
 /**
- *
+ * 遍历哈希
  * @param hash
  */
 void foreach_hash(hash_t *hash) {
@@ -299,7 +299,7 @@ void foreach_hash(hash_t *hash) {
 }
 
 /**
- *
+ * dump哈希
  * @param hash
  */
 void dump_hash(hash_t *hash) {

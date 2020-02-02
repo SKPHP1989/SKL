@@ -28,7 +28,7 @@ expression_result_t *execute_function_expression(function_expression_t *fe, hash
     if (is_empty(function)) {
         error_exception("Function:%s not found!", fe->function_name);
     }
-
+    //函数类型
     if (!function->is_native) {
         // 函数变量
         hash_t *function_variable_table = create_hash();
@@ -70,7 +70,7 @@ void insert_user_function_params(function_t *function, hash_t *function_variable
 }
 
 /**
- * 
+ * 插入内部函数参数
  * @param function
  * @param variable_table
  * @param param_list
