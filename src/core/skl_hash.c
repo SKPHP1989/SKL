@@ -8,14 +8,14 @@
 hash_t *create_hash(void) {
     unsigned int mem_size;
     hash_t *hash;
-    hash = (hash_t *) memory_alloc(sizeof(hash_t));
+    hash = (hash_t *) memory_alloc(sizeof (hash_t));
     hash->size = HASH_INIT_SIZE;
     hash->mask = hash->size - 1;
     hash->ele_num = 0;
     hash->fill_ratio = 0.0;
     hash->list_head = NULL;
     hash->list_tail = NULL;
-    mem_size = hash->size * sizeof(hash_bucket_t);
+    mem_size = hash->size * sizeof (hash_bucket_t);
     hash->table = (hash_bucket_t **) memory_alloc(mem_size);
     memset(hash->table, 0, mem_size);
     return hash;
@@ -31,7 +31,7 @@ hash_t *create_hash(void) {
  */
 hash_bucket_t *create_hash_bucket(char *key, unsigned int key_len, int index, void *data) {
     hash_bucket_t *new_bucket;
-    new_bucket = (hash_bucket_t *) memory_alloc(sizeof(hash_bucket_t));
+    new_bucket = (hash_bucket_t *) memory_alloc(sizeof (hash_bucket_t));
     new_bucket->next = new_bucket->prev = NULL;
     new_bucket->list_next = new_bucket->list_prev = NULL;
     new_bucket->index_num = 0;
@@ -159,7 +159,7 @@ int delete_hash(hash_t *hash, char *key, int key_len) {
             } else {
                 hash->table[index] = NULL;
             }
-            free(bucket);
+            memory_free(bucket);
             bucket = NULL;
             opt_ret = RET_SUCCESS;
             hash->ele_num--;
@@ -195,10 +195,10 @@ int expand_hash(hash_t *hash) {
     hash_bucket_t **new_table;
     hash->mask = hash->size - 1;
     //
-    mem_size = sizeof(hash_bucket_t) * hash->size;
+    mem_size = sizeof (hash_bucket_t) * hash->size;
     new_table = (hash_bucket_t **) memory_alloc(mem_size);
     memset(new_table, 0, mem_size);
-    free(hash->table);
+    memory_free(hash->table);
     hash->table = new_table;
     hash->fill_ratio = hash->ele_num / hash->size;
     bucket = hash->list_head;
@@ -232,10 +232,10 @@ int reduce_hash(hash_t *hash) {
     hash_bucket_t **new_table;
     hash->mask = hash->size - 1;
     //
-    mem_size = sizeof(hash_bucket_t) * hash->size;
+    mem_size = sizeof (hash_bucket_t) * hash->size;
     new_table = (hash_bucket_t **) memory_alloc(mem_size);
     memset(new_table, 0, mem_size);
-    free(hash->table);
+    memory_free(hash->table);
     hash->table = new_table;
     hash->fill_ratio = hash->ele_num / hash->size;
     bucket = hash->list_head;
@@ -278,10 +278,11 @@ int destroy_hash(hash_t *hash) {
     while_bucket = hash->list_head;
     while (while_bucket) {
         bucket = while_bucket;
-        free(bucket);
+        memory_free(data);
+        memory_free(bucket);
         while_bucket = while_bucket->list_next;
     }
-    free(hash);
+    memory_free(hash);
     return RET_SUCCESS;
 }
 
@@ -291,17 +292,19 @@ int destroy_hash(hash_t *hash) {
  * @param callback
  * @return 
  */
-int destroy_hash_callback(hash_t *hash,destroy_hash_callback_func callback) {
+int destroy_hash_callback(hash_t *hash, destroy_hash_callback_func callback) {
     hash_bucket_t *bucket, *while_bucket;
     while_bucket = hash->list_head;
     while (while_bucket) {
         bucket = while_bucket;
-        free(bucket);
+        callback(bucket->data)
+        memory_free(bucket);
         while_bucket = while_bucket->list_next;
     }
-    free(hash);
+    memory_free(hash);
     return RET_SUCCESS;
 }
+
 /**
  * 遍历哈希
  * @param hash
