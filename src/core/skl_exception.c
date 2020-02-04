@@ -14,7 +14,6 @@ void error_exception(char *format, ...) {
     va_list args;
     char *time_format = get_current_timestamp();
     fprintf(error_fd, "[%s] [%s]", EXCEPTION_ERROR, time_format);
-    memory_free(time_format);
     va_start(args, format);
     vfprintf(error_fd, format, args);
     va_end(args);
