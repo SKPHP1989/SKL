@@ -80,7 +80,7 @@ char * get_executable_path() {
     strcpy(realpath, buf);
     realpath[len + 1] = '/';
     realpath[len + 2] = '\0';
-    intf("realpath=%sc\n", realpath[len+1]);
+    printf("realpath=%sc\n", realpath[len + 1]);
     printf("realpath=%s\n", realpath);
     return realpath;
 }
