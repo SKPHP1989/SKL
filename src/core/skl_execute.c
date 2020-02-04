@@ -113,7 +113,6 @@ void execute_after() {
  */
 void destroy_variable_hash_callback(void *data) {
     variable_t *v = (variable_t *) data;
-    printf("v->identifier=%s\n", v->identifier);
     memory_free(v->identifier);
     switch (v->type) {
         case variable_type_string:
@@ -136,7 +135,6 @@ void destroy_variable_hash_callback(void *data) {
 void destroy_function_hash_callback(void *data) {
     function_t *f = (function_t *) data;
     if (!f->is_native) {
-        printf("f->identifier=%s\n", f->identifier);
         destroy_statement_list(f->statement_list);
         param_list_t *param_list = f->param_list;
         param_list_item_t *param_item = param_list->top;

@@ -33,7 +33,8 @@ void init_compiler(char *filename) {
     global_script_table = create_hash();
     global_scanner_filename = filename;
     global_scanner_line = 0;
-    global_main_path = "";
+    global_main_path = get_realpath(filename);
+    printf("global_main_path=%s\n", global_main_path);
     //
     global_include_mode = 0;
     //
@@ -111,8 +112,8 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
     function->identifier = identifier;
     function->is_native = 0;
     function->statement_list = statement_list;
-    if(is_empty(param_list)){
-        param_list = (param_list_t *)memory_alloc(sizeof(param_list_t));
+    if (is_empty(param_list)) {
+        param_list = (param_list_t *) memory_alloc(sizeof (param_list_t));
         param_list->top = param_list->tail = NULL;
     }
     function->param_list = param_list;
