@@ -73,7 +73,7 @@ char* substring(char* ch, int pos, int length) {
 }
 
 char * get_executable_path() {
-    char buf[256];
+    char *buf = (char*)memory_alloc(257);
     getcwd(buf, sizeof (buf));
     printf("buf=%s\n",buf);
     int len = strlen(buf);
