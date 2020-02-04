@@ -130,9 +130,7 @@ void destroy_variable_hash_callback(void *data) {
 
 void destroy_function_hash_callback(void *data) {
     function_t *f = (function_t *) data;
-    if (f->is_native) {
-        memory_free(f->func_addr);
-    } else {
+    if (!f->is_native) {
         destroy_statement_list(f->statement_list);
         param_list_t *param_list = f->param_list;
         param_list_item_t *param_item = param_list->top;
