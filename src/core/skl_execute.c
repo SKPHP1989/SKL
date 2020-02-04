@@ -102,9 +102,9 @@ void execute_before() {
  */
 void execute_after() {
     destroy_statement_list(global_statement_list);
-    hash_destory(global_function_table);
-    hash_destory(global_variable_table);
-    hash_destory(global_script_table);
+    hash_destroy(global_function_table);
+    hash_destroy(global_variable_table);
+    hash_destroy(global_script_table);
 }
 
 /**
