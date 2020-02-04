@@ -73,11 +73,11 @@ char* substring(char* ch, int pos, int length) {
 }
 
 char * get_executable_path() {
-    char *buf = memory_alloc(257);
+    char buf[256];
     getcwd(buf, sizeof (buf));
     printf("buf=%s\n",buf);
     int len = strlen(buf);
-    char *realpath = memory_alloc(len+1);
+    char *realpath = (char*)memory_alloc(len+1);
     strcpy(realpath ,buf);
     memory_free(buf);
     return realpath;
