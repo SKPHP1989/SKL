@@ -73,12 +73,19 @@ char* substring(char* ch, int pos, int length) {
 }
 
 char * get_executable_path() {
-    char *buf = (char*)memory_alloc(257);
-    getcwd(buf, sizeof (buf));
-    printf("buf=%s\n",buf);
+    char *buf = (char*) memory_alloc(257);
+    int cnt = readlink("/proc/self/exe", buf, sizeof (buf));
+    printf("buf=%s\n", buf);
+    int i;
+    for (i = cnt; i >= 0; --i) {
+        if (buf[i] == '/') {
+            buf[i + 1] = '\0';
+            break;
+        }
+    }
     int len = strlen(buf);
-    char *realpath = (char*)memory_alloc(len+1);
-    strcpy(realpath ,buf);
+    char *realpath = (char*) memory_alloc(len + 1);
+    strcpy(realpath, buf);
     memory_free(buf);
     return realpath;
 }
