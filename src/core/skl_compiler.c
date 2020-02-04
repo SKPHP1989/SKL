@@ -33,7 +33,7 @@ void init_compiler(char *filename) {
     global_script_table = create_hash();
     global_scanner_filename = filename;
     global_scanner_line = 0;
-    global_main_path = get_realpath(filename);
+    global_main_path = get_executable_path();
     printf("global_main_path=%s\n", global_main_path);
     //
     global_include_mode = 0;

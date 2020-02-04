@@ -72,6 +72,16 @@ char* substring(char* ch, int pos, int length) {
     return subch;
 }
 
+char * get_executable_path() {
+    char *buf = memory_alloc(257);
+    getcwd(buf, sizeof (buf));
+    int len = strlen(buf);
+    char *realpath = memory_alloc(len+1);
+    strcpy(realpath ,buf);
+    memory_free(buf);
+    return realpath;
+}
+
 /**
  * 
  * @param filename
