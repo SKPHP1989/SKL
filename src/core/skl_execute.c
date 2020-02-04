@@ -102,7 +102,7 @@ void execute_before() {
  */
 void execute_after() {
     destroy_statement_list(global_statement_list);
-    destroy_hash(global_function_table, destroy_function_hash_callback);
+    destroy_hash_callback(global_function_table, destroy_function_hash_callback);
     destroy_hash_callback(global_variable_table, destroy_variable_hash_callback);
     destroy_hash(global_script_table);
 }
