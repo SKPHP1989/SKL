@@ -142,6 +142,7 @@ void destroy_statement_list(statement_list_t *statement_list) {
             case statement_type_break:
             case statement_type_continue:
             default:
+                break;
         }
         memory_free(current->statement);
         current = current->next;
