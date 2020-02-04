@@ -106,14 +106,15 @@ void execute_after() {
     hash_destory(global_variable_table);
     hash_destory(global_script_table);
 }
+
 /**
  * 销毁语句列表
  * @param statement_list
  */
-void destroy_statement_list(statement_list_t *statement_list){
+void destroy_statement_list(statement_list_t *statement_list) {
     statement_list_item_t *current;
     statement_t *sm;
-    current = global_statement_list->top;
+    current = statement_list->top;
     while (current) {
         sm = current->statement;
         switch (sm->type) {
@@ -145,4 +146,5 @@ void destroy_statement_list(statement_list_t *statement_list){
         memory_free(current->statement);
         current = current->next;
     }
+    memory_free(statement_list);
 }
