@@ -102,9 +102,48 @@ void execute_before() {
  */
 void execute_after() {
     destroy_statement_list(global_statement_list);
-    destroy_hash(global_function_table);
-    destroy_hash(global_variable_table);
+    destroy_hash(global_function_table, destroy_function_hash_callback);
+    destroy_hash_callback(global_variable_table, destroy_variable_hash_callback);
     destroy_hash(global_script_table);
+}
+
+/**
+ * 
+ * @param data
+ */
+void destroy_variable_hash_callback(void *data) {
+    variable_t *v = (variable_t *) data;
+    memory_free(v->identifier);
+    switch (v->type) {
+        case variable_type_string:
+            memory_free(v->value.str.val);
+            break;
+        case variable_type_null:
+        case variable_type_bool:
+        case variable_type_int:
+        case variable_type_double:
+        default:
+            break;
+    }
+    memory_free(v);
+}
+
+void destroy_function_hash_callback(void *data) {
+    function_t *f = (function_t *) data;
+    if (f->is_native) {
+        memory_free(f->func_addr);
+    } else {
+        destroy_statement_list(f->statement_list);
+        param_list_t *param_list = f->param_list;
+        param_list_item_t *param_item = param_list->top;
+        while (param_item) {
+            memory_free(param_item->identifier);
+            param_item = param_item->next;
+        }
+        memory_free(param_list);
+    }
+    memory_free(f->identifier);
+    memory_free(f);
 }
 
 /**

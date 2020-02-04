@@ -45,5 +45,9 @@ void execute_after();
 
 void destroy_statement_list(statement_list_t *statement_list);
 
+void destroy_variable_hash_callback(void *data);
+
+void destroy_function_hash_callback(void *data);
+
 #endif /* SKL_EXECUTE_H */
 
