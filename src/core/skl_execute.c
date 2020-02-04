@@ -120,14 +120,14 @@ void destroy_statement_list(statement_list_t *statement_list) {
         switch (sm->type) {
             case statement_type_if:
                 memory_free(sm->u.i->expression);
-                destory_statement_list(sm->u.i->if_statement_list);
-                destory_statement_list(sm->u.i->else_statement_list);
+                destroy_statement_list(sm->u.i->if_statement_list);
+                destroy_statement_list(sm->u.i->else_statement_list);
                 break;
             case statement_type_for:
                 memory_free(sm->u.f->before);
                 memory_free(sm->u.f->condition);
                 memory_free(sm->u.f->after);
-                destory_statement_list(sm->u.f->statement_list);
+                destroy_statement_list(sm->u.f->statement_list);
                 break;
             case statement_type_expression:
                 memory_free(sm->u.e);
