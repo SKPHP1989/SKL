@@ -290,7 +290,7 @@ int destroy_hash(hash_t *hash) {
  * @param hash
  * @return
  */
-int destroy_hash_callback(hash_t *hash,(void) destroy_callback(void *data)) {
+int destroy_hash_callback(hash_t *hash,destroy_hash_callback callback) {
     hash_bucket_t *bucket, *while_bucket;
     while_bucket = hash->list_head;
     while (while_bucket) {
