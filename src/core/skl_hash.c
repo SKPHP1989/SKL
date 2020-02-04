@@ -286,6 +286,22 @@ int destroy_hash(hash_t *hash) {
 }
 
 /**
+ * 销毁哈希
+ * @param hash
+ * @return
+ */
+int destroy_hash_callback(hash_t *hash,(void) destroy_callback(void *data)) {
+    hash_bucket_t *bucket, *while_bucket;
+    while_bucket = hash->list_head;
+    while (while_bucket) {
+        bucket = while_bucket;
+        free(bucket);
+        while_bucket = while_bucket->list_next;
+    }
+    free(hash);
+    return RET_SUCCESS;
+}
+/**
  * 遍历哈希
  * @param hash
  */

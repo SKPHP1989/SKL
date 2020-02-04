@@ -101,4 +101,48 @@ void execute_before() {
  * 执行后
  */
 void execute_after() {
+    destroy_statement_list(global_statement_list);
+    hash_destory(global_function_table);
+    hash_destory(global_variable_table);
+    hash_destory(global_script_table);
+}
+/**
+ * 销毁语句列表
+ * @param statement_list
+ */
+void destroy_statement_list(statement_list_t *statement_list){
+    statement_list_item_t *current;
+    statement_t *sm;
+    current = global_statement_list->top;
+    while (current) {
+        sm = current->statement;
+        switch (sm->type) {
+            case statement_type_if:
+                memory_free(sm->u.i->expression);
+                destory_statement_list(sm->u.i->if_statement_list);
+                destory_statement_list(sm->u.i->else_statement_list);
+                break;
+            case statement_type_for:
+                memory_free(sm->u.f->before);
+                memory_free(sm->u.f->condition);
+                memory_free(sm->u.f->after);
+                destory_statement_list(sm->u.f->statement_list);
+                break;
+            case statement_type_expression:
+                memory_free(sm->u.e);
+                break;
+            case statement_type_return:
+                memory_free(sm->u.r->expression);
+                break;
+            case statement_type_include:
+                memory_free(sm->u.in->filename);
+                break;
+            case statement_type_global:
+            case statement_type_break:
+            case statement_type_continue:
+            default:
+        }
+        memory_free(current->statement);
+        current = current->next;
+    }
 }

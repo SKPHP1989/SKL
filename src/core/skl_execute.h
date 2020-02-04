@@ -43,5 +43,7 @@ void execute_before();
 
 void execute_after();
 
+void destroy_statement_list(statement_list_t *statement_list);
+
 #endif /* SKL_EXECUTE_H */
 
