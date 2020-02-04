@@ -278,7 +278,7 @@ int destroy_hash(hash_t *hash) {
     while_bucket = hash->list_head;
     while (while_bucket) {
         bucket = while_bucket;
-        memory_free(bucket->data);
+        memory_free(bucket->key);
         memory_free(bucket);
         while_bucket = while_bucket->list_next;
     }
@@ -298,6 +298,7 @@ int destroy_hash_callback(hash_t *hash, destroy_hash_callback_func callback) {
     while (while_bucket) {
         bucket = while_bucket;
         callback(bucket->data);
+        memory_free(bucket->key);
         memory_free(bucket);
         while_bucket = while_bucket->list_next;
     }
