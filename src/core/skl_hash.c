@@ -286,11 +286,12 @@ int destroy_hash(hash_t *hash) {
 }
 
 /**
- * 销毁哈希
+ * 销毁哈希回调
  * @param hash
- * @return
+ * @param callback
+ * @return 
  */
-int destroy_hash_callback(hash_t *hash,destroy_hash_callback callback) {
+int destroy_hash_callback(hash_t *hash,destroy_hash_callback_func callback) {
     hash_bucket_t *bucket, *while_bucket;
     while_bucket = hash->list_head;
     while (while_bucket) {

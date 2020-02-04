@@ -46,7 +46,7 @@ struct hash_bucket_s {
     hash_bucket_t *prev;
 };
 
-typedef void (*destroy_hash_callback)(void *data);
+typedef void (*destroy_hash_callback_func)(void *data);
 
 hash_t *create_hash(void);
 
@@ -64,7 +64,7 @@ int reduce_hash(hash_t *);
 
 int destroy_hash(hash_t *);
 
-int destroy_hash_callback(hash_t *hash,destroy_hash_callback callback);
+int destroy_hash_callback(hash_t *hash,destroy_hash_callback_func callback);
 
 int index_hash_key(char *key, int);
 
