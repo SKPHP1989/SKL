@@ -278,7 +278,7 @@ int destroy_hash(hash_t *hash) {
     while_bucket = hash->list_head;
     while (while_bucket) {
         bucket = while_bucket;
-        memory_free(data);
+        memory_free(bucket->data);
         memory_free(bucket);
         while_bucket = while_bucket->list_next;
     }
