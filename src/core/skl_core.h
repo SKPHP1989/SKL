@@ -14,6 +14,7 @@
 #include "skl_memory.h"
 #include "skl_exception.h"
 #include "skl_util.h"
+#include "skl_hash.h"
 
 
 #define RET_SUCCESS 0
