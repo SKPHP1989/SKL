@@ -12,10 +12,7 @@
 #include "skl_execute_include.h"
 #include "skl_execute_return.h"
 
-extern hash_t *global_function_table;
-extern hash_t *global_variable_table;
-extern hash_t *global_script_table;
-extern statement_list_t *global_statement_list;
+extern global_info.info_t global_info.info;
 
 /**
  * 执行
@@ -23,8 +20,8 @@ extern statement_list_t *global_statement_list;
 void execute() {
     register_all_internal_function();
     execute_before();
-    execute_statement(global_statement_list, global_variable_table);
-    destroy_hash(global_variable_table);
+    execute_statement(global_info.statement_list, global_info.variable_table);
+    destroy_hash(global_info.variable_table);
     execute_after();
 }
 
@@ -101,10 +98,10 @@ void execute_before() {
  * 执行后
  */
 void execute_after() {
-    destroy_statement_list(global_statement_list);
-    destroy_hash_callback(global_function_table, destroy_function_hash_callback);
-    destroy_hash_callback(global_variable_table, destroy_variable_hash_callback);
-    destroy_hash(global_script_table);
+    destroy_statement_list(global_info.statement_list);
+    destroy_hash_callback(global_info.function_table, destroy_function_hash_callback);
+    destroy_hash_callback(global_info.variable_table, destroy_variable_hash_callback);
+    destroy_hash(global_info.script_table);
 }
 
 /**

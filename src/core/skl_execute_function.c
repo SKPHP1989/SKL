@@ -11,8 +11,7 @@
 #include "skl_execute_expression.h"
 #include "skl_execute_function.h"
 
-extern hash_t *global_function_table;
-extern hash_t *global_variable_table;
+extern global_info_t global_info;
 
 /**
  * 执行函数表达式
@@ -24,7 +23,7 @@ expression_result_t *execute_function_expression(function_expression_t *fe, hash
     function_t *function;
     expression_result_t *res;
     variable_t *return_v;
-    function = (function_t *) find_hash(global_function_table, fe->function_name, strlen(fe->function_name));
+    function = (function_t *) find_hash(global_info.function_table, fe->function_name, strlen(fe->function_name));
     if (is_empty(function)) {
         error_exception("Function:%s not found!", fe->function_name);
     }

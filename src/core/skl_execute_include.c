@@ -16,9 +16,7 @@
 #include "skl_compiler.h"
 #include "skl_execute_include.h"
 
-extern statement_list_t *global_include_statement_list;
-extern int global_include_mode;
-extern hash_t *global_script_table;
+extern global_info_t global_info;
 
 /**
  * 执行include
@@ -30,15 +28,15 @@ void execute_include_statment(include_statement_t *is, statement_list_t *stateme
     if (is_empty(input)) {
         error_exception("File:%s can not be read!", filename);
     }
-    global_include_mode = 1;
+    global_info.include_mode = 1;
     yyrestart(input);
     if (yyparse()) {
         error_exception("System parse file:%s failed !", filename);
     }
-    global_include_mode = 0;
+    global_info.include_mode = 0;
     // 脚本hash
-    if (!find_hash(global_script_table, filename, strlen(filename))) {
-        insert_or_update_hash(global_script_table, filename, strlen(filename), filename);
+    if (!find_hash(global_info.script_table, filename, strlen(filename))) {
+        insert_or_update_hash(global_info.script_table, filename, strlen(filename), filename);
     }
     merge_execute_statement_list(statement_list);
     fclose(input);
@@ -48,12 +46,12 @@ void execute_include_statment(include_statement_t *is, statement_list_t *stateme
  * 执行语句列表合并
  */
 void merge_execute_statement_list(statement_list_t *statement_list) {
-    if (global_include_statement_list->tail) {
-        global_include_statement_list->tail->next = statement_list->top->next;
-        statement_list->top = global_include_statement_list->top;
+    if (global_info.include_statement_list->tail) {
+        global_info.include_statement_list->tail->next = statement_list->top->next;
+        statement_list->top = global_info.include_statement_list->top;
     } else {
         statement_list->top = statement_list->top->next;
     }
     //reset
-    global_include_statement_list->top = global_include_statement_list->tail = NULL;
+    global_info.include_statement_list->top = global_info.include_statement_list->tail = NULL;
 }

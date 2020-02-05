@@ -10,7 +10,7 @@
 #include "skl_execute.h"
 #include "skl_execute_expression.h"
 
-extern hash_t *global_function_table;
+extern global_info_t global_info;
 
 /**
  * 
@@ -37,7 +37,7 @@ int register_all_internal_function() {
  * @param function_addr
  */
 void register_internal_function(char *function_name, void *(*func_addr)(call_params_list_t *)) {
-    if (is_not_empty(find_hash(global_function_table, function_name, strlen(function_name)))) {
+    if (is_not_empty(find_hash(global_info.function_table, function_name, strlen(function_name)))) {
         error_exception("Internal Function:%s has been defined!", function_name);
     }
     function_t * function = (function_t *) memory_alloc(sizeof (function_t));
@@ -46,7 +46,7 @@ void register_internal_function(char *function_name, void *(*func_addr)(call_par
     function->is_native = 1;
     function->param_list = NULL;
     function->statement_list = NULL;
-    insert_or_update_hash(global_function_table, function_name, strlen(function_name), function);
+    insert_or_update_hash(global_info.function_table, function_name, strlen(function_name), function);
 }
 
 /**

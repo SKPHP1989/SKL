@@ -8,9 +8,23 @@
 #ifndef SKL_COMPILER_H
 #define SKL_COMPILER_H
 
+typedef struct compiler_info_t{
+    char *scanner_filename;
+    int *scanner_line;
+};
 
-int global_scanner_line;
-char *global_scanner_filename;
+compiler_info_t compiler_info;
+
+typedef struct global_info_t {
+    hash_t *function_table;
+    hash_t *variable_table;
+    hash_t *script_table;
+    char *main_path;
+    char *main_script_path;
+    int include_mode;
+    statement_list_t *statement_list;
+    statement_list_t *include_statement_list;
+};
 
 typedef union expression_uni expression_u;
 typedef struct expression_s expression_t;

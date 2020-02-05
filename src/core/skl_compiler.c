@@ -14,38 +14,32 @@
 extern int yyparse(void);
 //
 extern FILE *yyin;
-//
-hash_t *global_function_table, *global_variable_table, *global_script_table;
-//
-statement_list_t *global_statement_list, *global_include_statement_list;
 
-int global_include_mode;
-
-char *global_main_path;
-
+global_info_t global_info;
 /**
  * 初始化编译器
  */
 void init_compiler(char *filename) {
     //
-    global_function_table = create_hash();
-    global_variable_table = create_hash();
-    global_script_table = create_hash();
-    global_scanner_filename = filename;
-    global_scanner_line = 0;
-    global_main_path = get_executable_path();
-    printf("global_main_path=%s\n", global_main_path);
+    global_info.function_table = create_hash();
+    global_info.variable_table = create_hash();
+    global_info.script_table = create_hash();
+    compiler_info.scanner_filename = filename;
+    compiler_info.scanner_line = 0;
+    global_info.main_path = get_executable_path();
+    global_info.main_script_path = get_realpath(filename, global_info.main_path);
+    printf("global_info.main_script_path=%s\n", global_info.main_script_path);
     //
-    global_include_mode = 0;
+    global_info.include_mode = 0;
     //
-    global_statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
-    global_statement_list->top = global_statement_list->tail = NULL;
+    global_info.statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
+    global_info.statement_list->top = global_info.statement_list->tail = NULL;
     //
-    global_include_statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
-    global_include_statement_list->top = global_include_statement_list->tail = NULL;
+    global_info.include_statement_list = (statement_list_t *) memory_alloc(sizeof (statement_list_t));
+    global_info.include_statement_list->top = global_info.include_statement_list->tail = NULL;
     //
-    if (!find_hash(global_script_table, filename, strlen(filename))) {
-        insert_or_update_hash(global_script_table, filename, strlen(filename), filename);
+    if (!find_hash(global_info.script_table, filename, strlen(filename))) {
+        insert_or_update_hash(global_info.script_table, filename, strlen(filename), filename);
     }
 }
 
@@ -55,21 +49,21 @@ void init_compiler(char *filename) {
  * @param statement
  * @return
  */
-void set_global_statement_list(statement_t *statement) {
-    if (global_include_mode) {
+void set_global_info.statement_list(statement_t *statement) {
+    if (global_info.include_mode) {
         return set_global_include_statement_list(statement);
     }
     statement_list_item_t *item = (statement_list_item_t *) memory_alloc(sizeof (statement_list_item_t));
     item->statement = statement;
     item->next = NULL;
-    if (is_empty(global_statement_list->top)) {
-        global_statement_list->top = item;
+    if (is_empty(global_info.statement_list->top)) {
+        global_info.statement_list->top = item;
     }
-    statement_list_item_t *current_item = global_statement_list->tail;
+    statement_list_item_t *current_item = global_info.statement_list->tail;
     if (is_empty(current_item)) {
-        global_statement_list->tail = item;
+        global_info.statement_list->tail = item;
     } else {
-        global_statement_list->tail = item;
+        global_info.statement_list->tail = item;
         current_item->next = item;
     }
 }
@@ -82,14 +76,14 @@ void set_global_include_statement_list(statement_t *statement) {
     statement_list_item_t *item = (statement_list_item_t *) memory_alloc(sizeof (statement_list_item_t));
     item->statement = statement;
     item->next = NULL;
-    if (is_empty(global_include_statement_list->top)) {
-        global_include_statement_list->top = item;
+    if (is_empty(global_info.include_statement_list->top)) {
+        global_info.include_statement_list->top = item;
     }
-    statement_list_item_t *current_item = global_include_statement_list->tail;
+    statement_list_item_t *current_item = global_info.include_statement_list->tail;
     if (is_empty(current_item)) {
-        global_include_statement_list->tail = item;
+        global_info.include_statement_list->tail = item;
     } else {
-        global_include_statement_list->tail = item;
+        global_info.include_statement_list->tail = item;
         current_item->next = item;
     }
 }
@@ -98,8 +92,8 @@ void set_global_include_statement_list(statement_t *statement) {
  * 获取语句列表
  * @return
  */
-statement_list_t *get_global_statement_list() {
-    return global_statement_list;
+statement_list_t *get_global_info.statement_list() {
+    return global_info.statement_list;
 }
 
 /**
@@ -117,12 +111,12 @@ function_t *create_function(char *identifier, param_list_t *param_list, statemen
         param_list->top = param_list->tail = NULL;
     }
     function->param_list = param_list;
-    void *function_exist = find_hash(global_function_table, identifier, strlen(identifier));
+    void *function_exist = find_hash(global_info.function_table, identifier, strlen(identifier));
     if (is_not_empty(function_exist)) {
-        error_exception("(%s:%d) Function: %s has been defined!", global_scanner_filename, global_scanner_line, identifier);
+        error_exception("(%s:%d) Function: %s has been defined!", compiler_info.scanner_filename, compiler_info.scanner_line, identifier);
     }
     // 插入函数
-    insert_or_update_hash(global_function_table, identifier, strlen(identifier), (void *) function);
+    insert_or_update_hash(global_info.function_table, identifier, strlen(identifier), (void *) function);
     return function;
 }
 
@@ -250,7 +244,7 @@ expression_t *create_assign_expression(char *identifier, expression_t *expressio
  * @param expression
  * @return
  */
-statement_t *create_global_variable_statement(char *identifier, expression_t *expression) {
+statement_t *create_global_info.variable_statement(char *identifier, expression_t *expression) {
     statement_t *statement = (statement_t *) memory_alloc(sizeof (statement_t));
     statement->type = statement_type_global;
     statement->u.e = NULL;
