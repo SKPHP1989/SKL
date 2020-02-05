@@ -8,23 +8,13 @@
 #ifndef SKL_COMPILER_H
 #define SKL_COMPILER_H
 
-typedef struct compiler_info_t{
+typedef struct {
     char *scanner_filename;
     int *scanner_line;
-};
+}compiler_info_t ;
 
 compiler_info_t compiler_info;
 
-typedef struct global_info_t {
-    hash_t *function_table;
-    hash_t *variable_table;
-    hash_t *script_table;
-    char *main_path;
-    char *main_script_path;
-    int include_mode;
-    statement_list_t *statement_list;
-    statement_list_t *include_statement_list;
-};
 
 typedef union expression_uni expression_u;
 typedef struct expression_s expression_t;
@@ -45,6 +35,18 @@ typedef struct param_list_item_s param_list_item_t;
 typedef struct function_s function_t;
 typedef struct expression_list_s expression_list_t;
 typedef struct expression_list_item_s expression_list_item_t;
+
+
+typedef struct {
+    hash_t *function_table;
+    hash_t *variable_table;
+    hash_t *script_table;
+    char *main_path;
+    char *main_script_path;
+    int include_mode;
+    statement_list_t *statement_list;
+    statement_list_t *include_statement_list;
+}global_info_t;
 
 enum expression_type_e {
     expression_type_primary = 1,

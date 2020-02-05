@@ -530,7 +530,7 @@ int yywrap(void)
 }
 
 void yyerror(char *s) {
-    printf("[Error] %s:%s(%d)\n",global_scanner_filename, s, global_scanner_line);
+    printf("[Error] %s:%s(%d)\n",compiler_info.scanner_filename, s, compiler_info.scanner_line);
 }
 
 #line 537 "skl_language_scanner.c"
@@ -980,7 +980,7 @@ case 31:
 YY_RULE_SETUP
 #line 71 "skl_language_scanner.l"
 {
-    global_scanner_line++;
+    compiler_info.scanner_line++;
 }
 	YY_BREAK
 case 32:
@@ -994,7 +994,7 @@ case 33:
 YY_RULE_SETUP
 #line 78 "skl_language_scanner.l"
 {
-    global_scanner_line++;
+    compiler_info.scanner_line++;
     yyerror(yytext);
 }
 	YY_BREAK
@@ -1012,7 +1012,7 @@ case 35:
 YY_RULE_SETUP
 #line 88 "skl_language_scanner.l"
 {
-    global_scanner_line++;
+    compiler_info.scanner_line++;
     BEGIN INITIAL;
 }
 	YY_BREAK

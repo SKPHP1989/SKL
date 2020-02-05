@@ -6,9 +6,6 @@
 
 
 #include "skl_core.h"
-#include "skl_variable.h"
-#include "skl_function.h"
-#include "skl_compiler.h"
 
 // 加载编译器配置
 extern int yyparse(void);
@@ -49,7 +46,7 @@ void init_compiler(char *filename) {
  * @param statement
  * @return
  */
-void set_global_info.statement_list(statement_t *statement) {
+void set_global_statement_list(statement_t *statement) {
     if (global_info.include_mode) {
         return set_global_include_statement_list(statement);
     }
@@ -92,7 +89,7 @@ void set_global_include_statement_list(statement_t *statement) {
  * 获取语句列表
  * @return
  */
-statement_list_t *get_global_info.statement_list() {
+statement_list_t *get_global_statement_list() {
     return global_info.statement_list;
 }
 
@@ -244,7 +241,7 @@ expression_t *create_assign_expression(char *identifier, expression_t *expressio
  * @param expression
  * @return
  */
-statement_t *create_global_info.variable_statement(char *identifier, expression_t *expression) {
+statement_t *create_global_variable_statement(char *identifier, expression_t *expression) {
     statement_t *statement = (statement_t *) memory_alloc(sizeof (statement_t));
     statement->type = statement_type_global;
     statement->u.e = NULL;

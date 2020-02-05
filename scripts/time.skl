@@ -1,4 +1,7 @@
-
+include "/opt/app/SKL/scripts/function.skl";
+var1 = 1;
+var2 = 1.0;
+var3 = "asdasd";
 var_dump(time());
 sleep(1);
 var_dump(time());

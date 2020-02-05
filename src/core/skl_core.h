@@ -14,6 +14,8 @@
 #include "skl_memory.h"
 #include "skl_exception.h"
 #include "skl_util.h"
+#include "skl_variable.h"
+#include "skl_function.h"
 #include "skl_compiler.h"
 
 
