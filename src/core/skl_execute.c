@@ -12,7 +12,7 @@
 #include "skl_execute_include.h"
 #include "skl_execute_return.h"
 
-extern global_info_t global_info.info;
+extern global_info_t global_info;
 
 /**
  * 执行
