@@ -34,23 +34,27 @@ $(BIN_PATH)$(TARGET):$(OBJS)
 clean:
 	rm -f $(OBJS)
 	rm -f $(BIN_PATH)skl
-	rm -f \
-	$(SRC_CORE_PATH)skl_language_scanner.c \
+
+build-lang:
+	cd $(SRC_CORE_PATH);bison --yacc -dv \
+	--defines=skl_language_parser.h \
+	--output=skl_language_parser.c \
+	skl_language_parser.y;
+	cd $(SRC_CORE_PATH);flex --outfile=skl_language_scanner.c \
+	skl_language_scanner.l;
+
+clean-lang:
+	rm -f $(SRC_CORE_PATH)skl_language_scanner.c \
 	$(SRC_CORE_PATH)skl_language_parser.h \
 	$(SRC_CORE_PATH)skl_language_parser.output \
 	$(SRC_CORE_PATH)skl_language_parser.c
 
-$(SRC_CORE_PATH)skl_language_parser.c:
-	bison --yacc -dv \
-	--defines=$(SRC_CORE_PATH)skl_language_parser.h \
-	--output=$(SRC_CORE_PATH)skl_language_parser.c \
-	$(SRC_CORE_PATH)skl_language_parser.y
-
-$(SRC_CORE_PATH)skl_language_scanner.c:$(SRC_CORE_PATH)skl_language_parser.c
-	flex --outfile=$(SRC_CORE_PATH)skl_language_scanner.c \
-	$(SRC_CORE_PATH)skl_language_scanner.l
-
+test:
+	$(BIN_PATH)/skl scripts/index.skl
+	$(BIN_PATH)/skl scripts/time.skl
+	
 $(OBJ_PATH)skl_language_parser.o:$(SRC_CORE_PATH)skl_language_parser.c
+	pwd;
 	$(CC) $(CC_OBJ_FLAGS) $< -o $(OBJ_PATH)skl_language_parser.o
 
 $(OBJ_PATH)skl_language_scanner.o:$(SRC_CORE_PATH)skl_language_scanner.c

@@ -1,6 +1,6 @@
-#line 2 "./src/core/skl_language_scanner.c"
+#line 2 "skl_language_scanner.c"
 
-#line 4 "./src/core/skl_language_scanner.c"
+#line 4 "skl_language_scanner.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -514,8 +514,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "./src/core/skl_language_scanner.l"
-#line 2 "./src/core/skl_language_scanner.l"
+#line 1 "skl_language_scanner.l"
+#line 2 "skl_language_scanner.l"
 #include "skl_core.h"
 #include "skl_variable.h"
 #include "skl_function.h"
@@ -533,7 +533,7 @@ void yyerror(char *s) {
     printf("[Error] %s:%s(%d)\n",compiler_info.scanner_filename, s, compiler_info.scanner_line);
 }
 
-#line 537 "./src/core/skl_language_scanner.c"
+#line 537 "skl_language_scanner.c"
 
 #define INITIAL 0
 #define COMMENT 1
@@ -752,10 +752,10 @@ YY_DECL
 		}
 
 	{
-#line 22 "./src/core/skl_language_scanner.l"
+#line 22 "skl_language_scanner.l"
 
 
-#line 759 "./src/core/skl_language_scanner.c"
+#line 759 "skl_language_scanner.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -814,137 +814,137 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 24 "./src/core/skl_language_scanner.l"
+#line 24 "skl_language_scanner.l"
 return T_FUNCTION;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 25 "./src/core/skl_language_scanner.l"
+#line 25 "skl_language_scanner.l"
 return T_GLOBAL;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 26 "./src/core/skl_language_scanner.l"
+#line 26 "skl_language_scanner.l"
 return T_FOR;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 27 "./src/core/skl_language_scanner.l"
+#line 27 "skl_language_scanner.l"
 return T_IF;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 28 "./src/core/skl_language_scanner.l"
+#line 28 "skl_language_scanner.l"
 return T_ELSE;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 29 "./src/core/skl_language_scanner.l"
+#line 29 "skl_language_scanner.l"
 return T_ADD;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 30 "./src/core/skl_language_scanner.l"
+#line 30 "skl_language_scanner.l"
 return T_SUB;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 31 "./src/core/skl_language_scanner.l"
+#line 31 "skl_language_scanner.l"
 return T_MUL;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 32 "./src/core/skl_language_scanner.l"
+#line 32 "skl_language_scanner.l"
 return T_DIV;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 33 "./src/core/skl_language_scanner.l"
+#line 33 "skl_language_scanner.l"
 return T_ASSIGN;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 34 "./src/core/skl_language_scanner.l"
+#line 34 "skl_language_scanner.l"
 return T_EQ;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 35 "./src/core/skl_language_scanner.l"
+#line 35 "skl_language_scanner.l"
 return T_NE;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 36 "./src/core/skl_language_scanner.l"
+#line 36 "skl_language_scanner.l"
 return T_GT;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 37 "./src/core/skl_language_scanner.l"
+#line 37 "skl_language_scanner.l"
 return T_GE;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 38 "./src/core/skl_language_scanner.l"
+#line 38 "skl_language_scanner.l"
 return T_LT;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 39 "./src/core/skl_language_scanner.l"
+#line 39 "skl_language_scanner.l"
 return T_LE;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 40 "./src/core/skl_language_scanner.l"
+#line 40 "skl_language_scanner.l"
 return T_LP;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 41 "./src/core/skl_language_scanner.l"
+#line 41 "skl_language_scanner.l"
 return T_RP;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 42 "./src/core/skl_language_scanner.l"
+#line 42 "skl_language_scanner.l"
 return T_LC;
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 43 "./src/core/skl_language_scanner.l"
+#line 43 "skl_language_scanner.l"
 return T_RC;
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 44 "./src/core/skl_language_scanner.l"
+#line 44 "skl_language_scanner.l"
 return T_SEMICOLON;
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 45 "./src/core/skl_language_scanner.l"
+#line 45 "skl_language_scanner.l"
 return T_BREAK;
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 46 "./src/core/skl_language_scanner.l"
+#line 46 "skl_language_scanner.l"
 return T_CONTINUE;
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 47 "./src/core/skl_language_scanner.l"
+#line 47 "skl_language_scanner.l"
 return T_RETURN;
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 48 "./src/core/skl_language_scanner.l"
+#line 48 "skl_language_scanner.l"
 return T_INCLUDE;
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 49 "./src/core/skl_language_scanner.l"
+#line 49 "skl_language_scanner.l"
 return T_COMMA;
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 51 "./src/core/skl_language_scanner.l"
+#line 51 "skl_language_scanner.l"
 {
     yylval.identifier = malloc_string(yytext);
     return T_IDENTIFIER;
@@ -952,7 +952,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 56 "./src/core/skl_language_scanner.l"
+#line 56 "skl_language_scanner.l"
 {
     int temp;
     sscanf(yytext ,"%d" ,&temp);
@@ -962,7 +962,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 63 "./src/core/skl_language_scanner.l"
+#line 63 "skl_language_scanner.l"
 {
     double temp;
     sscanf(yytext, "%lf", &temp);
@@ -972,27 +972,27 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 70 "./src/core/skl_language_scanner.l"
+#line 70 "skl_language_scanner.l"
 ;
 	YY_BREAK
 case 31:
 /* rule 31 can match eol */
 YY_RULE_SETUP
-#line 71 "./src/core/skl_language_scanner.l"
+#line 71 "skl_language_scanner.l"
 {
     compiler_info.scanner_line++;
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 74 "./src/core/skl_language_scanner.l"
+#line 74 "skl_language_scanner.l"
 {
     BEGIN COMMENT;
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 78 "./src/core/skl_language_scanner.l"
+#line 78 "skl_language_scanner.l"
 {
     compiler_info.scanner_line++;
     yyerror(yytext);
@@ -1001,7 +1001,7 @@ YY_RULE_SETUP
 case 34:
 /* rule 34 can match eol */
 YY_RULE_SETUP
-#line 83 "./src/core/skl_language_scanner.l"
+#line 83 "skl_language_scanner.l"
 {
     yylval.identifier = malloc_string_trim(yytext);
     return T_STRING_LITERAL;
@@ -1010,7 +1010,7 @@ YY_RULE_SETUP
 case 35:
 /* rule 35 can match eol */
 YY_RULE_SETUP
-#line 88 "./src/core/skl_language_scanner.l"
+#line 88 "skl_language_scanner.l"
 {
     compiler_info.scanner_line++;
     BEGIN INITIAL;
@@ -1018,15 +1018,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 93 "./src/core/skl_language_scanner.l"
+#line 93 "skl_language_scanner.l"
 ;
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 95 "./src/core/skl_language_scanner.l"
+#line 95 "skl_language_scanner.l"
 ECHO;
 	YY_BREAK
-#line 1030 "./src/core/skl_language_scanner.c"
+#line 1030 "skl_language_scanner.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(COMMENT):
 	yyterminate();
@@ -2028,6 +2028,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 95 "./src/core/skl_language_scanner.l"
+#line 95 "skl_language_scanner.l"
 
 
