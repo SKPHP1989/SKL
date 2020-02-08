@@ -31,8 +31,18 @@ CC_OBJ_FLAGS =  -c -g -Wall -Wswitch-enum  -pedantic -DDEBUG
 $(BIN_PATH)$(TARGET):$(OBJS)
 	$(CC) $(OBJS) -o $@ -lm
 
+skl_language_parser.c:
+	bison --yacc -dv \
+	--defines=$(SRC_CORE_PATH)skl_language_parser.h \
+	--output=$(SRC_CORE_PATH)skl_language_parser.c \
+	$(SRC_CORE_PATH)skl_language_parser.y
+
+skl_language_scanner.c:
+	flex --outfile=$(SRC_CORE_PATH)skl_language_scanner.c \
+	$(SRC_CORE_PATH)skl_language_scanner.l
+
 skl_language_parser.o:$(SRC_CORE_PATH)skl_language_parser.c
-    $(CC) $(CC_OBJ_FLAGS) $< -o ${SKL_OBJS_PATH}skl_language_parser.o
+	$(CC) $(CC_OBJ_FLAGS) $< -o ${SKL_OBJS_PATH}skl_language_parser.o
 
 skl_language_scanner.o:$(SRC_CORE_PATH)skl_language_scanner.c
     $(CC) $(CC_OBJ_FLAGS) $< -o ${SKL_OBJS_PATH}skl_language_scanner.o
