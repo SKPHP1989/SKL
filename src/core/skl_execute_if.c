@@ -19,7 +19,7 @@
  * @return 
  */
 expression_result_t *execute_if_statement(if_statement_t *ifs, hash_t *variable_table){
-    expression_result_t *compare = execute_expression_statement(ifs->expression);
+    expression_result_t *compare = execute_expression_statement(ifs->expression ,variable_table);
     int bool = 0;
     switch(compare->type){
         case expression_result_type_int:
