@@ -11,6 +11,7 @@
 #include "skl_execute_expression.h"
 #include "skl_execute_include.h"
 #include "skl_execute_return.h"
+#include "skl_execute_if.h"
 
 extern global_info_t global_info;
 
@@ -51,6 +52,7 @@ expression_result_t *execute_statement(statement_list_t *statement_list, hash_t 
                 is_return = 1;
                 break;
             case statement_type_if:
+                res = execute_if_statement(statement->u.i, variable_table);
                 break;
             case statement_type_continue:
                 break;
