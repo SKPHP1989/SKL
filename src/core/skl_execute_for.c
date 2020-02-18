@@ -63,16 +63,16 @@ int expression_result_to_bool(expression_result_t *res) {
     int bool = 0;
     switch (res->type) {
         case expression_result_type_int:
-            bool = compare->value.i == 0 ? 0 : 1;
+            bool = res->value.i == 0 ? 0 : 1;
             break;
         case expression_result_type_double:
-            bool = compare->value.d == 0 ? 0 : 1;
+            bool = res->value.d == 0 ? 0 : 1;
             break;
         case expression_result_type_string:
-            bool = atoi(compare->value.s) == 0 ? 0 : 1;
+            bool = atoi(res->value.s) == 0 ? 0 : 1;
             break;
         case expression_result_type_bool:
-            bool = compare->value.b == 0 ? 0 : 1;
+            bool = res->value.b == 0 ? 0 : 1;
             break;
         case expression_result_type_null:
         default:
