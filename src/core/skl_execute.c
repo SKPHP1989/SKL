@@ -35,7 +35,7 @@ void execute() {
 statement_control_t *execute_statement(statement_list_t *statement_list, hash_t *variable_table) {
     // 空语句列表
     if (is_empty(statement_list)) {
-        return create_null_result();
+        return create_default_statement_control();
     }
     int is_include = 0, is_break = 0;
     statement_control_t *control_exe, *control_res = NULL;
@@ -46,7 +46,7 @@ statement_control_t *execute_statement(statement_list_t *statement_list, hash_t 
         statement_t *statement = current->statement;
         switch (statement->type) {
             case statement_type_expression:
-                control_exe = execute_expression_statement(statement->u.e, variable_table);
+                execute_expression_statement(statement->u.e, variable_table);
                 break;
             case statement_type_return:
                 control_exe = execute_return_statement(statement->u.r, variable_table);
@@ -70,7 +70,7 @@ statement_control_t *execute_statement(statement_list_t *statement_list, hash_t 
                 error_exception("Undefined statement type(%d)!", statement->type);
         }
         // 判断运行的语句值并生成结果集
-        switch (control_exe) {
+        switch (control_exe->type) {
             case statement_control_type_return:
             case statement_control_type_break:
             case statement_control_type_continue:
@@ -216,6 +216,7 @@ statement_control_t *create_default_statement_control() {
     control_default->result = create_null_result();
     return control_default;
 }
+
 /**
  * 
  * @return 
