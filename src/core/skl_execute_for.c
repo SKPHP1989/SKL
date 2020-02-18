@@ -43,7 +43,9 @@ statement_control_t *execute_for_statement(for_statement_t *fors, hash_t *variab
             default:
                 break;
         }
-        memory_free(control_exe->result);
+        if(is_not_empty(control_exe->result)){
+            memory_free(control_exe->result);
+        }
         memory_free(control_exe);
         if (is_break) {
             break;
