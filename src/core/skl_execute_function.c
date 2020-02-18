@@ -22,7 +22,7 @@ extern global_info_t global_info;
 expression_result_t *execute_function_expression(function_expression_t *fe, hash_t *variable_table) {
     function_t *function;
     expression_result_t *res;
-    variable_t *return_v;
+    statement_control_t *control_res;
     function = (function_t *) find_hash(global_info.function_table, fe->function_name, strlen(fe->function_name));
     if (is_empty(function)) {
         error_exception("Function:%s not found!", fe->function_name);
@@ -32,7 +32,9 @@ expression_result_t *execute_function_expression(function_expression_t *fe, hash
         // 函数变量
         hash_t *function_variable_table = create_hash();
         insert_user_function_params(function, function_variable_table, variable_table, fe->params);
-        res = execute_statement(function->statement_list, function_variable_table);
+        control_res = execute_statement(function->statement_list, function_variable_table);
+        res = control_res->result;
+        memory_free(control_res);
         destroy_hash(function_variable_table);
     } else {
         call_params_list_t *call_params_list = insert_internal_function_params(function, variable_table, fe->params);
