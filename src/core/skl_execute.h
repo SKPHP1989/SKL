@@ -44,7 +44,7 @@ enum statement_control_type_e{
 };
 
 struct statement_control_s{
-    statement_control_type_e type;
+    enum statement_control_type_e type;
     expression_result_t *result;
 };
 
