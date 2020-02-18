@@ -18,7 +18,7 @@
  * @param variable_table
  * @return 
  */
-expression_result_t *execute_if_statement(if_statement_t *ifs, hash_t *variable_table){
+statement_control_t *execute_if_statement(if_statement_t *ifs, hash_t *variable_table){
     expression_result_t *compare = execute_expression(ifs->expression ,variable_table);
     int bool = 0;
     switch(compare->type){

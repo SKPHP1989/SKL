@@ -17,6 +17,10 @@
  * @param variable_table
  * @return 
  */
-expression_result_t *execute_return_statement(return_statement_t *rs, hash_t *variable_table) {
-    return execute_expression(rs->expression, variable_table);
+statement_control_t *execute_return_statement(return_statement_t *rs, hash_t *variable_table) {
+    statement_control_t control_res = create_null_statement_control();
+    expression_result_t *expression_res = execute_expression(rs->expression, variable_table);
+    control_res->type = statement_control_type_return;
+    control_res->result = expression_res;
+    return control_res;
 }

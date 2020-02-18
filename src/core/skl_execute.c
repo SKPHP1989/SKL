@@ -32,27 +32,27 @@ void execute() {
  * @param variable_table
  * @return 
  */
-expression_result_t *execute_statement(statement_list_t *statement_list, hash_t *variable_table) {
+statement_control_t *execute_statement(statement_list_t *statement_list, hash_t *variable_table) {
     // 空语句列表
     if (is_empty(statement_list)) {
         return create_null_result();
     }
-    int is_include = 0, is_return = 0;
-    expression_result_t *res = NULL;
+    int is_include = 0, is_break = 0;
+    statement_control_t *control_exe, *control_res = NULL;
     statement_list_item_t *current, *old_top;
     old_top = current = statement_list->top;
+    //
     while (current) {
         statement_t *statement = current->statement;
         switch (statement->type) {
             case statement_type_expression:
-                execute_expression_statement(statement->u.e, variable_table);
+                control_exe = execute_expression_statement(statement->u.e, variable_table);
                 break;
             case statement_type_return:
-                res = execute_return_statement(statement->u.r, variable_table);
-                is_return = 1;
+                control_exe = execute_return_statement(statement->u.r, variable_table);
                 break;
             case statement_type_if:
-                res = execute_if_statement(statement->u.i, variable_table);
+                control_exe = execute_if_statement(statement->u.i, variable_table);
                 break;
             case statement_type_continue:
                 break;
@@ -69,8 +69,19 @@ expression_result_t *execute_statement(statement_list_t *statement_list, hash_t 
             default:
                 error_exception("Undefined statement type(%d)!", statement->type);
         }
-        // 跳出
-        if (is_return) {
+        // 判断运行的语句值并生成结果集
+        switch (control_exe) {
+            case statement_control_type_return:
+            case statement_control_type_break:
+            case statement_control_type_continue:
+                control_res = control_exe;
+                is_break = 1;
+                break;
+            case statement_control_type_default:
+            default:
+                break;
+        }
+        if (is_break) {
             break;
         }
         // 回到头部
@@ -84,10 +95,11 @@ expression_result_t *execute_statement(statement_list_t *statement_list, hash_t 
         statement_list->top = current;
     }
     statement_list->top = old_top;
-    if (is_empty(res)) {
-        res = create_null_result();
+    //沒有运行值
+    if (is_empty(control_res)) {
+        control_res = create_default_statement_control();
     }
-    return res;
+    return control_res;
 }
 
 /**
@@ -153,7 +165,7 @@ void destroy_function_hash_callback(void *data) {
  */
 void destroy_statement_list(statement_list_t *statement_list) {
     if (is_empty(statement_list)) {
-        return ;
+        return;
     }
     statement_list_item_t *current;
     statement_t *sm;
@@ -191,4 +203,27 @@ void destroy_statement_list(statement_list_t *statement_list) {
         current = current->next;
     }
     memory_free(statement_list);
+}
+
+/**
+ * 
+ * @return 
+ */
+statement_control_t *create_default_statement_control() {
+    statement_control_t *control_default;
+    control_default = (statement_control_t *) memory_alloc(sizeof (statement_control_t));
+    control_default->type = statement_control_type_default;
+    control_default->result = create_null_result();
+    return control_default;
+}
+/**
+ * 
+ * @return 
+ */
+statement_control_t *create_null_statement_control() {
+    statement_control_t *control_null;
+    control_null = (statement_control_t *) memory_alloc(sizeof (statement_control_t));
+    control_null->type = statement_control_type_default;
+    control_null->result = NULL;
+    return control_null;
 }

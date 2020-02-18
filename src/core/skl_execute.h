@@ -16,6 +16,7 @@
 
 
 typedef struct expression_result_s expression_result_t;
+typedef struct statement_control_s statement_control_t;
 
 enum expression_result_type_e {
     expression_result_type_int = 1,
@@ -35,9 +36,25 @@ struct expression_result_s {
     } value;
 };
 
+enum statement_control_type_e{
+    statement_control_type_default=1,
+    statement_control_type_return,
+    statement_control_type_break,
+    statement_control_type_continue
+};
+
+struct statement_control_s{
+    statement_control_type_e type;
+    expression_result_t *result;
+};
+
 void execute();
 
-expression_result_t *execute_statement(statement_list_t *statement_list, hash_t *variable_table);
+statement_control_t *execute_statement(statement_list_t *statement_list, hash_t *variable_table);
+
+statement_control_t *create_default_statement_control();
+
+statement_control_t *create_null_statement_control();
 
 void execute_before();
 
