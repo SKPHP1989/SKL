@@ -21,6 +21,7 @@ OBJS = \
 	$(OBJ_PATH)skl_execute_return.o \
 	$(OBJ_PATH)skl_execute_expression.o \
 	$(OBJ_PATH)skl_execute_if.o \
+	$(OBJ_PATH)skl_execute_for.o \
 	$(OBJ_PATH)skl_execute_debug.o \
 	$(OBJ_PATH)skl_memory.o \
 	$(OBJ_PATH)skl_exception.o \
@@ -93,6 +94,9 @@ $(OBJ_PATH)skl_execute_expression.o:$(SRC_CORE_PATH)skl_execute_expression.c
 	
 $(OBJ_PATH)skl_execute_if.o:$(SRC_CORE_PATH)skl_execute_if.c
 	$(CC) $(CC_OBJ_FLAGS) $< -o $(OBJ_PATH)skl_execute_if.o
+	
+$(OBJ_PATH)skl_execute_if.o:$(SRC_CORE_PATH)skl_execute_for.c
+	$(CC) $(CC_OBJ_FLAGS) $< -o $(OBJ_PATH)skl_execute_for.o
 
 $(OBJ_PATH)skl_execute_debug.o:$(SRC_CORE_PATH)skl_execute_debug.c
 	$(CC) $(CC_OBJ_FLAGS) $< -o $(OBJ_PATH)skl_execute_debug.o

@@ -59,6 +59,7 @@ statement_control_t *execute_statement(statement_list_t *statement_list, hash_t 
             case statement_type_global:
                 break;
             case statement_type_for:
+                control_exe = execute_for_statement(statement->u.f, variable_table);
                 break;
             case statement_type_break:
                 break;
