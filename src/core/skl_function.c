@@ -112,7 +112,5 @@ void *function_time(call_params_list_t *call_params_list) {
     struct timeval stamp;
     gettimeofday(&stamp, NULL);
     res->value.i = stamp.tv_sec;
-    statement_control_t *control_res = create_null_statement_control();
-    control_res->type = statement_control_type_default;
-    return control_res;
+    return res;
 }
