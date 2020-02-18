@@ -70,16 +70,18 @@ statement_control_t *execute_statement(statement_list_t *statement_list, hash_t 
                 error_exception("Undefined statement type(%d)!", statement->type);
         }
         // 判断运行的语句值并生成结果集
-        switch (control_exe->type) {
-            case statement_control_type_return:
-            case statement_control_type_break:
-            case statement_control_type_continue:
-                control_res = control_exe;
-                is_break = 1;
-                break;
-            case statement_control_type_default:
-            default:
-                break;
+        if (is_not_empty(control_exe)) {
+            switch (control_exe->type) {
+                case statement_control_type_return:
+                case statement_control_type_break:
+                case statement_control_type_continue:
+                    control_res = control_exe;
+                    is_break = 1;
+                    break;
+                case statement_control_type_default:
+                default:
+                    break;
+            }
         }
         if (is_break) {
             break;
