@@ -14,6 +14,7 @@
 #ifndef SKL_EXECUTE_IF_H
 #define SKL_EXECUTE_IF_H
 
+expression_result_t *execute_if_statement(if_statement_t *ifs, hash_t *variable_table);
 
 #endif /* SKL_EXECUTE_IF_H */
 

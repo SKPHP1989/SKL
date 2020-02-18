@@ -152,6 +152,9 @@ void destroy_function_hash_callback(void *data) {
  * @param statement_list
  */
 void destroy_statement_list(statement_list_t *statement_list) {
+    if (is_empty(statement_list)) {
+        return ;
+    }
     statement_list_item_t *current;
     statement_t *sm;
     current = statement_list->top;
