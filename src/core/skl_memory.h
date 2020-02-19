@@ -16,5 +16,6 @@
 
 void *memory_alloc(int size);
 void memory_free(void *p);
+void memory_copy(void *dest, void *source, size_t size);
 #endif /* SKL_MEMORY_H */
 

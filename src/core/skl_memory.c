@@ -21,3 +21,9 @@ void memory_free(void *p) {
         free(p);
     }
 }
+
+/**
+ */
+void memory_copy(void *dest, void *source, size_t size) {
+    memcpy(dest, source, size);
+}

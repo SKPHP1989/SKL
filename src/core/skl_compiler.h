@@ -11,7 +11,7 @@
 typedef struct {
     char *scanner_filename;
     int *scanner_line;
-}compiler_info_t ;
+} compiler_info_t;
 
 compiler_info_t compiler_info;
 
@@ -27,6 +27,7 @@ typedef struct include_statement_s include_statement_t;
 typedef struct for_statement_s for_statement_t;
 typedef struct if_statement_s if_statement_t;
 typedef struct return_statement_s return_statement_t;
+typedef struct global_statement_s global_statement_t;
 typedef struct statement_s statement_t;
 typedef struct statement_list_s statement_list_t;
 typedef struct statement_list_item_s statement_list_item_t;
@@ -35,7 +36,6 @@ typedef struct param_list_item_s param_list_item_t;
 typedef struct function_s function_t;
 typedef struct expression_list_s expression_list_t;
 typedef struct expression_list_item_s expression_list_item_t;
-
 
 typedef struct {
     hash_t *function_table;
@@ -46,7 +46,7 @@ typedef struct {
     int include_mode;
     statement_list_t *statement_list;
     statement_list_t *include_statement_list;
-}global_info_t;
+} global_info_t;
 
 enum expression_type_e {
     expression_type_primary = 1,
@@ -155,10 +155,16 @@ struct return_statement_s {
     expression_t *expression;
 };
 
+struct global_statement_s {
+    char *identifier;
+    expression_t *expression;
+};
+
 struct statement_s {
     enum statement_type_e type;
 
     union {
+        global_statement_t *g;
         expression_statement_t *e;
         for_statement_t *f;
         if_statement_t *i;

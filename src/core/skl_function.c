@@ -55,23 +55,23 @@ void register_internal_function(char *function_name, void *(*func_addr)(call_par
  */
 void *function_var_dump(call_params_list_t *call_params_list) {
     call_params_list_t *item = call_params_list;
-    variable_t *v;
+    zvalue_t *v;
     while (item) {
-        v = item->var;
+        v = item->value;
         switch (v->type) {
-            case variable_type_null:
+            case zvalue_type_null:
                 printf("(null)\n");
                 break;
-            case variable_type_bool:
+            case zvalue_type_bool:
                 printf("(bool) %s\n", v->value.b ? "true" : "false");
                 break;
-            case variable_type_int:
+            case zvalue_type_integer:
                 printf("(integer) %d\n", v->value.i);
                 break;
-            case variable_type_double:
+            case zvalue_type_double:
                 printf("(double) %f\n", v->value.d);
                 break;
-            case variable_type_string:
+            case zvalue_type_string:
                 printf("(string) %s\n", v->value.str.val);
                 break;
             default:
@@ -85,19 +85,19 @@ void *function_var_dump(call_params_list_t *call_params_list) {
 
 void *function_sleep(call_params_list_t *call_params_list) {
     call_params_list_t *item = call_params_list;
-    variable_t *v;
+    zvalue_t *v;
     while (item) {
-        v = item->var;
+        v = item->value;
         switch (v->type) {
-            case variable_type_int:
+            case zvalue_type_integer:
                 sleep(abs(v->value.i));
                 break;
-            case variable_type_double:
+            case zvalue_type_double:
                 sleep(floor(fabs(v->value.d)));
                 break;
-            case variable_type_string:
-            case variable_type_null:
-            case variable_type_bool:
+            case zvalue_type_string:
+            case zvalue_type_null:
+            case zvalue_type_bool:
             default:
                 break;
         }
@@ -107,8 +107,8 @@ void *function_sleep(call_params_list_t *call_params_list) {
 }
 
 void *function_time(call_params_list_t *call_params_list) {
-    expression_result_t *res = create_null_result();
-    res->type = expression_result_type_int;
+    zvalue_t *res = create_null_zvalue();
+    res->type = zvalue_type_integer;
     struct timeval stamp;
     gettimeofday(&stamp, NULL);
     res->value.i = stamp.tv_sec;

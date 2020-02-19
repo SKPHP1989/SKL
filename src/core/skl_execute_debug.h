@@ -11,7 +11,7 @@
 #ifndef SKL_EXECUTE_DEBUG_H
 #define SKL_EXECUTE_DEBUG_H
 
-void print_expression_result(expression_result_t *res);
+void print_expression_result(zvalue_t *v);
 
 void execute_statement_debug(hash_t *variable_table);
 

@@ -11,12 +11,12 @@
  * Created on 2020年2月17日, 下午6:13
  */
 
-#ifndef SKL_EXECUTE_IF_H
-#define SKL_EXECUTE_IF_H
+#ifndef SKL_EXECUTE_FOR_H
+#define SKL_EXECUTE_FOR_H
 
 statement_control_t *execute_for_statement(for_statement_t *fors, hash_t *variable_table);
 
-int expression_result_to_bool(expression_result_t *res);
+int zvalue_to_bool(zvalue_t *res);
 
 #endif /* SKL_EXECUTE_IF_H */
 

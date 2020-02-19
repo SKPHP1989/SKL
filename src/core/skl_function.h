@@ -18,7 +18,7 @@
 typedef struct call_params_list_s call_params_list_t;
 
 struct call_params_list_s {
-    variable_t *var;
+    zvalue_t *value;
     call_params_list_t *next;
 };
 

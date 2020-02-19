@@ -11,6 +11,12 @@
 #include "skl_execute_expression.h"
 #include "skl_execute_return.h"
 
+extern global_info_t global_info;
+
+statement_control_t *execute_global_statement(statement_t *s, hash_t *variable_table) {
+    zvalue_t *res = execute_expression(s->u.g->expression, variable_table);
+}
+
 /**
  * 执行返回语句
  * @param rs
@@ -19,7 +25,7 @@
  */
 statement_control_t *execute_return_statement(return_statement_t *rs, hash_t *variable_table) {
     statement_control_t *control_res = create_null_statement_control();
-    expression_result_t *expression_res = execute_expression(rs->expression, variable_table);
+    zvalue_t *expression_res = execute_expression(rs->expression, variable_table);
     control_res->type = statement_control_type_return;
     control_res->result = expression_res;
     return control_res;

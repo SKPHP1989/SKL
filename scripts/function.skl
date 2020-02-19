@@ -1,7 +1,5 @@
 #test函数
 function add(var1 ,var2){
-	string = "hahahah1";
-    var_dump(string ,"haha1",var1,"haha2");
     return var1 + var2;
 }
 function sub(var1 ,var2){

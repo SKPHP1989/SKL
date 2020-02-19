@@ -13,6 +13,7 @@ OBJS = \
 	$(OBJ_PATH)skl_language_parser.o \
 	$(OBJ_PATH)skl_compiler.o \
 	$(OBJ_PATH)skl_hash.o \
+	$(OBJ_PATH)skl_value.o \
 	$(OBJ_PATH)skl_variable.o \
 	$(OBJ_PATH)skl_execute.o \
 	$(OBJ_PATH)skl_execute_operate.o \
@@ -32,7 +33,6 @@ CC_OBJ_FLAGS = -c -g -pedantic -DDEBUG
 
 $(BIN_PATH)$(TARGET):$(OBJS)
 	$(CC) $(OBJS) -o $@ -lm
-	clear
 
 clean:
 	rm -f $(OBJS)
@@ -47,6 +47,11 @@ build-lang:
 	skl_language_parser.y;
 	cd $(SRC_CORE_PATH);flex --outfile=skl_language_scanner.c \
 	skl_language_scanner.l;
+
+build-all:
+	make clean
+	make build-lang
+	make
 
 clean-lang:
 	rm -f $(SRC_CORE_PATH)skl_language_scanner.c \
@@ -76,6 +81,9 @@ $(OBJ_PATH)skl_hash.o:$(SRC_CORE_PATH)skl_hash.c
 
 $(OBJ_PATH)skl_variable.o:$(SRC_CORE_PATH)skl_variable.c
 	$(CC) $(CC_OBJ_FLAGS) $< -o $(OBJ_PATH)skl_variable.o
+	
+$(OBJ_PATH)skl_value.o:$(SRC_CORE_PATH)skl_value.c
+	$(CC) $(CC_OBJ_FLAGS) $< -o $(OBJ_PATH)skl_value.o
 
 $(OBJ_PATH)skl_execute.o:$(SRC_CORE_PATH)skl_execute.c
 	$(CC) $(CC_OBJ_FLAGS) $< -o $(OBJ_PATH)skl_execute.o

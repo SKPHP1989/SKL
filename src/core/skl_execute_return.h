@@ -14,7 +14,7 @@
 #ifndef SKL_EXECUTE_RETURN_H
 #define SKL_EXECUTE_RETURN_H
 
-
+statement_control_t *execute_global_statement(statement_t *s, hash_t *variable_table);
 
 statement_control_t *execute_return_statement(return_statement_t *rs, hash_t *variable_table);
 

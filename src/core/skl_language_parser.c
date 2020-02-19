@@ -65,13 +65,14 @@
 #line 1 "skl_language_parser.y" /* yacc.c:339  */
 
 #include "skl_core.h"
+#include "skl_value.h"
 #include "skl_variable.h"
 #include "skl_function.h"
 #include "skl_compiler.h"
 #define YYDEBUG 1
 
 
-#line 75 "skl_language_parser.c" /* yacc.c:339  */
+#line 76 "skl_language_parser.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -175,7 +176,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 10 "skl_language_parser.y" /* yacc.c:355  */
+#line 11 "skl_language_parser.y" /* yacc.c:355  */
 
     char *identifier;
     int integer;
@@ -188,7 +189,7 @@ union YYSTYPE
     function_t *function;
     param_list_t *param_list;
 
-#line 192 "skl_language_parser.c" /* yacc.c:355  */
+#line 193 "skl_language_parser.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -205,7 +206,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 209 "skl_language_parser.c" /* yacc.c:358  */
+#line 210 "skl_language_parser.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -505,13 +506,13 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    48,    48,    49,    52,    56,    59,    63,    67,    74,
-      75,    76,    77,    78,    79,    83,    84,    87,    88,    92,
-      99,   106,   113,   120,   124,   131,   139,   143,   150,   154,
-     161,   165,   172,   179,   180,   187,   188,   192,   199,   200,
-     204,   208,   212,   219,   220,   224,   231,   232,   236,   243,
-     247,   251,   255,   259,   263,   267,   271,   278,   279,   283,
-     287,   294,   298
+       0,    49,    49,    50,    53,    57,    60,    64,    68,    75,
+      76,    77,    78,    79,    80,    84,    85,    88,    89,    93,
+     100,   107,   114,   121,   125,   132,   140,   144,   151,   155,
+     162,   166,   173,   180,   181,   188,   189,   193,   200,   201,
+     205,   209,   213,   220,   221,   225,   232,   233,   237,   244,
+     248,   252,   256,   260,   264,   268,   272,   279,   280,   284,
+     288,   295,   299
 };
 #endif
 
@@ -1369,349 +1370,349 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 49 "skl_language_parser.y" /* yacc.c:1646  */
+#line 50 "skl_language_parser.y" /* yacc.c:1646  */
     {
         set_global_statement_list((yyvsp[0].statement));
     }
-#line 1377 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1378 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 53 "skl_language_parser.y" /* yacc.c:1646  */
+#line 54 "skl_language_parser.y" /* yacc.c:1646  */
     {
         set_global_statement_list((yyvsp[0].statement));
     }
-#line 1385 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1386 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 56 "skl_language_parser.y" /* yacc.c:1646  */
+#line 57 "skl_language_parser.y" /* yacc.c:1646  */
     {
         set_global_statement_list((yyvsp[0].statement));
     }
-#line 1393 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1394 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 64 "skl_language_parser.y" /* yacc.c:1646  */
+#line 65 "skl_language_parser.y" /* yacc.c:1646  */
     {
         create_function((yyvsp[-4].identifier) ,(yyvsp[-2].param_list) ,(yyvsp[0].statement_list));
     }
-#line 1401 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1402 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 68 "skl_language_parser.y" /* yacc.c:1646  */
+#line 69 "skl_language_parser.y" /* yacc.c:1646  */
     {
         create_function((yyvsp[-3].identifier) ,NULL ,(yyvsp[0].statement_list));
     }
-#line 1409 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1410 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 93 "skl_language_parser.y" /* yacc.c:1646  */
+#line 94 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_include_statment((yyvsp[-1].identifier));
     }
-#line 1417 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1418 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 100 "skl_language_parser.y" /* yacc.c:1646  */
+#line 101 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_expression_statement((yyvsp[-1].expression));
     }
-#line 1425 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1426 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 107 "skl_language_parser.y" /* yacc.c:1646  */
+#line 108 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_for_statement((yyvsp[-6].expression) ,(yyvsp[-4].expression) ,(yyvsp[-2].expression) ,(yyvsp[0].statement_list));
     }
-#line 1433 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1434 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 114 "skl_language_parser.y" /* yacc.c:1646  */
+#line 115 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_break_statement();
     }
-#line 1441 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1442 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 121 "skl_language_parser.y" /* yacc.c:1646  */
+#line 122 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_if_statement((yyvsp[-2].expression) ,(yyvsp[0].statement_list) ,NULL);
     }
-#line 1449 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1450 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 125 "skl_language_parser.y" /* yacc.c:1646  */
+#line 126 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_if_statement((yyvsp[-4].expression) ,(yyvsp[-2].statement_list) ,(yyvsp[0].statement_list));
     }
-#line 1457 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1458 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 132 "skl_language_parser.y" /* yacc.c:1646  */
+#line 133 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_return_statement((yyvsp[-1].expression));
     }
-#line 1465 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1466 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 140 "skl_language_parser.y" /* yacc.c:1646  */
+#line 141 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_global_variable_statement((yyvsp[-1].identifier), NULL);
     }
-#line 1473 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1474 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 144 "skl_language_parser.y" /* yacc.c:1646  */
+#line 145 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_global_variable_statement((yyvsp[-3].identifier), (yyvsp[-1].expression));
     }
-#line 1481 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1482 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 151 "skl_language_parser.y" /* yacc.c:1646  */
+#line 152 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement_list) = create_statement_list((yyvsp[0].statement));
     }
-#line 1489 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1490 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 155 "skl_language_parser.y" /* yacc.c:1646  */
+#line 156 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement_list) = insert_statement_list((yyvsp[-1].statement_list) ,(yyvsp[0].statement));
     }
-#line 1497 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1498 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 162 "skl_language_parser.y" /* yacc.c:1646  */
+#line 163 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement_list) = NULL;
     }
-#line 1505 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1506 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 166 "skl_language_parser.y" /* yacc.c:1646  */
+#line 167 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement_list) = (yyvsp[-1].statement_list);
     }
-#line 1513 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1514 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 173 "skl_language_parser.y" /* yacc.c:1646  */
+#line 174 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.statement) = create_continue_statement();
     }
-#line 1521 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1522 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 181 "skl_language_parser.y" /* yacc.c:1646  */
+#line 182 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_assign_expression((yyvsp[-2].identifier) ,(yyvsp[0].expression));
     }
-#line 1529 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1530 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 189 "skl_language_parser.y" /* yacc.c:1646  */
+#line 190 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_eq ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1537 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1538 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 193 "skl_language_parser.y" /* yacc.c:1646  */
+#line 194 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_ne ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1545 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1546 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 201 "skl_language_parser.y" /* yacc.c:1646  */
+#line 202 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_lt ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1553 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1554 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 205 "skl_language_parser.y" /* yacc.c:1646  */
+#line 206 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_gt ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1561 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1562 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 209 "skl_language_parser.y" /* yacc.c:1646  */
+#line 210 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_le ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1569 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1570 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 213 "skl_language_parser.y" /* yacc.c:1646  */
+#line 214 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_ge ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1577 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1578 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 221 "skl_language_parser.y" /* yacc.c:1646  */
+#line 222 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_add ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1585 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1586 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 225 "skl_language_parser.y" /* yacc.c:1646  */
+#line 226 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_sub ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1593 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1594 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 233 "skl_language_parser.y" /* yacc.c:1646  */
+#line 234 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_div ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1601 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1602 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 237 "skl_language_parser.y" /* yacc.c:1646  */
+#line 238 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_binary_expression(expression_action_mul ,(yyvsp[-2].expression),(yyvsp[0].expression));
     }
-#line 1609 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1610 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 244 "skl_language_parser.y" /* yacc.c:1646  */
+#line 245 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = (yyvsp[0].expression);
     }
-#line 1617 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1618 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 248 "skl_language_parser.y" /* yacc.c:1646  */
+#line 249 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = (yyvsp[-1].expression);
     }
-#line 1625 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1626 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 252 "skl_language_parser.y" /* yacc.c:1646  */
+#line 253 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_identifier_expression((yyvsp[0].identifier));
     }
-#line 1633 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1634 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 256 "skl_language_parser.y" /* yacc.c:1646  */
+#line 257 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_string_expression((yyvsp[0].identifier));
     }
-#line 1641 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1642 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 260 "skl_language_parser.y" /* yacc.c:1646  */
+#line 261 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_integer_expression((yyvsp[0].integer));
     }
-#line 1649 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1650 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 264 "skl_language_parser.y" /* yacc.c:1646  */
+#line 265 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_double_expression((yyvsp[0].db));
     }
-#line 1657 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1658 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 268 "skl_language_parser.y" /* yacc.c:1646  */
+#line 269 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_call_function_expression((yyvsp[-2].identifier) ,NULL);
     }
-#line 1665 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1666 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 272 "skl_language_parser.y" /* yacc.c:1646  */
+#line 273 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression) = create_call_function_expression((yyvsp[-3].identifier) ,(yyvsp[-1].expression_list));
     }
-#line 1673 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1674 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 279 "skl_language_parser.y" /* yacc.c:1646  */
+#line 280 "skl_language_parser.y" /* yacc.c:1646  */
     {(yyval.expression)=NULL;}
-#line 1679 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1680 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 284 "skl_language_parser.y" /* yacc.c:1646  */
+#line 285 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.param_list) = create_param_list((yyvsp[0].identifier));
     }
-#line 1687 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1688 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 288 "skl_language_parser.y" /* yacc.c:1646  */
+#line 289 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.param_list) = insert_param_list((yyvsp[-2].param_list) ,(yyvsp[0].identifier));
     }
-#line 1695 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1696 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 295 "skl_language_parser.y" /* yacc.c:1646  */
+#line 296 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression_list) = create_call_param_list((yyvsp[0].expression));
     }
-#line 1703 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1704 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 299 "skl_language_parser.y" /* yacc.c:1646  */
+#line 300 "skl_language_parser.y" /* yacc.c:1646  */
     {
         (yyval.expression_list) = insert_call_param_list((yyvsp[-2].expression_list) ,(yyvsp[0].expression));
     }
-#line 1711 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1712 "skl_language_parser.c" /* yacc.c:1646  */
     break;
 
 
-#line 1715 "skl_language_parser.c" /* yacc.c:1646  */
+#line 1716 "skl_language_parser.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

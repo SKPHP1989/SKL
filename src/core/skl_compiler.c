@@ -13,6 +13,7 @@ extern int yyparse(void);
 extern FILE *yyin;
 
 global_info_t global_info;
+
 /**
  * 初始化编译器
  */
@@ -243,8 +244,11 @@ expression_t *create_assign_expression(char *identifier, expression_t *expressio
  */
 statement_t *create_global_variable_statement(char *identifier, expression_t *expression) {
     statement_t *statement = (statement_t *) memory_alloc(sizeof (statement_t));
+    global_statement_t *gs = (global_statement_t *) memory_alloc(sizeof (global_statement_t));
+    gs->expression = expression;
+    gs->identifier = identifier;
     statement->type = statement_type_global;
-    statement->u.e = NULL;
+    statement->u.g = gs;
     return statement;
 }
 

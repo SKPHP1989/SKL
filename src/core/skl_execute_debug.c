@@ -22,19 +22,19 @@
  * 打印表达式结果
  * @param res
  */
-void print_expression_result(expression_result_t *res) {
-    switch (res->type) {
-        case expression_result_type_int:
-            printf("expression_result_type_int:%d\n", res->value.i);
+void print_expression_result(zvalue_t *v) {
+    switch (v->type) {
+        case zvalue_type_integer:
+            printf("zvalue_type_integer:%d\n", v->value.i);
             break;
-        case expression_result_type_double:
-            printf("expression_result_type_double:%f\n", res->value.d);
+        case zvalue_type_double:
+            printf("zvalue_type_double:%f\n", v->value.d);
             break;
-        case expression_result_type_string:
-            printf("expression_result_type_string:%s\n", res->value.s);
+        case zvalue_type_string:
+            printf("zvalue_type_string:%s\n", v->value.str.val);
             break;
-        case expression_result_type_bool:
-            printf("expression_result_type_bool:%d\n", res->value.b);
+        case zvalue_type_bool:
+            printf("zvalue_type_boll:%d\n", v->value.b);
             break;
     }
 }
@@ -44,18 +44,18 @@ void print_expression_result(expression_result_t *res) {
  * @param res
  */
 void print_variable(variable_t *v) {
-    switch (v->type) {
-        case variable_type_null:
-            printf("variable_type_null:%s\n", "null");
+    switch (v->value->type) {
+        case zvalue_type_null:
+            printf("zvalue_type_null:%s\n", "null");
             break;
-        case variable_type_int:
-            printf("variable_type_int:%d\n", v->value.i);
+        case zvalue_type_integer:
+            printf("zvalue_type_integer:%d\n", v->value->value.i);
             break;
-        case variable_type_double:
-            printf("variable_type_double:%f\n", v->value.d);
+        case zvalue_type_double:
+            printf("zvalue_type_double:%f\n", v->value->value.d);
             break;
-        case variable_type_string:
-            printf("variable_type_string:%s\n", v->value.str.val);
+        case zvalue_type_string:
+            printf("zvalue_type_string:%s\n", v->value->value.str.val);
             break;
     }
 }

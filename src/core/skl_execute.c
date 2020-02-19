@@ -12,6 +12,7 @@
 #include "skl_execute_include.h"
 #include "skl_execute_return.h"
 #include "skl_execute_if.h"
+#include "skl_execute_for.h"
 
 extern global_info_t global_info;
 
@@ -130,17 +131,18 @@ void execute_after() {
 void destroy_variable_hash_callback(void *data) {
     variable_t *v = (variable_t *) data;
     memory_free(v->identifier);
-    switch (v->type) {
-        case variable_type_string:
-            memory_free(v->value.str.val);
+    switch (v->value->type) {
+        case zvalue_type_string:
+            memory_free(v->value->value.str.val);
             break;
-        case variable_type_null:
-        case variable_type_bool:
-        case variable_type_int:
-        case variable_type_double:
+        case zvalue_type_null:
+        case zvalue_type_bool:
+        case zvalue_type_integer:
+        case zvalue_type_double:
         default:
             break;
     }
+    memory_free(v->value);
     memory_free(v);
 }
 
@@ -211,19 +213,19 @@ void destroy_statement_list(statement_list_t *statement_list) {
 }
 
 /**
- * 
+ * 创建默认语句控制
  * @return 
  */
 statement_control_t *create_default_statement_control() {
     statement_control_t *control_default;
     control_default = (statement_control_t *) memory_alloc(sizeof (statement_control_t));
     control_default->type = statement_control_type_default;
-    control_default->result = create_null_result();
+    control_default->result = create_null_zvalue();
     return control_default;
 }
 
 /**
- * 
+ * 创建空语句控制
  * @return 
  */
 statement_control_t *create_null_statement_control() {
@@ -232,4 +234,46 @@ statement_control_t *create_null_statement_control() {
     control_null->type = statement_control_type_default;
     control_null->result = NULL;
     return control_null;
+}
+
+/**
+ * 转换变量为表达式结果
+ * @param identifier
+ * @param variable_table
+ * @param v
+ * @return 
+ */
+zvalue_t *find_variable_value(char *identifier, hash_t *variable_table) {
+    variable_t *v = (variable_t *) find_hash(variable_table, identifier, strlen(identifier));
+    if (is_empty(v)) {
+        error_exception("Variable:%s is undefined!", identifier);
+    }
+    return v->value;
+}
+
+/**
+ * 值转化为布尔值
+ * @param res
+ * @return 
+ */
+int zvalue_convert_bool(zvalue_t *res) {
+    int bool = 0;
+    switch (res->type) {
+        case zvalue_type_integer:
+            bool = res->value.i == 0 ? 0 : 1;
+            break;
+        case zvalue_type_double:
+            bool = res->value.d == 0 ? 0 : 1;
+            break;
+        case zvalue_type_string:
+            bool = atoi(res->value.str.val) == 0 ? 0 : 1;
+            break;
+        case zvalue_type_bool:
+            bool = res->value.b == 0 ? 0 : 1;
+            break;
+        case zvalue_type_null:
+        default:
+            break;
+    }
+    return bool;
 }
