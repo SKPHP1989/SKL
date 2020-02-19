@@ -38,7 +38,7 @@ statement_control_t *execute_statement(statement_list_t *statement_list, hash_t 
         return create_default_statement_control();
     }
     int is_include = 0, is_break = 0;
-    statement_control_t *control_exe, *control_res = NULL;
+    statement_control_t *control_exe = NULL, *control_res = NULL;
     statement_list_item_t *current, *old_top;
     old_top = current = statement_list->top;
     //
@@ -55,6 +55,7 @@ statement_control_t *execute_statement(statement_list_t *statement_list, hash_t 
                 control_exe = execute_if_statement(statement->u.i, variable_table);
                 break;
             case statement_type_continue:
+                control_exe = execute_continue_statement();
                 break;
             case statement_type_global:
                 break;
@@ -62,6 +63,7 @@ statement_control_t *execute_statement(statement_list_t *statement_list, hash_t 
                 control_exe = execute_for_statement(statement->u.f, variable_table);
                 break;
             case statement_type_break:
+                control_exe = execute_break_statement();
                 break;
             case statement_type_include:
                 execute_include_statment(statement->u.in, statement_list);

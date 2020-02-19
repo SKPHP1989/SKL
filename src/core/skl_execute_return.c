@@ -24,3 +24,27 @@ statement_control_t *execute_return_statement(return_statement_t *rs, hash_t *va
     control_res->result = expression_res;
     return control_res;
 }
+
+/**
+ * 
+ * @param rs
+ * @param variable_table
+ * @return 
+ */
+statement_control_t *execute_break_statement() {
+    statement_control_t *control_res = create_null_statement_control();
+    control_res->type = statement_control_type_break;
+    return control_res;
+}
+
+/**
+ * 
+ * @param rs
+ * @param variable_table
+ * @return 
+ */
+statement_control_t *execute_continue_statement() {
+    statement_control_t *control_res = create_null_statement_control();
+    control_res->type = statement_control_type_continue;
+    return control_res;
+}

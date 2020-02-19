@@ -32,10 +32,13 @@ CC_OBJ_FLAGS = -c -g -pedantic -DDEBUG
 
 $(BIN_PATH)$(TARGET):$(OBJS)
 	$(CC) $(OBJS) -o $@ -lm
+	clear
 
 clean:
 	rm -f $(OBJS)
 	rm -f $(BIN_PATH)skl
+	rm -Rf /tmp/core.*
+	clear
 
 build-lang:
 	cd $(SRC_CORE_PATH);bison --yacc -dv \

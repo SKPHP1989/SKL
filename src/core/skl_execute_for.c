@@ -26,9 +26,9 @@ statement_control_t *execute_for_statement(for_statement_t *fors, hash_t *variab
     int is_break, is_continue;
     while (expression_result_to_bool(condition_res)) {
         is_break = is_continue = 0;
-        execute_expression(fors->after, variable_table);
         condition_res = execute_expression(fors->condition, variable_table);
         control_exe = execute_statement(fors->statement_list, variable_table);
+        execute_expression(fors->after, variable_table);
         switch (control_exe->type) {
             case statement_control_type_return:
                 return control_exe;
@@ -43,9 +43,7 @@ statement_control_t *execute_for_statement(for_statement_t *fors, hash_t *variab
             default:
                 break;
         }
-        if(is_not_empty(control_exe->result)){
-            memory_free(control_exe->result);
-        }
+        memory_free(control_exe->result);
         memory_free(control_exe);
         if (is_break) {
             break;
@@ -56,6 +54,7 @@ statement_control_t *execute_for_statement(for_statement_t *fors, hash_t *variab
     }
     return create_default_statement_control();
 }
+
 /**
  * 
  * @param res
