@@ -27,7 +27,7 @@
 %token  <identifier>T_FUNCTION T_GLOBAL T_FOR T_IF T_ELSE T_ADD T_SUB T_MUL T_DIV T_ASSIGN
         T_EQ T_NE T_GT T_GE T_LT T_LE T_LP T_RP T_LC T_RC T_SEMICOLON T_IDENTIFIER
         T_BREAK T_CONTINUE T_RETURN T_COMMA T_STRING_LITERAL
-        T_INCLUDE
+        T_INCLUDE T_DO T_WHILE
 
 %type <param_list> param_list
 
@@ -41,7 +41,7 @@
 
 %type <statement> all_statement expression_statement return_statement continue_statement break_statement
                 for_statement if_statement global_variable_declaration_statement
-                cannot_top_statement can_top_statement include_statement
+                cannot_top_statement can_top_statement include_statement do_while_statement while_statement
 
 %%
 // 运行单元
@@ -78,6 +78,8 @@ can_top_statement: expression_statement
     | if_statement
     | return_statement
     | include_statement
+    | do_while_statement
+    | while_statement
     ;
 
 // 不能置顶语句
@@ -107,6 +109,19 @@ expression_statement: expression T_SEMICOLON
 for_statement: T_FOR T_LP option_expression T_SEMICOLON option_expression T_SEMICOLON option_expression T_RP statement_block
     {
         $$ = create_for_statement($3 ,$5 ,$7 ,$9);
+    }
+    ;
+
+// do-while语句
+do_while_statement:T_DO T_LC statement_block T_RC T_WHILE T_LP expression T_RP
+    {
+        $$ = create_while_statement($7 ,$3 ,1);
+    }
+    ;
+// while语句
+while_statement:T_WHILE T_LP expression T_RP T_LC statement_block T_RC
+    {
+        $$ = create_while_statement($3 ,$7 ,0);
     }
     ;
 

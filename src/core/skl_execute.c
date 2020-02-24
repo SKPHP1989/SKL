@@ -66,6 +66,9 @@ statement_control_t *execute_statement(statement_list_t *statement_list, hash_t 
             case statement_type_break:
                 control_exe = execute_break_statement();
                 break;
+            case statement_type_while:
+                control_exe = execute_while_statement(statement->u.w, variable_table);
+                break;
             case statement_type_include:
                 execute_include_statment(statement->u.in, statement_list);
                 is_include = 1;

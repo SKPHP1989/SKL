@@ -32,4 +32,7 @@
 #define is_not_empty(p) (p!=NULL)
 
 #define FILE_OPT_READ "r"
+
+#define BOOL_TRUE 1
+#define BOOL_FALSE 0
 #endif /* SKL_H */

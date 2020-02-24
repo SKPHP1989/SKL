@@ -36,6 +36,7 @@ typedef struct param_list_item_s param_list_item_t;
 typedef struct function_s function_t;
 typedef struct expression_list_s expression_list_t;
 typedef struct expression_list_item_s expression_list_item_t;
+typedef struct while_statement_s while_statement_t;
 
 typedef struct {
     hash_t *function_table;
@@ -127,7 +128,8 @@ enum statement_type_e {
     statement_type_continue,
     statement_type_return,
     statement_type_global,
-    statement_type_include
+    statement_type_include,
+    statement_type_while
 };
 
 struct expression_statement_s {
@@ -143,6 +145,12 @@ struct for_statement_s {
     expression_t *condition;
     expression_t *after;
     statement_list_t *statement_list;
+};
+
+struct while_statement_s {
+    expression_t *condition;
+    statement_list_t *statement_list;
+    int is_do;
 };
 
 struct if_statement_s {
@@ -167,6 +175,7 @@ struct statement_s {
         global_statement_t *g;
         expression_statement_t *e;
         for_statement_t *f;
+        while_statement_t *w;
         if_statement_t *i;
         return_statement_t *r;
         include_statement_t *in;
@@ -241,6 +250,8 @@ statement_t *create_if_statement(expression_t *condition, statement_list_t *if_s
 // 创建for表达式
 statement_t *create_for_statement(expression_t *before, expression_t *condition, expression_t *after,
         statement_list_t *statement_list);
+//
+statement_t ceate_while_statement(expression_t *condition, statement_list_t *statement_list, int is_do);
 
 // 创建return语句
 statement_t *create_return_statement(expression_t *expression);

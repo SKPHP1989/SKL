@@ -46,6 +46,8 @@ void yyerror(char *s) {
 <INITIAL>"continue"  return T_CONTINUE;
 <INITIAL>"return"    return T_RETURN;
 <INITIAL>"include"   return T_INCLUDE;
+<INITIAL>"do"        return T_DO;
+<INITIAL>"while"     return T_WHILE;
 <INITIAL>","         return T_COMMA;
 
 <INITIAL>[A-Za-z_][A-Za-z_0-9]*     {
