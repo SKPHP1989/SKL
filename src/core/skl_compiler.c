@@ -179,7 +179,7 @@ statement_t *create_for_statement(expression_t *before, expression_t *condition,
     for_statement->before = before;
     for_statement->condition = condition;
     for_statement->after = after;
-    statement->u.w = for_statement;
+    statement->u.f = for_statement;
     return statement;
 }
 
@@ -190,14 +190,15 @@ statement_t *create_for_statement(expression_t *before, expression_t *condition,
  * @param is_do
  * @return 
  */
-statement_t ceate_while_statement(expression_t *condition, statement_list_t *statement_list, int is_do) {
+statement_t *create_while_statement(expression_t *condition, statement_list_t *statement_list, int is_do) {
     statement_t *statement = (statement_t *) memory_alloc(sizeof (statement_t));
-    statement->type = statement_type_for;
+    statement->type = statement_type_while;
     while_statement_t *while_statement = (while_statement_t *) memory_alloc(sizeof (while_statement_t));
     while_statement->statement_list = statement_list;
     while_statement->condition = condition;
     while_statement->is_do = is_do;
-    return while_statement;
+    statement->u.w = while_statement;
+    return statement;
 }
 
 /**

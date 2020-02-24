@@ -152,6 +152,7 @@ zvalue_t *operate_gt(zvalue_t *left, zvalue_t *right) {
     } else {
         result->value.b = (int) left_d > right_d;
     }
+    printf("result->value.b = %d\n", result->value.b);
     return result;
 }
 
@@ -179,6 +180,7 @@ zvalue_t *operate_ge(zvalue_t *left, zvalue_t *right) {
     } else {
         result->value.b = (int) left_d >= right_d;
     }
+    printf("result->value.b = %d\n", result->value.b);
     return result;
 }
 

@@ -74,7 +74,9 @@ extern int yydebug;
     T_RETURN = 284,
     T_COMMA = 285,
     T_STRING_LITERAL = 286,
-    T_INCLUDE = 287
+    T_INCLUDE = 287,
+    T_DO = 288,
+    T_WHILE = 289
   };
 #endif
 /* Tokens.  */
@@ -108,6 +110,8 @@ extern int yydebug;
 #define T_COMMA 285
 #define T_STRING_LITERAL 286
 #define T_INCLUDE 287
+#define T_DO 288
+#define T_WHILE 289
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -127,7 +131,7 @@ union YYSTYPE
     function_t *function;
     param_list_t *param_list;
 
-#line 131 "skl_language_parser.h" /* yacc.c:1909  */
+#line 135 "skl_language_parser.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

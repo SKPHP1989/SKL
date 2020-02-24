@@ -113,15 +113,16 @@ for_statement: T_FOR T_LP option_expression T_SEMICOLON option_expression T_SEMI
     ;
 
 // do-while语句
-do_while_statement:T_DO T_LC statement_block T_RC T_WHILE T_LP expression T_RP
+do_while_statement:T_DO statement_block T_WHILE T_LP expression T_RP T_SEMICOLON
     {
-        $$ = create_while_statement($7 ,$3 ,1);
+        $$ = create_while_statement($5 ,$2 ,1);
     }
+
     ;
 // while语句
-while_statement:T_WHILE T_LP expression T_RP T_LC statement_block T_RC
+while_statement:T_WHILE T_LP expression T_RP statement_block
     {
-        $$ = create_while_statement($3 ,$7 ,0);
+        $$ = create_while_statement($3 ,$5 ,0);
     }
     ;
 

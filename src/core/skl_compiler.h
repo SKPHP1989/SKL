@@ -251,7 +251,7 @@ statement_t *create_if_statement(expression_t *condition, statement_list_t *if_s
 statement_t *create_for_statement(expression_t *before, expression_t *condition, expression_t *after,
         statement_list_t *statement_list);
 //
-statement_t ceate_while_statement(expression_t *condition, statement_list_t *statement_list, int is_do);
+statement_t *create_while_statement(expression_t *condition, statement_list_t *statement_list, int is_do);
 
 // 创建return语句
 statement_t *create_return_statement(expression_t *expression);

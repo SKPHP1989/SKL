@@ -260,19 +260,19 @@ zvalue_t *find_variable_value(char *identifier, hash_t *variable_table) {
  * @return 
  */
 int zvalue_convert_bool(zvalue_t *res) {
-    int bool = 0;
+    int bool = BOOL_FALSE;
     switch (res->type) {
         case zvalue_type_integer:
-            bool = res->value.i == 0 ? 0 : 1;
+            bool = res->value.i == 0 ? BOOL_FALSE : BOOL_TURE;
             break;
         case zvalue_type_double:
-            bool = res->value.d == 0 ? 0 : 1;
+            bool = res->value.d == 0 ? BOOL_FALSE : BOOL_TURE;
             break;
         case zvalue_type_string:
-            bool = atoi(res->value.str.val) == 0 ? 0 : 1;
+            bool = atoi(res->value.str.val) == 0 ? BOOL_FALSE : BOOL_TURE;
             break;
         case zvalue_type_bool:
-            bool = res->value.b == 0 ? 0 : 1;
+            bool = res->value.b == 0 ? BOOL_FALSE : BOOL_TURE;
             break;
         case zvalue_type_null:
         default:

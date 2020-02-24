@@ -101,7 +101,7 @@ zvalue_t *execute_binary_expression(binary_expression_t *be, hash_t *variable_ta
             res = operate_lt(left_res, right_res);
             break;
         case expression_action_le:
-            res = operate_lt(left_res, right_res);
+            res = operate_le(left_res, right_res);
             break;
         case expression_action_ne:
             res = operate_ne(left_res, right_res);
