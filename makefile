@@ -62,6 +62,9 @@ clean-lang:
 test:
 	$(BIN_PATH)/skl scripts/index.skl
 	$(BIN_PATH)/skl scripts/time.skl
+	$(BIN_PATH)/skl scripts/statement_do_while.skl
+	$(BIN_PATH)/skl scripts/statement_for.skl
+	$(BIN_PATH)/skl scripts/statement_while.skl
 	
 $(OBJ_PATH)skl_language_parser.o:$(SRC_CORE_PATH)skl_language_parser.c
 	pwd;
